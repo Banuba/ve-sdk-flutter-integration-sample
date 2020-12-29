@@ -1,0 +1,15 @@
+passes = ["shrink.toml", "bounds.toml"]
+draw_order = ["QuadMat"]
+adjust_zfar = 0
+adjust_znear = 0
+
+[materials.QuadMat]
+vs = "hair.vert"
+fs = "hair.frag"
+blend = "off" # "alpha", "premul_alpha", "screen", "add", "multiply"
+backfaces = true
+colorwrite = true
+zwrite = false
+ztest = false
+shadow = false
+samplers = {}

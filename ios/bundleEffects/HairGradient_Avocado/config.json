@@ -1,0 +1,13 @@
+{
+  "name": "HairGradient_Avocado",
+  "frx": {
+    "type": "3d_anim",
+    "3d_anim": {
+      "type": "vfx"
+    }
+  },
+  "recognizer": [
+    "hair"
+  ],
+  "recordDuration": 10
+}
