@@ -1,0 +1,40 @@
+PODS:
+  - BanubaAudioBrowserSDK (0.0.13)
+  - BanubaEffectPlayer (0.0.10)
+  - BanubaMusicEditorSDK (0.0.13.2)
+  - BanubaOverlayEditorSDK (0.0.13.2)
+  - BanubaSDK (0.0.13.2)
+  - BanubaVideoEditorSDK (0.0.13.3)
+  - VideoEditor (0.0.13.2)
+
+DEPENDENCIES:
+  - BanubaAudioBrowserSDK (= 0.0.13)
+  - BanubaEffectPlayer (= 0.0.10)
+  - BanubaMusicEditorSDK (= 0.0.13.2)
+  - BanubaOverlayEditorSDK (= 0.0.13.2)
+  - BanubaSDK (= 0.0.13.2)
+  - BanubaVideoEditorSDK (= 0.0.13.3)
+  - VideoEditor (= 0.0.13.2)
+
+SPEC REPOS:
+  "git@github.com:Banuba/specs.git":
+    - BanubaAudioBrowserSDK
+    - BanubaEffectPlayer
+    - BanubaMusicEditorSDK
+    - BanubaOverlayEditorSDK
+    - BanubaSDK
+    - BanubaVideoEditorSDK
+    - VideoEditor
+
+SPEC CHECKSUMS:
+  BanubaAudioBrowserSDK: 7e3da0066af1b4af8582c91412a531df9a37a270
+  BanubaEffectPlayer: 7c25fffc8b0dc2391759af3823598fa1e9522491
+  BanubaMusicEditorSDK: 582bdecd4162f4cedafee364d2345d2e4a8644d6
+  BanubaOverlayEditorSDK: 2f91192925af77afeefe6e2785a2c5f47927af07
+  BanubaSDK: 9e75422ab8fd0780c9bca7f83ba1ef33e9265edd
+  BanubaVideoEditorSDK: e7227be27ae47b31536aa42a5122d0b9ec227230
+  VideoEditor: 2d2bfbc9d79eca93ce059ce89ad158e3da58a285
+
+PODFILE CHECKSUM: 7092f45b736af3ecdb66713fde9ee4a6ae920e27
+
+COCOAPODS: 1.10.0

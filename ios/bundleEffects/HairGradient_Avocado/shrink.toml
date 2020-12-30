@@ -1,0 +1,21 @@
+width = 1
+height = 256
+
+[[color_attachment]]
+format = "r8"
+clear = [0]
+start = "dont_care" # "dont_care", "clear", "load"
+finish = "save" # "discard", "save"
+sampler = "hair_vertical"
+sampler_type = "2D"
+
+[[pipeline]]
+material="TriMat"
+vs = "shrink.vert"
+fs = "shrink.frag"
+blend = "off"
+backfaces = true
+colorwrite = true
+zwrite = false
+ztest = false
+[pipeline.samplers]

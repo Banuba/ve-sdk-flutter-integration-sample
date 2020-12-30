@@ -7,7 +7,10 @@ The following sample brifly demonstrates how you can integrate our SDK into your
 1. Run command **flutter run** to launch the sample on device or **cd android && ./gradlew clean && cd .. && flutter run** to clean and re-run the sample.
 
 # iOS  
-iOS integration is in progress...  
+1. [Set up ssh key for GitHub](https://github.com/Banuba/ve-sdk-ios-integration-sample#setup-ssh-key-for-github)
+1. Install cocoapods dependencies using command **pod install** in the ios folder.
+1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample) in BanubaVideoEditor initializer.
+1. Run command **flutter run** to launch the sample on device.
 
 # Want to know more about the SDK?  
 Please visit our main repositories with native [Android](https://github.com/Banuba/ve-sdk-android-integration-sample) and [iOS](https://github.com/Banuba/ve-sdk-ios-integration-sample) integrations to get full information about the SDK.
