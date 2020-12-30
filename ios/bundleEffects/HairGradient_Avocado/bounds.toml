@@ -1,0 +1,21 @@
+width = 1
+height = 1
+
+[[color_attachment]]
+format = "rgba8"
+clear = [0, 0, 0, 0]
+start = "dont_care" # "dont_care", "clear", "load"
+finish = "save" # "discard", "save"
+sampler = "hair_bounds"
+sampler_type = "2D"
+
+[[pipeline]]
+material="TriMat"
+vs = "bounds.vert"
+fs = "bounds.frag"
+blend = "off"
+backfaces = true
+colorwrite = true
+zwrite = false
+ztest = false
+samplers = {}

@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (Platform.isAndroid) {
                   _startVideoEditorActivity();
                 } else if (Platform.isIOS) {
-                  _showAlert(context, "VE SDK iOS integration is in progress!");
+                  _startIOSVideoEditorActivity();
                 } else {
                   _showAlert(context, "Platform is not supported!");
                 }
@@ -135,6 +135,15 @@ class _MyHomePageState extends State<MyHomePage> {
           content: Text(message),
         )
     );
+  }
+
+  Future<void> _startIOSVideoEditorActivity() async {
+    try {
+      final String result = await platform.invokeMethod('openVideoEditor');
+      debugPrint('Result: $result ');
+    } on PlatformException catch (e) {
+      debugPrint("Error: '${e.message}'.");
+    }
   }
 
   Future<void> _startVideoEditorActivity() async {
