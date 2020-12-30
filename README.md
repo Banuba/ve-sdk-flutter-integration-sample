@@ -3,13 +3,13 @@ Banuba [Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to
 The following sample brifly demonstrates how you can integrate our SDK into your [Flutter](https://flutter.dev/) project.  
 
 # Android  
-1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#4) in resources.
+1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L4) in resources.
 1. Run command **flutter run** to launch the sample on device or **cd android && ./gradlew clean && cd .. && flutter run** to clean and re-run the sample.
 
 # iOS  
 1. [Set up ssh key for GitHub](https://github.com/Banuba/ve-sdk-ios-integration-sample#setup-ssh-key-for-github)
 1. Install cocoapods dependencies using command **pod install** in the ios folder.
-1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample) in BanubaVideoEditor initializer.
+1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L10) in BanubaVideoEditor initializer.
 1. Run command **flutter run** to launch the sample on device.
 
 # Want to know more about the SDK?  
