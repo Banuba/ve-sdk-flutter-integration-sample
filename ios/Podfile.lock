@@ -1,23 +1,26 @@
 PODS:
-  - BanubaAudioBrowserSDK (0.0.13)
+  - BanubaARCloudSDK (0.0.14)
+  - BanubaAudioBrowserSDK (0.0.14)
   - BanubaEffectPlayer (0.0.10)
-  - BanubaMusicEditorSDK (0.0.13.2)
-  - BanubaOverlayEditorSDK (0.0.13.2)
-  - BanubaSDK (0.0.13.2)
-  - BanubaVideoEditorSDK (0.0.13.3)
-  - VideoEditor (0.0.13.2)
+  - BanubaMusicEditorSDK (0.0.14)
+  - BanubaOverlayEditorSDK (0.0.14)
+  - BanubaSDK (0.0.14)
+  - BanubaVideoEditorSDK (0.0.14)
+  - VideoEditor (0.0.14)
 
 DEPENDENCIES:
-  - BanubaAudioBrowserSDK (= 0.0.13)
+  - BanubaARCloudSDK (= 0.0.14)
+  - BanubaAudioBrowserSDK (= 0.0.14)
   - BanubaEffectPlayer (= 0.0.10)
-  - BanubaMusicEditorSDK (= 0.0.13.2)
-  - BanubaOverlayEditorSDK (= 0.0.13.2)
-  - BanubaSDK (= 0.0.13.2)
-  - BanubaVideoEditorSDK (= 0.0.13.3)
-  - VideoEditor (= 0.0.13.2)
+  - BanubaMusicEditorSDK (= 0.0.14)
+  - BanubaOverlayEditorSDK (= 0.0.14)
+  - BanubaSDK (= 0.0.14)
+  - BanubaVideoEditorSDK (= 0.0.14)
+  - VideoEditor (= 0.0.14)
 
 SPEC REPOS:
   "git@github.com:Banuba/specs.git":
+    - BanubaARCloudSDK
     - BanubaAudioBrowserSDK
     - BanubaEffectPlayer
     - BanubaMusicEditorSDK
@@ -27,14 +30,15 @@ SPEC REPOS:
     - VideoEditor
 
 SPEC CHECKSUMS:
-  BanubaAudioBrowserSDK: 7e3da0066af1b4af8582c91412a531df9a37a270
+  BanubaARCloudSDK: 7f9051edca90539a9675be0ed175e7f996f917cf
+  BanubaAudioBrowserSDK: 1590af6e0dfdc469e19d94bf46f56fcc57bbc24f
   BanubaEffectPlayer: 7c25fffc8b0dc2391759af3823598fa1e9522491
-  BanubaMusicEditorSDK: 582bdecd4162f4cedafee364d2345d2e4a8644d6
-  BanubaOverlayEditorSDK: 2f91192925af77afeefe6e2785a2c5f47927af07
-  BanubaSDK: 9e75422ab8fd0780c9bca7f83ba1ef33e9265edd
-  BanubaVideoEditorSDK: e7227be27ae47b31536aa42a5122d0b9ec227230
-  VideoEditor: 2d2bfbc9d79eca93ce059ce89ad158e3da58a285
+  BanubaMusicEditorSDK: facbca61d46b87ecfae25e22115b12b9f608b981
+  BanubaOverlayEditorSDK: a237f31cadeb5478f82b197bd0106ef50c83c55a
+  BanubaSDK: 37486a3606d03f7087a9a32b96de49200d85f136
+  BanubaVideoEditorSDK: f67cb5622e7f8f31b504c64091d41c4fc682e12c
+  VideoEditor: 62e848a658b2177f1e819198a297994ef7388779
 
-PODFILE CHECKSUM: 7092f45b736af3ecdb66713fde9ee4a6ae920e27
+PODFILE CHECKSUM: 6fee0971935c72abfbf965c3fe941c8eaf26e26e
 
 COCOAPODS: 1.10.0
