@@ -17,7 +17,7 @@ internal class IntegrationAppRecordingAnimationProvider(context: Context) : Came
 
     private var onEndTakenPictureAnimationCallback: () -> Unit = {}
     private var onStartRecordingAnimationCallback: () -> Unit = {}
-    private var onEndRecordingAnimationCallback: () -> Unit = {}
+    private var onEndRecordingAnimationCallback: (isAnimationFinished: Boolean) -> Unit = {}
 
     override fun provideView() = animationView
 
@@ -25,8 +25,12 @@ internal class IntegrationAppRecordingAnimationProvider(context: Context) : Came
         onStartRecordingAnimationCallback = callback
     }
 
-    override fun setOnEndRecordingAnimationCallback(callback: () -> Unit) {
+    override fun setOnEndRecordingAnimationCallback(callback: (isAnimationFinished: Boolean) -> Unit) {
         onEndRecordingAnimationCallback = callback
+    }
+
+    override fun setRecordingProgress(progressMs: Long) {
+        animationView.setRecordingProgress(progressMs)
     }
 
     override fun setOnEndTakenPictureAnimationCallback(callback: () -> Unit) {
@@ -64,7 +68,7 @@ internal class IntegrationAppRecordingAnimationProvider(context: Context) : Came
             }
             is CameraRecordingAnimationProvider.VideoState.StopRecord -> {
                 animationView.animateStopVideoRecord {
-                    onEndRecordingAnimationCallback()
+                    onEndRecordingAnimationCallback(it)
                 }
             }
         }
