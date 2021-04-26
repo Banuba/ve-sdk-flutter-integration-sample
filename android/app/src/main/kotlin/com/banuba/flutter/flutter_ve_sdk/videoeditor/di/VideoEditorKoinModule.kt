@@ -3,28 +3,20 @@ package com.banuba.flutter.flutter_ve_sdk.videoeditor.di
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
-import com.banuba.flutter.flutter_ve_sdk.R
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.data.TimeEffects
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.data.VisualEffects
-import com.banuba.flutter.flutter_ve_sdk.videoeditor.export.IntegrationAppExportFlowManager
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.export.IntegrationAppExportParamsProvider
-import com.banuba.flutter.flutter_ve_sdk.videoeditor.export.IntegrationAppExportResultHandler
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationAppRecordingAnimationProvider
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationAppWatermarkProvider
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationTimerStateProvider
 import com.banuba.sdk.cameraui.data.CameraRecordingAnimationProvider
 import com.banuba.sdk.cameraui.data.CameraTimerStateProvider
-import com.banuba.sdk.core.AREffectPlayerProvider
-import com.banuba.sdk.core.IUtilityManager
-import com.banuba.sdk.effectplayer.adapter.BanubaAREffectPlayerProvider
-import com.banuba.sdk.effectplayer.adapter.BanubaClassFactory
 import com.banuba.sdk.ve.effects.EditorEffects
 import com.banuba.sdk.ve.effects.WatermarkProvider
 import com.banuba.sdk.ve.flow.ExportFlowManager
-import com.banuba.sdk.ve.flow.ExportResultHandler
 import com.banuba.sdk.ve.flow.FlowEditorModule
+import com.banuba.sdk.ve.flow.export.ForegroundExportFlowManager
 import com.banuba.sdk.veui.data.ExportParamsProvider
-import org.koin.android.ext.koin.androidContext
 import org.koin.core.definition.BeanDefinition
 import org.koin.core.qualifier.named
 
@@ -36,31 +28,14 @@ import org.koin.core.qualifier.named
  */
 class VideoEditorKoinModule : FlowEditorModule() {
 
-    override val effectPlayerManager: BeanDefinition<AREffectPlayerProvider> =
-        single(override = true) {
-            BanubaAREffectPlayerProvider(
-                mediaSizeProvider = get(),
-                token = androidContext().getString(R.string.video_editor_token)
-            )
-        }
-
-    override val utilityManager: BeanDefinition<IUtilityManager> = single(override = true) {
-        BanubaClassFactory.createUtilityManager(
-            context = get()
+    override val exportFlowManager: BeanDefinition<ExportFlowManager> = single(override = true) {
+        ForegroundExportFlowManager(
+                exportDataProvider = get(),
+                editorSessionHelper = get(),
+                exportDir = get(named("exportDir")),
+                mediaFileNameHelper = get(),
+                shouldClearSessionOnFinish = true
         )
-    }
-
-    override val exportFlowManager: BeanDefinition<ExportFlowManager> = single {
-        IntegrationAppExportFlowManager(
-            exportDataProvider = get(),
-            editorSessionHelper = get(),
-            exportDir = get(named("exportDir")),
-            mediaFileNameHelper = get()
-        )
-    }
-
-    override val exportResultHandler: BeanDefinition<ExportResultHandler> = single {
-        IntegrationAppExportResultHandler()
     }
 
     /**
@@ -116,7 +91,7 @@ class VideoEditorKoinModule : FlowEditorModule() {
         }
 
     override val cameraTimerStateProvider: BeanDefinition<CameraTimerStateProvider> =
-            factory {
+            factory(override = true) {
                 IntegrationTimerStateProvider()
             }
 }
