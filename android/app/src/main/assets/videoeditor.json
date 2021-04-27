@@ -13,6 +13,7 @@
     "supportsEditorLinkOnVideo": false,
     "stickersApiKey": "<-- Paste Giphy key here to load gif images -->",
     "showConfig": true,
+    "supportsTrimRecordedVideo": false,
     "interactions": {
       "question": false,
       "quiz": false,
