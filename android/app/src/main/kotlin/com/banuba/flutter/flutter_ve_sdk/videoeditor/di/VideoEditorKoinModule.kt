@@ -3,8 +3,6 @@ package com.banuba.flutter.flutter_ve_sdk.videoeditor.di
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
-import com.banuba.flutter.flutter_ve_sdk.videoeditor.data.TimeEffects
-import com.banuba.flutter.flutter_ve_sdk.videoeditor.data.VisualEffects
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.export.IntegrationAppExportParamsProvider
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationAppRecordingAnimationProvider
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationAppWatermarkProvider
@@ -12,6 +10,8 @@ import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationTimerStateP
 import com.banuba.sdk.cameraui.data.CameraRecordingAnimationProvider
 import com.banuba.sdk.cameraui.data.CameraTimerStateProvider
 import com.banuba.sdk.ve.effects.EditorEffects
+import com.banuba.sdk.core.pip.IPictureInPictureProvider
+import com.banuba.sdk.ve.pip.ExoPlayerPictureInPictureProvider
 import com.banuba.sdk.ve.effects.WatermarkProvider
 import com.banuba.sdk.ve.flow.ExportFlowManager
 import com.banuba.sdk.ve.flow.FlowEditorModule
@@ -34,7 +34,8 @@ class VideoEditorKoinModule : FlowEditorModule() {
                 editorSessionHelper = get(),
                 exportDir = get(named("exportDir")),
                 mediaFileNameHelper = get(),
-                shouldClearSessionOnFinish = true
+                shouldClearSessionOnFinish = true,
+                publishManager = get()
         )
     }
 
@@ -65,23 +66,6 @@ class VideoEditorKoinModule : FlowEditorModule() {
         IntegrationAppWatermarkProvider()
     }
 
-    override val editorEffects: BeanDefinition<EditorEffects> = single(override = true) {
-        val visualEffects = listOf(
-            VisualEffects.VHS,
-            VisualEffects.Rave
-        )
-        val timeEffects = listOf(
-            TimeEffects.SlowMo(),
-            TimeEffects.Rapid()
-        )
-
-        EditorEffects(
-            visual = visualEffects,
-            time = timeEffects,
-            equalizer = emptyList()
-        )
-    }
-
     /**
      * Provides camera record button animation
      * */
@@ -94,4 +78,8 @@ class VideoEditorKoinModule : FlowEditorModule() {
             factory(override = true) {
                 IntegrationTimerStateProvider()
             }
+
+    override val pipProvider: BeanDefinition<IPictureInPictureProvider> = single(override = true) {
+        ExoPlayerPictureInPictureProvider()
+    }
 }

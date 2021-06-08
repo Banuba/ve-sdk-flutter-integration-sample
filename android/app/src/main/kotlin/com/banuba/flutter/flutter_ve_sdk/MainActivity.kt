@@ -23,8 +23,6 @@ class MainActivity : FlutterActivity() {
                 startActivityForResult(
                         VideoCreationActivity.buildIntent(
                                 context = this,
-                                // setup what kind of action you want to do with VideoCreationActivity
-                                mode = MODE_RECORD_VIDEO,
                                 // setup data that will be acceptable during export flow
                                 additionalExportData = null,
                                 // set TrackData object if you open VideoCreationActivity with preselected music track

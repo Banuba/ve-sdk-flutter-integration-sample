@@ -10,7 +10,7 @@
          This theme determines the color of the Android Window while your
          Flutter UI initializes, as well as behind your Flutter UI while its
          running.
-         
+
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
     <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
         <item name="android:windowBackground">@android:color/white</item>
@@ -56,6 +56,16 @@
         <item name="alert_editor_reset_all">@null</item>
         <item name="alert_editor_reset_effects">@null</item>
 
+        <!--Picture in picture style-->
+        <item name="pipParentStyle">@style/CustomPipParentStyle</item>
+        <item name="pipTitleStyle">@style/CustomPipTitleStyle</item>
+        <item name="pipActionRecyclerStyle">@style/CustomPipActionRecyclerStyle</item>
+        <item name="pipActionItemStyle">@style/CustomPipActionItemStyle</item>
+        <item name="pipLayoutRecyclerStyle">@style/CustomPipLayoutRecyclerStyle</item>
+        <item name="pipLayoutItemParentStyle">@style/CustomPipLayoutItemParentStyle</item>
+        <item name="pipLayoutItemImageStyle">@style/CustomPipLayoutItemImageStyle</item>
+        <item name="pipLayoutItemTextStyle">@style/CustomPipLayoutItemTextStyle</item>
+
         <!--Editor-->
         <item name="editorOverlayStyle">@style/CustomEditorOverlayStyle</item>
         <item name="editorActionsStyle">@style/CustomEditorActionsStyle</item>
@@ -92,7 +102,6 @@
         <!--Gallery-->
         <item name="galleryImageViewStyle">@style/CustomGalleryImageViewStyle</item>
         <item name="galleryTitleTextStyle">@style/CustomGalleryTitleTextStyle</item>
-        <item name="galleryChoiceButtonStyle">@style/CustomGalleryChoiceButtonStyle</item>
         <item name="galleryBackButtonStyle">@style/CustomGalleryBackButtonStyle</item>
         <item name="galleryNextButtonStyle">@style/CustomGalleryNextButtonStyle</item>
         <item name="galleryItemRadioButtonStyle">@style/CustomGalleryItemRadioButtonStyle</item>
@@ -108,8 +117,6 @@
         <item name="gallery_bg_color">@color/black</item>
         <item name="gallery_item_corner_radius">4dp</item>
         <item name="gallery_item_margin">2dp</item>
-        <item name="gallery_icon_back">@drawable/ic_nav_back_arrow</item>
-        <item name="gallery_icon_cross">@drawable/ic_nav_close</item>
         <item name="gallery_album_divider_color">@color/catskill_white</item>
         <!---->
 
@@ -173,6 +180,7 @@
         <item name="music_editor_icon_effects">@drawable/ic_timeline_effects</item>
         <item name="music_editor_icon_track_recording">@drawable/ic_timeline_recording</item>
         <item name="music_editor_icon_track_edit">@drawable/ic_timeline_edit</item>
+        <item name="music_editor_icon_track_effects">@drawable/ic_timeline_effects</item>
         <item name="music_editor_icon_track_delete">@drawable/ic_timeline_trash</item>
         <!---->
 
@@ -239,6 +247,9 @@
         <item name="icon_recording_speed_x1">@drawable/ic_speed_1x</item>
         <item name="icon_recording_speed_x2">@drawable/ic_speed_2x</item>
         <item name="icon_recording_speed_x3">@drawable/ic_speed_3x</item>
+
+        <item name="icon_pip_on">@drawable/ic_pip_on</item>
+        <item name="icon_pip_off">@drawable/ic_pip_off</item>
 
         <item name="icon_close">@drawable/ic_nav_close</item>
         <item name="icon_back">@drawable/ic_nav_back_arrow</item>
@@ -322,6 +333,9 @@
         <item name="divider_color">@color/big_stone</item>
         <item name="normal_color">@color/egg_blue</item>
         <item name="delete_color">@color/violet_red</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
     </style>
 
     <!-- Style for the throbber on the progress view
@@ -387,6 +401,23 @@
     <style name="EditorDialogNormalButton">
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <!--Picture in picture style-->
+    <style name="CustomPipParentStyle" parent="PipParentStyle" />
+
+    <style name="CustomPipTitleStyle" parent="PipTitleStyle" />
+
+    <style name="CustomPipActionRecyclerStyle" parent="PipActionRecyclerStyle" />
+
+    <style name="CustomPipActionItemStyle" parent="PipActionItemStyle" />
+
+    <style name="CustomPipLayoutRecyclerStyle" parent="PipLayoutRecyclerStyle" />
+
+    <style name="CustomPipLayoutItemParentStyle" parent="PipLayoutItemParentStyle" />
+
+    <style name="CustomPipLayoutItemImageStyle" parent="PipLayoutItemImageStyle" />
+
+    <style name="CustomPipLayoutItemTextStyle" parent="PipLayoutItemTextStyle" />
 
     <!--Editor Styles-->
     <style name="CustomEditorOverlayStyle" parent="EditorOverlayStyle">
@@ -477,12 +508,16 @@
 
     <style name="CustomEditorPlaybackControllerCancelStyle" parent="EditorPlaybackControllerCancelStyle" >
         <item name="android:src">@drawable/ic_close</item>
+        <item name="android:padding">12dp</item>
     </style>
 
-    <style name="CustomEditorPlaybackControllerPlayStyle" parent="EditorPlaybackControllerPlayStyle" />
+    <style name="CustomEditorPlaybackControllerPlayStyle" parent="EditorPlaybackControllerPlayStyle">
+        <item name="android:padding">8dp</item>
+    </style>
 
     <style name="CustomEditorPlaybackControllerDoneStyle" parent="EditorPlaybackControllerDoneStyle" >
         <item name="android:src">@drawable/ic_done</item>
+        <item name="android:padding">12dp</item>
     </style>
 
     <!--Stickers Styles-->
@@ -538,16 +573,11 @@
     <style name="CustomGalleryBackButtonStyle" parent="GalleryBackButtonStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/ic_gallery_back</item>
     </style>
 
     <style name="CustomGalleryNextButtonStyle" parent="GalleryNextButtonStyle">
         <item name="android:textColor">@color/egg_blue</item>
-    </style>
-
-    <style name="CustomGalleryChoiceButtonStyle" parent="GalleryChoiceButtonStyle">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:src">@drawable/ic_nav_multi_choice</item>
     </style>
 
     <style name="CustomGalleryImageViewStyle" parent="GalleryImageViewStyle">
@@ -738,6 +768,7 @@
 
     <style name="CustomMusicEditorEqualizerThrobberStyle" parent="MusicEditorEqualizerThrobberStyle">
         <item name="circle_width">2dp</item>
+        <item name="circle_colors">@array/progress_gradient_colors</item>
     </style>
     <!---->
 
