@@ -5,9 +5,9 @@
   "takePhotoOnTap": true,
   "supportsFlashlight": true,
   "supportsMultiRecords": true,
-  "supportsDurationTimeline": true,
   "supportsModeSelection": true,
   "supportsSpeedRecording": true,
+  "startFrontFacingFirst": true,
   "supportsExternalMusic": true,
   "textOnMaskColorCountOnPage": -1,
   "banubaColorEffectsAssetsPath": "luts",
@@ -16,6 +16,5 @@
   "showDebugViews": true,
   "supportsMuteMic": true,
   "switchFacingOnDoubleTap": true,
-  "showConfig": true,
   "useFixedFPS30": true
 }

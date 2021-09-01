@@ -10,6 +10,7 @@
     "textOnVideoColorCountOnPage": 6,
     "textOnVideoMaxSymbols": -1,
     "keepVideoOnExit": true,
+    "supportsTextOnVideo": true,
     "supportsEditorLinkOnVideo": false,
     "stickersApiKey": "<-- Paste Giphy key here to load gif images -->",
     "showConfig": true,
