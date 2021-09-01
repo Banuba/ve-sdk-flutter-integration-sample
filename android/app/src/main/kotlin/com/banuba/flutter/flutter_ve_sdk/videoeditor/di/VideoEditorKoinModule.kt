@@ -4,14 +4,9 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.export.IntegrationAppExportParamsProvider
-import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationAppRecordingAnimationProvider
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationAppWatermarkProvider
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.impl.IntegrationTimerStateProvider
-import com.banuba.sdk.cameraui.data.CameraRecordingAnimationProvider
 import com.banuba.sdk.cameraui.data.CameraTimerStateProvider
-import com.banuba.sdk.ve.effects.EditorEffects
-import com.banuba.sdk.core.pip.IPictureInPictureProvider
-import com.banuba.sdk.ve.pip.ExoPlayerPictureInPictureProvider
 import com.banuba.sdk.ve.effects.WatermarkProvider
 import com.banuba.sdk.ve.flow.ExportFlowManager
 import com.banuba.sdk.ve.flow.FlowEditorModule
@@ -30,12 +25,14 @@ class VideoEditorKoinModule : FlowEditorModule() {
 
     override val exportFlowManager: BeanDefinition<ExportFlowManager> = single(override = true) {
         ForegroundExportFlowManager(
-                exportDataProvider = get(),
-                editorSessionHelper = get(),
-                exportDir = get(named("exportDir")),
-                mediaFileNameHelper = get(),
-                shouldClearSessionOnFinish = true,
-                publishManager = get()
+            exportDataProvider = get(),
+            editorSessionHelper = get(),
+            exportDir = get(named("exportDir")),
+            mediaFileNameHelper = get(),
+            shouldClearSessionOnFinish = true,
+            publishManager = get(),
+            draftManager = get(),
+            errorParser = get()
         )
     }
 
@@ -66,20 +63,8 @@ class VideoEditorKoinModule : FlowEditorModule() {
         IntegrationAppWatermarkProvider()
     }
 
-    /**
-     * Provides camera record button animation
-     * */
-    override val cameraRecordingAnimationProvider: BeanDefinition<CameraRecordingAnimationProvider> =
-        factory(override = true) {
-            IntegrationAppRecordingAnimationProvider(context = get())
-        }
-
     override val cameraTimerStateProvider: BeanDefinition<CameraTimerStateProvider> =
-            factory(override = true) {
-                IntegrationTimerStateProvider()
-            }
-
-    override val pipProvider: BeanDefinition<IPictureInPictureProvider> = single(override = true) {
-        ExoPlayerPictureInPictureProvider()
-    }
+        factory(override = true) {
+            IntegrationTimerStateProvider()
+        }
 }
