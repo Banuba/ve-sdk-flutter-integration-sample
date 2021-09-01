@@ -2,17 +2,20 @@ import Foundation
 import BanubaVideoEditorSDK
 
 class VideoEditorModule {
+  
+  private var videoEditorSDK: BanubaVideoEditor?
+  
   func openVideoEditor(
     fromViewController controller: FlutterViewController
   ) {
     let config = createVideoEditorConfiguration()
-    let videoEditor = BanubaVideoEditor(
-      token: "Place your Face AR token here",
+    videoEditorSDK = BanubaVideoEditor(
+      token: "Place your VideoEditorSDK token here",
       configuration: config,
       externalViewControllerFactory: nil
     )
     DispatchQueue.main.async {
-      videoEditor.presentVideoEditor(
+      self.videoEditorSDK?.presentVideoEditor(
         from: controller,
         animated: true,
         completion: nil
