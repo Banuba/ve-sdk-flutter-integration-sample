@@ -48,13 +48,15 @@
              ("@null" means that there are no icons on alert dialogs -> it is default setup,
              so if you do not want to add icons just not override these attributes) -->
         <item name="alert_camera_delete_video">@null</item>
-        <item name="alert_camera_return_to_editor">@null</item>
-        <item name="alert_camera_return_to_trimmer">@null</item>
         <item name="alert_camera_save">@null</item>
         <item name="alert_camera_reset_all">@null</item>
         <item name="alert_editor_delete_voice_record">@null</item>
         <item name="alert_editor_reset_all">@null</item>
         <item name="alert_editor_reset_effects">@null</item>
+        <item name="alert_draft_remove_icon_res">@null</item>
+        <item name="alert_draft_update_icon_res">@null</item>
+        <item name="alert_draft_restore_icon_res">@null</item>
+        <item name="alert_draft_save_icon_res">@null</item>
 
         <!--Picture in picture style-->
         <item name="pipParentStyle">@style/CustomPipParentStyle</item>
@@ -103,7 +105,11 @@
         <item name="galleryImageViewStyle">@style/CustomGalleryImageViewStyle</item>
         <item name="galleryTitleTextStyle">@style/CustomGalleryTitleTextStyle</item>
         <item name="galleryBackButtonStyle">@style/CustomGalleryBackButtonStyle</item>
+        <item name="galleryNextParentStyle">@style/CustomGalleryNextParentStyle</item>
         <item name="galleryNextButtonStyle">@style/CustomGalleryNextButtonStyle</item>
+        <item name="gallerySelectionDescriptionStyle">@style/CustomGallerySelectionDescriptionStyle
+        </item>
+        <item name="galleryDraftsButtonStyle">@style/CustomGalleryDraftsButtonStyle</item>
         <item name="galleryItemRadioButtonStyle">@style/CustomGalleryItemRadioButtonStyle</item>
         <item name="galleryItemTextStyle">@style/CustomGalleryItemTextStyle</item>
         <item name="galleryEmptyTextStyle">@style/CustomGalleryEmptyTextStyle</item>
@@ -136,6 +142,14 @@
         <item name="trimmerCancelButtonStyle">@style/CustomTrimmerCancelButtonStyle</item>
         <item name="trimmerDurationTimelineStyle">@style/CustomTrimmerDurationTimelineStyle</item>
         <item name="trimmerContentHintStyle">@style/CustomTrimmerContentHintStyle</item>
+        <item name="trimmerAspectsButtonStyle">@style/CustomTrimmerAspectsButtonStyle</item>
+        <item name="trimmerAspectsDoneButtonStyle">@style/CustomTrimmerAspectsDoneButtonStyle</item>
+        <item name="trimmerAspectsCancelButtonStyle">@style/CustomTrimmerAspectsCancelButtonStyle</item>
+        <item name="trimmerAspectsRecyclerViewStyle">@style/CustomTrimmerAspectsRecyclerViewStyle</item>
+        <item name="trimmerAspectsItemParentStyle">@style/CustomTrimmerAspectsItemParentStyle</item>
+        <item name="trimmerAspectsItemImageStyle">@style/CustomTrimmerAspectsItemImageStyle</item>
+        <item name="trimmerAspectsItemDescriptionStyle">@style/CustomTrimmerAspectsItemDescriptionStyle
+        </item>
 
         <item name="trimmer_play_control_visible">true</item>
         <item name="trimmer_icon_play">@drawable/ic_play</item>
@@ -209,6 +223,28 @@
 
         <item name="toastStyle">@style/CustomToastStyle</item>
         <item name="wait_dialog_throbber_bg">@drawable/bg_wait_dialog_throbber</item>
+
+        <!-- Drafts -->
+        <item name="draftsParentStyle">@style/CustomDraftsParentStyle</item>
+        <item name="draftsBackButtonStyle">@style/CustomDraftsBackButtonStyle</item>
+        <item name="draftsTitleStyle">@style/CustomDraftsTitleStyle</item>
+        <item name="draftsRecyclerViewStyle">@style/CustomDraftsRecyclerViewStyle</item>
+        <item name="draftsEmptyTextStyle">@style/CustomDraftsEmptyTextStyle</item>
+        <item name="draftItemParentStyle">@style/CustomDraftItemParentStyle</item>
+        <item name="draftItemThumbnailStyle">@style/CustomDraftItemThumbnailStyle</item>
+        <item name="draftItemOptionsButtonStyle">@style/CustomDraftItemOptionsButtonStyle</item>
+        <item name="draftItemNameStyle">@style/CustomDraftItemNameStyle</item>
+        <item name="draftOptionsParentStyle">@style/CustomDraftOptionsParentStyle</item>
+        <item name="draftOptionsPreviewStyle">@style/CustomDraftOptionsPreviewStyle</item>
+        <item name="draftOptionsNameStyle">@style/CustomDraftOptionsNameStyle</item>
+        <item name="draftOptionsSubtitleStyle">@style/CustomDraftOptionsSubtitleStyle</item>
+        <item name="draftOptionsBackButtonStyle">@style/CustomDraftOptionsBackButtonStyle</item>
+        <item name="draftOptionsDividerStyle">@style/CustomDraftOptionsDividerStyle</item>
+        <item name="draftOptionsRemoveButtonStyle">@style/CustomDraftOptionsRemoveButtonStyle</item>
+        <!---->
+
+        <!-- Record button -->
+        <item name="recordButtonStyle">@style/CustomRecordButtonStyle</item>
     </style>
 
     <!-- CameraOverlayStyle setup icons for Camera screen.
@@ -243,10 +279,18 @@
         <item name="icon_mute_mic_on">@drawable/ic_mic</item>
         <item name="icon_mute_mic_off">@drawable/ic_mic_off</item>
 
-        <item name="icon_recording_speed_x0_5">@drawable/ic_speed_0_5x</item>
-        <item name="icon_recording_speed_x1">@drawable/ic_speed_1x</item>
-        <item name="icon_recording_speed_x2">@drawable/ic_speed_2x</item>
-        <item name="icon_recording_speed_x3">@drawable/ic_speed_3x</item>
+        <item name="icon_recording_speed_x0_5">@drawable/ic_recording_speed_x0_5</item>
+        <item name="icon_recording_speed_x1">@drawable/ic_recording_speed_x1</item>
+        <item name="icon_recording_speed_x2">@drawable/ic_recording_speed_x2</item>
+        <item name="icon_recording_speed_x3">@drawable/ic_recording_speed_x3</item>
+        <item name="icon_recording_speed_x0_5_selected">@drawable/ic_recording_speed_x0_5_selected
+        </item>
+        <item name="icon_recording_speed_x1_selected">@drawable/ic_recording_speed_x1_selected
+        </item>
+        <item name="icon_recording_speed_x2_selected">@drawable/ic_recording_speed_x2_selected
+        </item>
+        <item name="icon_recording_speed_x3_selected">@drawable/ic_recording_speed_x3_selected
+        </item>
 
         <item name="icon_pip_on">@drawable/ic_pip_on</item>
         <item name="icon_pip_off">@drawable/ic_pip_off</item>
@@ -308,14 +352,12 @@
     <style name="CustomCameraSpeedPickerLabelStyle" parent="CameraSpeedPickerLabelStyle" />
 
     <!-- Style for the whole view that shows available recording speed options -->
-    <style name="CustomCameraSpeedPickerViewStyle" parent="CameraSpeedPickerViewStyle">
-        <item name="android:background">@color/big_stone</item>
-    </style>
+    <style name="CustomCameraSpeedPickerViewStyle" parent="CameraSpeedPickerViewStyle"/>
 
     <!-- Style for the speed option item. Speed option my be selected and unselected
          so the best approach to set background as selector -->
     <style name="CustomCameraSpeedPickerItemStyle" parent="CameraSpeedPickerItemStyle">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/color_selector_speed_picker_text</item>
         <item name="android:background">@drawable/bg_item_speed_picker</item>
     </style>
 
@@ -540,6 +582,8 @@
         <item name="overlay_color">@color/big_stone_a90</item>
     </style>
 
+    <style name="CustomGalleryDraftsButtonStyle" parent="GalleryDraftsButtonStyle" />
+
     <style name="CustomGalleryItemRadioButtonStyle" parent="GalleryItemRadioButtonStyle">
         <item name="checked_color">@color/egg_blue</item>
     </style>
@@ -576,14 +620,15 @@
         <item name="android:background">@drawable/ic_gallery_back</item>
     </style>
 
+    <style name="CustomGalleryNextParentStyle" parent="GalleryNextParentStyle" />
+
     <style name="CustomGalleryNextButtonStyle" parent="GalleryNextButtonStyle">
         <item name="android:textColor">@color/egg_blue</item>
     </style>
 
-    <style name="CustomGalleryImageViewStyle" parent="GalleryImageViewStyle">
-        <item name="android:layout_width">@dimen/camera_gallery_preview_size</item>
-        <item name="android:layout_height">@dimen/camera_gallery_preview_size</item>
-    </style>
+    <style name="CustomGallerySelectionDescriptionStyle" parent="GallerySelectionDescriptionStyle" />
+
+    <style name="CustomGalleryImageViewStyle" parent="GalleryImageViewStyle"/>
     <!---->
 
 
@@ -668,6 +713,20 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="CustomTrimmerAspectsButtonStyle" parent="TrimmerAspectsButtonStyle" />
+
+    <style name="CustomTrimmerAspectsDoneButtonStyle" parent="TrimmerAspectsDoneButtonStyle" />
+
+    <style name="CustomTrimmerAspectsCancelButtonStyle" parent="TrimmerAspectsCancelButtonStyle" />
+
+    <style name="CustomTrimmerAspectsRecyclerViewStyle" parent="TrimmerAspectsRecyclerViewStyle" />
+
+    <style name="CustomTrimmerAspectsItemParentStyle" parent="TrimmerAspectsItemParentStyle" />
+
+    <style name="CustomTrimmerAspectsItemImageStyle" parent="TrimmerAspectsItemImageStyle" />
+
+    <style name="CustomTrimmerAspectsItemDescriptionStyle" parent="TrimmerAspectsItemDescriptionStyle" />
     <!---->
 
 
@@ -794,5 +853,48 @@
 
     <!--Toast style-->
     <style name="CustomToastStyle" parent="ToastStyle" />
+    <!---->
+
+    <!-- Drafts -->
+    <style name="CustomDraftsParentStyle" parent="DraftsParentStyle" />
+
+    <style name="CustomDraftsBackButtonStyle" parent="DraftsBackButtonStyle" />
+
+    <style name="CustomDraftsTitleStyle" parent="DraftsTitleStyle" />
+
+    <style name="CustomDraftsRecyclerViewStyle" parent="DraftsRecyclerViewStyle" />
+
+    <style name="CustomDraftsEmptyTextStyle" parent="DraftsEmptyTextStyle" />
+
+    <style name="CustomDraftItemParentStyle" parent="DraftItemParentStyle" />
+
+    <style name="CustomDraftItemThumbnailStyle" parent="DraftItemThumbnailStyle" />
+
+    <style name="CustomDraftItemOptionsButtonStyle" parent="DraftItemOptionsButtonStyle" />
+
+    <style name="CustomDraftItemNameStyle" parent="DraftItemNameStyle" />
+
+    <style name="CustomDraftOptionsParentStyle" parent="DraftOptionsParentStyle" />
+
+    <style name="CustomDraftOptionsPreviewStyle" parent="DraftOptionsPreviewStyle" />
+
+    <style name="CustomDraftOptionsNameStyle" parent="DraftOptionsNameStyle" />
+
+    <style name="CustomDraftOptionsSubtitleStyle" parent="DraftOptionsSubtitleStyle" />
+
+    <style name="CustomDraftOptionsBackButtonStyle" parent="DraftOptionsBackButtonStyle" />
+
+    <style name="CustomDraftOptionsDividerStyle" parent="DraftOptionsDividerStyle" />
+
+    <style name="CustomDraftOptionsRemoveButtonStyle" parent="DraftOptionsRemoveButtonStyle" />
+    <!---->
+
+    <!-- Record button -->
+    <style name="CustomRecordButtonStyle" parent="RecordButtonStyle">
+        <item name="recordButtonInnerIdleDrawable">@drawable/ic_record_button_inner_oval</item>
+        <item name="recordButtonInnerRecordingDrawable">@drawable/ic_record_button_inner_square
+        </item>
+        <item name="recordButtonCircleGradientColors">@array/progress_gradient_colors</item>
+    </style>
     <!---->
 </resources>
