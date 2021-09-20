@@ -14,6 +14,7 @@ class VideoEditorModule {
       configuration: config,
       externalViewControllerFactory: nil
     )
+    videoEditorSDK?.delegate = self
     DispatchQueue.main.async {
       self.videoEditorSDK?.presentVideoEditor(
         from: controller,
@@ -27,5 +28,19 @@ class VideoEditorModule {
     let config = VideoEditorConfig()
     // Do customization here
     return config
+  }
+}
+
+// MARK: - BanubaVideoEditorSDKDelegate
+extension VideoEditorModule: BanubaVideoEditorDelegate {
+  func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
+    videoEditor.dismissVideoEditor(animated: true) {
+      // remove strong reference to video editor sdk instance
+      self.videoEditorSDK = nil
+    }
+  }
+  
+  func videoEditorDone(_ videoEditor: BanubaVideoEditor) {
+    // Do export stuff here
   }
 }
