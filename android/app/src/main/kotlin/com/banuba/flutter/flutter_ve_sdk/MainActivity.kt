@@ -3,9 +3,9 @@ package com.banuba.flutter.flutter_ve_sdk
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import com.banuba.sdk.ve.data.EXTRA_EXPORTED_SUCCESS
+import com.banuba.sdk.ve.data.ExportResult
 import com.banuba.sdk.ve.flow.VideoCreationActivity
-import com.banuba.sdk.veui.ui.EXTRA_EXPORTED_SUCCESS
-import com.banuba.sdk.veui.ui.ExportResult
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
