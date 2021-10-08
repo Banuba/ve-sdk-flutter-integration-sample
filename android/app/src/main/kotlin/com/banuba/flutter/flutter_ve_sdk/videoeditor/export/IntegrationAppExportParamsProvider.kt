@@ -5,14 +5,14 @@ import androidx.core.net.toFile
 import com.banuba.sdk.core.MediaResolutionProvider
 import com.banuba.sdk.core.VideoResolution
 import com.banuba.sdk.core.media.MediaFileNameHelper.Companion.DEFAULT_SOUND_FORMAT
+import com.banuba.sdk.export.data.ExportParamsProvider
 import com.banuba.sdk.ve.domain.VideoRangeList
 import com.banuba.sdk.ve.effects.Effects
 import com.banuba.sdk.ve.effects.WatermarkAlignment
 import com.banuba.sdk.ve.effects.WatermarkBuilder
+import com.banuba.sdk.ve.ext.withWatermark
 import com.banuba.sdk.ve.player.MusicEffect
 import com.banuba.sdk.ve.processing.ExportManager
-import com.banuba.sdk.veui.data.ExportParamsProvider
-import com.banuba.sdk.veui.ext.withWatermark
 
 class IntegrationAppExportParamsProvider(
     private val exportDir: Uri,

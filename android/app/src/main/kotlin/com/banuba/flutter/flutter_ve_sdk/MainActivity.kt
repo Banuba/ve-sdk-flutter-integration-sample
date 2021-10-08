@@ -2,10 +2,11 @@ package com.banuba.flutter.flutter_ve_sdk
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import com.banuba.sdk.ve.data.EXTRA_EXPORTED_SUCCESS
+import com.banuba.sdk.ve.data.ExportResult
 import com.banuba.sdk.ve.flow.VideoCreationActivity
-import com.banuba.sdk.veui.ui.EXTRA_EXPORTED_SUCCESS
-import com.banuba.sdk.veui.ui.ExportResult
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
@@ -33,12 +34,14 @@ class MainActivity : FlutterActivity() {
             if (call.method.equals("StartBanubaVideoEditor")) {
                 _result = result
                 startActivityForResult(
-                    VideoCreationActivity.buildIntent(
+                    VideoCreationActivity.startFromCamera(
                         context = this,
                         // setup data that will be acceptable during export flow
                         additionalExportData = null,
                         // set TrackData object if you open VideoCreationActivity with preselected music track
-                        audioTrackData = null
+                        audioTrackData = null,
+                        // set video uri for Picture in Picture feature
+                        pictureInPictureVideo = Uri.EMPTY
                     ), VIDEO_EDITOR_REQUEST_CODE
                 )
             } else {
