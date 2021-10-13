@@ -41,11 +41,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app requires access to the media library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-  <string>This app requires access to the photo library.</string>
-  <key>NSCameraUsageDescription</key>
-  <string>This app requires access to the camera.</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>This app requires access to the microphone.</string>
+	<string>This app requires access to the photo library.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to the camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires access to the microphone.</string>
 </dict>
 </plist>
