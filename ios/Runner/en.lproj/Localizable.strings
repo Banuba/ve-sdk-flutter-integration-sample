@@ -198,7 +198,7 @@
 // MARK: - Gifphy Screen
 
 /* Hint, which is shown in the GIF objects search input field, if it is empty */
-"Search on giphy.com" = "Search on giphy.com";
+"com.banuba.searchGif.placeholder" = "Search GIPHY";
 
 /* Ability to cancel the search for GIF objects */
 "Cancel" = "Cancel";
@@ -676,8 +676,8 @@
 "pip.react.camera.title" = "React";
 "pip.original.camera.title" = "Original";
 "pip.centered.camera.title" = "Centered";
-"pip.left.right.camera.title" = "Portrait";
-"pip.top.bottom.camera.title" = "Landscape";
+"pip.left.right.camera.title" = "Lefr & Right";
+"pip.top.bottom.camera.title" = "Top & Bottom";
 "pip.layout.settings.title" = "Layout Settings";
 
 "feature.disabled.pip" = "Picture in picture is not included in your package. Contact account manager to have it.";
@@ -779,14 +779,3 @@
 /* discard music alert type */
 "com.banuba.alert.discardMusic.agreeButtonTitle" = "Discard";
 "com.banuba.alert.discardMusic.disagreeButtonTitle" = "Cancel";
-
-// MARK: - Trim
-/* Edit video rotate button title */
-"com.banuba.trim.rotateEditButtonTitle" = "Rotate";
-/* Edit video split button title */
-"com.banuba.trim.splitEditButtonTitle" = "Split";
-/* Edit video crop button title */
-"com.banuba.trim.cropEditButtonTitle" = "Crop";
-/* Edit video delete button title */
-"com.banuba.trim.deleteEditButtonTitle" = "Delete";
-

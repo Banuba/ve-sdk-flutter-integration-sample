@@ -190,7 +190,7 @@
 
 /* Hint, which is shown in the GIF objects search input field, if it is empty */
 
-"Search on giphy.com" = "Поиск на giphy.com";
+"com.banuba.searchGif.placeholder" = "Search GIPHY";
 
 /* Ability to cancel the search for GIF objects */
 "Cancel" = "Отмена";
@@ -245,7 +245,7 @@
 "Settings.Close" = "Закрыть";
 
 /* Used in an alert with Yes and No when resetting effects. */
-"alert.reset.effects.title" = "Сбросить изменения?";
+"alert.reset.effects.title" = "Отменить изменения?";
 "alert.reset.effects.message" = "";
 
 /* Undo filters applied to video in the add filters screen */
@@ -769,13 +769,3 @@
 /* discard music alert type */
 "com.banuba.alert.discardMusic.agreeButtonTitle" = "Сбросить";
 "com.banuba.alert.discardMusic.disagreeButtonTitle" = "Отмена";
-
-// MARK: - Trim
-/* Edit video rotate button title */
-"com.banuba.trim.rotateEditButtonTitle" = "Поворот";
-/* Edit video split button title */
-"com.banuba.trim.splitEditButtonTitle" = "Разделить";
-/* Edit video crop button title */
-"com.banuba.trim.cropEditButtonTitle" = "Обрезать";
-/* Edit video delete button title */
-"com.banuba.trim.deleteEditButtonTitle" = "Удалить";
