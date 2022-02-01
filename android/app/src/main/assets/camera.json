@@ -16,5 +16,6 @@
   "showDebugViews": true,
   "supportsMuteMic": true,
   "switchFacingOnDoubleTap": true,
-  "useFixedFPS30": true
+  "useFixedFPS30": true,
+  "supportsAudioRateEqualsVideoSpeed": true
 }
