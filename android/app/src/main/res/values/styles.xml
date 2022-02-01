@@ -129,7 +129,6 @@
         <!--Video Trimmer-->
         <item name="trimmerStyle">@style/CustomTrimmerViewStyle</item>
         <item name="trimmerTimelineStyle">@style/CustomTrimmerTimelineViewStyle</item>
-        <item name="trimmer_action_disabled_alpha">0.5</item>
         <item name="trimmerTimelineActionButtonsRecyclerStyle">@style/CustomTrimmerTimelineActionButtonsRecyclerStyle</item>
         <item name="trimmerTimelineActionParentStyle">@style/CustomTrimmerTimelineActionParentStyle</item>
         <item name="trimmerTimelineActionImageStyle">@style/CustomTrimmerTimelineActionImageStyle</item>
