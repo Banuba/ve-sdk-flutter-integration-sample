@@ -16,9 +16,13 @@ class VideoEditorModule {
     )
     videoEditorSDK?.delegate = self
     DispatchQueue.main.async {
+      let config = VideoEditorLaunchConfig(
+        entryPoint: .camera,
+        hostController: controller,
+        animated: true
+      )
       self.videoEditorSDK?.presentVideoEditor(
-        from: controller,
-        animated: true,
+        withLaunchConfiguration: config,
         completion: nil
       )
     }
