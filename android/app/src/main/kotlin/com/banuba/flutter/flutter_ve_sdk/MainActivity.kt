@@ -4,8 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.banuba.sdk.ve.data.EXTRA_EXPORTED_SUCCESS
-import com.banuba.sdk.ve.data.ExportResult
+import com.banuba.sdk.cameraui.data.PipConfig
+import com.banuba.sdk.export.data.ExportResult
+import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
@@ -40,8 +41,11 @@ class MainActivity : FlutterActivity() {
                         additionalExportData = null,
                         // set TrackData object if you open VideoCreationActivity with preselected music track
                         audioTrackData = null,
-                        // set video uri for Picture in Picture feature
-                        pictureInPictureVideo = Uri.EMPTY
+                        // set PiP video configuration
+                        pictureInPictureConfig = PipConfig(
+                            video = Uri.EMPTY,
+                            openPipSettings = false
+                        )
                     ), VIDEO_EDITOR_REQUEST_CODE
                 )
             } else {
