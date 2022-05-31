@@ -8,7 +8,7 @@ The following sample brifly demonstrates how you can integrate our SDK into your
 
 # iOS  
 1. Install cocoapods dependencies using commands **pod init**(if needed) and **pod install** in the ios folder.
-1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L10) in BanubaVideoEditor initializer.
+1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L13) in BanubaVideoEditor initializer.
 1. Run command **flutter run** to launch the sample on device.
 
 # Want to know more about the SDK?  
