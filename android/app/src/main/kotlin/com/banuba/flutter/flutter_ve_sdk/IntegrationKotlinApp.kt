@@ -2,6 +2,7 @@ package com.banuba.flutter.flutter_ve_sdk
 
 import com.banuba.flutter.flutter_ve_sdk.videoeditor.di.IntegrationKoinModule
 import com.banuba.sdk.arcloud.di.ArCloudKoinModule
+import com.banuba.sdk.audiobrowser.di.AudioBrowserKoinModule
 import com.banuba.sdk.effectplayer.adapter.BanubaEffectPlayerKoinModule
 import com.banuba.sdk.export.di.VeExportKoinModule
 import com.banuba.sdk.gallery.di.GalleryKoinModule
@@ -27,6 +28,7 @@ class IntegrationKotlinApp : FlutterApplication() {
                 ArCloudKoinModule().module,
                 TokenStorageKoinModule().module,
                 VeFlowKoinModule().module,
+                AudioBrowserKoinModule().module, // use this module only if you bought it
                 IntegrationKoinModule().module,
                 BanubaEffectPlayerKoinModule().module,
                 GalleryKoinModule().module,
