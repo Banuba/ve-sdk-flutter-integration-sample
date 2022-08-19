@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(
                       fontSize: 17.0,
                     ))),
-            FlatButton(
+            MaterialButton(
               color: Colors.blue,
               textColor: Colors.white,
               disabledColor: Colors.grey,
