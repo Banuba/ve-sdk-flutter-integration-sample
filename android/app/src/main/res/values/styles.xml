@@ -658,7 +658,7 @@
     </style>
 
     <style name="CustomEditorTrimButtonStyle" parent="EditorTrimButtonStyle">
-        <item name="descriptionPosition">left</item>
+        <item name="descriptionPosition">start</item>
         <item name="descriptionSize">16sp</item>
         <item name="descriptionColor">@color/white</item>
         <item name="descriptionMarginEnd">12dp</item>
@@ -806,7 +806,7 @@
     <style name="CustomTrimmerTimelineActionImageStyle" parent="TrimmerTimelineActionImageStyle" />
 
     <style name="CustomTrimmerTimelineActionTextStyle" parent="TrimmerTimelineActionTextStyle">
-        <item name="android:textColor">@color/egg_blue</item>
+        <item name="android:textColor">@color/color_selector_trimmer_action</item>
     </style>
 
     <style name="CustomTrimmerParentStyle" parent="TrimmerParentStyle" />
