@@ -2,6 +2,12 @@
 Banuba [Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to add a fully-functional video editor with Tiktok-like features, AR filters and effects in your app.   
 The following sample brifly demonstrates how you can integrate our SDK into your [Flutter](https://flutter.dev/) project.  
 
+# Dart/Flutter
+Last supported version of [Dart SDK](https://dart.dev/get-dart) is 2.17.6. 
+The maximum available version of [Flutter SDK](https://docs.flutter.dev/development/tools/sdk/releases) is supported : stable - 3.0.5, beta - 3.3.0-0.4.pre.
+1. If you have older version, you need to run command **flutter upgrade** to install latest version.
+2. Run command **flutter pub get** to update dependencies.
+
 # Android  
 1. Put [Banuba token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5) in resources.
 1. Run command **flutter run** to launch the sample on device or **cd android && ./gradlew clean && cd .. && flutter run** to clean and re-run the sample.
