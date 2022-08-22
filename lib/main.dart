@@ -55,7 +55,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            FlatButton(
+            const Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                    'The sample demonstrates how Banuba Video Editor SDK can be integrated to Flutter',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 17.0,
+                    ))),
+            MaterialButton(
               color: Colors.blue,
               textColor: Colors.white,
               disabledColor: Colors.grey,
