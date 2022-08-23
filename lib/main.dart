@@ -1,7 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// ignore: directives_ordering
-import 'dart:io' show Platform;
 
 void main() {
   runApp(MyApp());
