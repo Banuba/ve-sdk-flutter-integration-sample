@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Banuba VE SDK Sample Integration'),
+      home: MyHomePage(title: 'Banuba VE SDK Sample'),
     );
   }
 }
@@ -48,17 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'The sample demonstrates how Banuba Video Editor SDK can be integrated to Flutter',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 17.0,
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'The sample demonstrates how Banuba Video Editor SDK can be integrated to Flutter',
+                'The sample demonstrates how to run Banuba Video Editor SDK with Flutter',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 17.0,
@@ -82,9 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
               },
               child: const Text(
-                'Open Video Editor',
+                'Open Banuba Video Editor',
                 style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 17.0,
                 ),
               ),
             )

@@ -1,23 +1,38 @@
-# Banuba AI Video Editor SDK. Integration sample for Flutter.
-Banuba [Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to add a fully-functional video editor with Tiktok-like features, AR filters and effects in your app.   
-The following sample brifly demonstrates how you can integrate our SDK into your [Flutter](https://flutter.dev/) project.  
+# Banuba AI Video Editor SDK - Flutter integration sample.
 
-# Dependencies
-|   Tool    |   Version | 
+Banuba [AI Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.
+<br></br>
+:exclamation: Support for Flutter plugin is under development at the moment and scheduled for Q4. Please, reach out to [support team](https://www.banuba.com/faq/kb-tickets/new) to help you with your own Flutter integration.
+Please keep in mind that main part of integration and customization should be implemented in **android**, **ios** directories using Native Android and iOS development.
+
+This sample demonstrates how to run VE SDK with [Flutter](https://flutter.dev/).
+
+
+## Dependencies
+|       |   Version | 
 | --------- |:---------:| 
 | Dart      | 2.17.6    | 
-| Flutter   | 3.0.5     | 
+| Flutter   | 3.0.5     |
 
-1. Run command **flutter pub get** to update dependencies.
+## Integration
 
-# Android  
-1. Put [Banuba token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5) in resources.
-1. Run command **flutter run** to launch the sample on device or **cd android && ./gradlew clean && cd .. && flutter run** to clean and re-run the sample.
+### Token
+We offer а free 14-days trial for you could thoroughly test and assess Export API functionality in your app.
 
-# iOS  
-1. Install cocoapods dependencies using commands **pod init**(if needed) and **pod install** in the ios folder.
-1. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L13) in BanubaVideoEditor initializer.
-1. Run command **flutter run** to launch the sample on device.
+To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.
 
-# Want to know more about the SDK?  
-Please visit our main repositories with native [Android](https://github.com/Banuba/ve-sdk-android-integration-sample) and [iOS](https://github.com/Banuba/ve-sdk-ios-integration-sample) integrations to get full information about the SDK.
+:exclamation: __The token **IS REQUIRED** to run sample and an integration in your app.__</br>
+
+### Step 1 - Prepare project
+Run command **flutter pub get** to update dependencies.
+
+### Step 2 - Run sample Android app
+1. Put Banuba token in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5).
+2. Run command ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
+3. [Follow further instructions](https://github.com/Banuba/ve-sdk-android-integration-sample) to integrate VE SDK in your app using native Android development.
+
+### Step 3 - Run sample iOS app
+1. Install Cocoa Pods dependencies. Open **ios** directory and run ```pod init``` then ```pod install```.
+1. Put Banuba token in [BanubaVideoEditor initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L13) .
+1. Run command ```flutter run``` in terminal to launch the sample on a device launch the app in IDE i.e. XCode, Intellij, VC, etc.
+3. [Follow further instructions](https://github.com/Banuba/ve-sdk-ios-integration-sample) to integrate VE SDK in your app using native iOS development.
