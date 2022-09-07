@@ -2,8 +2,9 @@
 
 Banuba [AI Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.
 <br></br>
-:exclamation: Support for Flutter plugin is under development at the moment and scheduled for Q4. Please, reach out to [support team](https://www.banuba.com/faq/kb-tickets/new) to help you with your own Flutter integration.
-Please keep in mind that main part of integration and customization should be implemented in **android**, **ios** directories using Native Android and iOS development.
+:exclamation: <ins>Support for Flutter plugin is under development at the moment and scheduled for __Q4__. Please, reach out to [support team](https://www.banuba.com/faq/kb-tickets/new) to help you with your own Flutter integration.<ins>
+
+<ins>Keep in mind that main part of integration and customization should be implemented in **android**, **ios** directories using Native Android and iOS development.<ins>
 
 This sample demonstrates how to run VE SDK with [Flutter](https://flutter.dev/).
 
@@ -24,7 +25,7 @@ To get access to your trial, please, get in touch with us by [filling a form](ht
 :exclamation: __The token **IS REQUIRED** to run sample and an integration in your app.__</br>
 
 ### Step 1 - Prepare project
-Run command **flutter pub get** to update dependencies.
+Run command ```flutter pub get``` to update dependencies.
 
 ### Step 2 - Run sample Android app
 1. Put Banuba token in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5).
