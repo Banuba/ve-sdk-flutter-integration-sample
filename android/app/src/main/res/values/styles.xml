@@ -16,9 +16,8 @@
         <item name="android:windowBackground">@android:color/white</item>
     </style>
 
-    <!-- To customize video editor according to your app style you should
-        create your own theme inherited from VideoCreationTheme and apply it
-        to VideoCreationActivity in AndroidManifest.xml file -->
+    <!-- Video editor sample them. You can use your own them by creating new style 'VideoCreationTheme'
+     and overriding styles. Please override theme in AndroidManifest.xml -->
     <style name="CustomIntegrationAppTheme" parent="VideoCreationTheme">
         <!-- Camera screen styles -->
         <item name="cameraOverlayStyle">@style/CustomCameraOverlayStyle</item>

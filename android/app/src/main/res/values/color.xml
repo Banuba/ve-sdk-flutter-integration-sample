@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Video editor sample colors (you can use your app brand colors) -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <!-- Video editor colors (it may be your brand colors to customize editor for app style consistency) -->
     <color name="egg_blue">#06BCC1</color>
     <color name="egg_blue_transparent">#6606BCC1</color>
     <color name="big_stone">#12263A</color>

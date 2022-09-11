@@ -20,7 +20,7 @@ class MainActivity : FlutterActivity() {
 
     private val CHANNEL = "startActivity/VideoEditorChannel"
 
-    private lateinit var _result: MethodChannel.Result
+    private lateinit var exportVideoChanelResult: MethodChannel.Result
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,28 +32,17 @@ class MainActivity : FlutterActivity() {
             appFlutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
         ).setMethodCallHandler { call, result ->
+            // Listen to call from Flutter side
             if (call.method.equals("StartBanubaVideoEditor")) {
-                _result = result
-                startActivityForResult(
-                    VideoCreationActivity.startFromCamera(
-                        context = this,
-                        // setup data that will be acceptable during export flow
-                        additionalExportData = null,
-                        // set TrackData object if you open VideoCreationActivity with preselected music track
-                        audioTrackData = null,
-                        // set PiP video configuration
-                        pictureInPictureConfig = PipConfig(
-                            video = Uri.EMPTY,
-                            openPipSettings = false
-                        )
-                    ), VIDEO_EDITOR_REQUEST_CODE
-                )
+                exportVideoChanelResult = result
+                startVideoEditorUISDK()
             } else {
                 result.notImplemented()
             }
         }
     }
 
+    // Observe export video results
     override fun onActivityResult(requestCode: Int, result: Int, intent: Intent?) {
         if (requestCode == VIDEO_EDITOR_REQUEST_CODE) {
             val exportedVideoResult = if (result == Activity.RESULT_OK) {
@@ -61,10 +50,27 @@ class MainActivity : FlutterActivity() {
             } else {
                 ExportResult.Inactive
             }
-            _result.success(exportedVideoResult.toString())
+            exportVideoChanelResult.success(exportedVideoResult.toString())
         } else {
-            _result.success(null)
-            return super.onActivityResult(requestCode, result, intent)
+            exportVideoChanelResult.success(null)
+            super.onActivityResult(requestCode, result, intent)
         }
+    }
+
+    private fun startVideoEditorUISDK() {
+        startActivityForResult(
+            VideoCreationActivity.startFromCamera(
+                context = this,
+                // setup data that will be acceptable during export flow
+                additionalExportData = null,
+                // set TrackData object if you open VideoCreationActivity with preselected music track
+                audioTrackData = null,
+                // set PiP video configuration
+                pictureInPictureConfig = PipConfig(
+                    video = Uri.EMPTY,
+                    openPipSettings = false
+                )
+            ), VIDEO_EDITOR_REQUEST_CODE
+        )
     }
 }

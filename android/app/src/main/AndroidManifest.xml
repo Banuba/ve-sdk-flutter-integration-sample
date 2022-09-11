@@ -8,7 +8,7 @@
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <application
-        android:name=".IntegrationKotlinApp"
+        android:name=".SampleApp"
         android:label="flutter_ve_sdk"
         android:icon="@mipmap/ic_launcher">
         <activity
