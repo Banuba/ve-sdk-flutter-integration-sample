@@ -24,16 +24,16 @@ To get access to your trial, please, get in touch with us by [filling a form](ht
 
 :exclamation: __The token **IS REQUIRED** to run sample and an integration in your app.__</br>
 
-### Step 1 - Prepare project
+### Prepare project
 Run command ```flutter pub get``` to update dependencies.
 
-### Step 2 - Run and integrate on Android
-1. Set Banuba token in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5).
-2. Run command ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
+### Android
+1. Set Banuba token in the sample app [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5).
+2. Run ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
 3. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate the SDK into your Flutter project.
 
-### Step 3 - Run and integrate on iOS
+### iOS
 1. Install Cocoa Pods dependencies. Open **ios** directory and run ```pod init``` then ```pod install```.
-1. Set Banuba token in [BanubaVideoEditor initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L13) .
-1. Run command ```flutter run``` in terminal to launch the sample on a device launch the app in IDE i.e. XCode, Intellij, VC, etc.
+1. Set Banuba token in the sample app [BanubaVideoEditor initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L13) .
+1. Run ```flutter run``` in terminal to launch the sample on a device launch the app in IDE i.e. XCode, Intellij, VC, etc.
 3. [Follow instructions](https://github.com/Banuba/ve-sdk-ios-integration-sample) to integrate VE SDK in your app using native iOS development.
