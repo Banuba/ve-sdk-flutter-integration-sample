@@ -65,7 +65,7 @@ The following steps help to complete basic integration into your project.
      [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml#L47)</br><br>
 
 4. __Add assets and resources__</br>
-      1. [bnb-resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/assets/bnb-resources) to use hardcoded Banuba AR and Lut effects.
+      1. [bnb-resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/assets/bnb-resources) to use build-in Banuba AR and Lut effects.
       Using Banuba AR ```assets/bnb-resources/effects``` requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.<br></br>
    
       2. [color](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/color),
@@ -87,5 +87,5 @@ The following steps help to complete basic integration into your project.
    
 ## What is next?
 
-We have covered a basic process of integration VE UI SDK into your project. 
-More integration details and customizations you can find in [VE UI SDK Integration Sample](https://github.com/Banuba/ve-sdk-android-integration-sample).
+We have covered a basic process of integration VE UI SDK into your Flutter project. 
+More integration details and customizations you can find in native [VE UI SDK Integration Sample](https://github.com/Banuba/ve-sdk-android-integration-sample).
