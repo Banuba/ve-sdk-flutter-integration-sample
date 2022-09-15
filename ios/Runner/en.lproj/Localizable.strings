@@ -717,6 +717,7 @@
 "com.banuba.recorder.link.title" = "Link";
 "com.banuba.recorder.color.title" = "Filter";
 "com.banuba.recorder.sticker.title" = "Gif";
+"com.banuba.recorder.pixalate.title" = "Pixelate";
 "com.banuba.recorder.text.title" = "Text";
 "com.banuba.recorder.time.title" = "Time";
 "com.banuba.recorder.sound.title" = "Music";
@@ -759,6 +760,7 @@
 /* Titles for alert buttons */
 
 /* discard all alert type for record screen */
+"com.banuba.alert.discardAllRecord.additionalButtonTitle" = "Start over";
 "com.banuba.alert.discardAllRecord.agreeButtonTitle" = "Reset";
 "com.banuba.alert.discardAllRecord.disagreeButtonTitle" = "Cancel";
 /* discard all alert type for editor screen */
@@ -779,3 +781,25 @@
 /* discard music alert type */
 "com.banuba.alert.discardMusic.agreeButtonTitle" = "Discard";
 "com.banuba.alert.discardMusic.disagreeButtonTitle" = "Cancel";
+
+// MARK: - Trim
+/* Edit video rotate button title */
+"com.banuba.trim.rotateEditButtonTitle" = "Rotate";
+/* Edit video split button title */
+"com.banuba.trim.splitEditButtonTitle" = "Split";
+/* Edit video crop button title */
+"com.banuba.trim.cropEditButtonTitle" = "Crop";
+/* Edit video delete button title */
+"com.banuba.trim.deleteEditButtonTitle" = "Delete";
+/* Edit video trim button title */
+"com.banuba.trim.trimEditButtonTitle" = "Trim";
+/* Reordering video tool tip label message */
+"com.banuba.trim.reorderingToolTip" = "Drag to swap";
+/* Delete single video error message */
+"com.banuba.trim.deleteLastClipErrorMessage" = "The last clip can't  be deleted";
+/* Split video part error message */
+"com.banuba.trim.splitErrorMessage" = "The selected position is invalid";
+
+// MARK: - Capture button modes
+"com.banuba.record.captureButtonVideoMode" = "VIDEO";
+"com.banuba.record.captureButtonPhotoMode" = "PHOTO";
