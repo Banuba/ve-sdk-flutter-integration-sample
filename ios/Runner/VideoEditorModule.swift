@@ -10,7 +10,7 @@ class VideoEditorModule {
   ) {
     let config = createVideoEditorConfiguration()
     videoEditorSDK = BanubaVideoEditor(
-      token: /*@START_MENU_TOKEN@*/"Type in your VideoEditorSDK token here"/*@END_MENU_TOKEN@*/,
+      token: /*@START_MENU_TOKEN@*/"SET BANUBA VE SDK TOKEN"/*@END_MENU_TOKEN@*/,
       configuration: config,
       externalViewControllerFactory: nil
     )
