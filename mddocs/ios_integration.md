@@ -1,19 +1,19 @@
 # iOS Integration Guide into Flutter project
 
-An integration and customization of Banuba VE UI SDK is implemented in **ios** directory
+An integration and customization of Banuba Video Editor UI SDK is implemented in **ios** directory
 of your Flutter project using native iOS development process.
 
 ## Basic
 The following steps help to complete basic integration into your project.
 
 <ins>All changes are made in **ios** directory.</ins>
-1. __Add Banuba SDK dependencies__  
-   Add iOS VE UI SDK dependencies to your Podfile.</br>
+1. __Add Banuba Video Editor UI SDK dependencies__  
+   Add iOS Video Editor UI SDK dependencies to your Podfile.</br>
    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Podfile).</br><br>
 
 2. __Add SDK Initializer class__  
    Add [VideoEditorModule.swift](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift) file to your project.
-   This class helps to initialize and customize VE UI SDK.</br><br>
+   This class helps to initialize and customize Video Editor UI SDK.</br><br>
 
 3. __Setup platform channel to start the SDK__  
    Create ```FlutterMethodChannel``` in your ```AppDelegate``` instance to start ```VideoEditorModule```.</br>
@@ -32,4 +32,4 @@ The following steps help to complete basic integration into your project.
 ## What is next?
 
 We have covered a basic process of VE UI SDK integration into your Flutter project.</br>
-More details and customization options you will find in native [VE UI SDK Integration Sample](https://github.com/Banuba/ve-sdk-ios-integration-sample).
+More details and customization options you will find in [Banuba Video Editor UI SDK Integration Sample](https://github.com/Banuba/ve-sdk-ios-integration-sample).
