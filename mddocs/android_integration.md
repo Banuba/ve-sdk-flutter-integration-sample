@@ -1,13 +1,18 @@
 # Android Integration Guide into Flutter project
 
-An integration and customization of Banuba Video Editor UI SDK is implemented in **android** directory 
+An integration and customization of Banuba Video Editor SDK is implemented in **android** directory 
 of your Flutter project using native Android development process.
 
 ## Basic
-The following steps help to complete basic integration into your project.
+The following steps help to complete basic integration into your Flutter project.
 
 <ins>All changes are made in **android** directory.</ins>
-1. __Add Banuba Video Editor UI SDK dependencies__ </br>
+1. __Set Banuba Video Editor SDK token__  
+   Set Banuba token in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5).<br></br>
+   To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.<br>
+   :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.<br></br>
+
+2. __Add Banuba Video Editor SDK dependencies__ </br>
    Add Banuba repositories in main gradle file to get Video Editor SDK and AR Cloud dependencies.
     ```groovy
         maven {
@@ -29,7 +34,7 @@ The following steps help to complete basic integration into your project.
     ```
    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/build.gradle#L16)</br><br>
 
-   Add Video Editor UI SDK dependencies in app gradle file.
+   Add Video Editor SDK dependencies in app gradle file.
     ```groovy
         def banubaSdkVersion = '1.24.2'
         implementation "com.banuba.sdk:ffmpeg:4.4"
@@ -52,19 +57,19 @@ The following steps help to complete basic integration into your project.
    ```
 
     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/build.gradle#L76)</br><br>
-1. __Add SDK Initializer class__ </br>
-     Add [BanubaVideoEditorUISDK.kt](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/BanubaVideoEditorUISDK.kt) file.</br>
-     This class helps to initialize and customize Video Editor UI SDK.</br><br>
+3. __Add SDK Initializer class__ </br>
+     Add [BanubaVideoEditorSDK.kt](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/BanubaVideoEditorSDK.kt) file.</br>
+     This class helps to initialize and customize Video Editor SDK.</br><br>
 
-2. __Initialize the SDK in your application__ </br>
-     Use ```BanubaVideoEditorUISDK().initialize(...)``` in your ```Application.onCreate()``` method to initialize the SDK.</br>
+4. __Initialize the SDK in your application__ </br>
+     Use ```BanubaVideoEditorSDK().initialize(...)``` in your ```Application.onCreate()``` method to initialize the SDK.</br>
      [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L10)</br><br>
 
-3. __Update AndroidManifest.xml__ </br>
+5. __Update AndroidManifest.xml__ </br>
      Add ```VideoCreationActivity``` in your AndroidManifest.xml file. The Activity is used to bring together a number of screens in a certain flow.</br>
      [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml#L47)</br><br>
 
-4. __Add assets and resources__</br>
+6. __Add assets and resources__</br>
       1. [bnb-resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/assets/bnb-resources) to use build-in Banuba AR and Lut effects.
       Using Banuba AR ```assets/bnb-resources/effects``` requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.<br></br>
    
@@ -79,13 +84,13 @@ The following steps help to complete basic integration into your project.
    
       3. [values](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/values) to use colors and themes. Theme ```VideoCreationTheme``` and its styles use resources in **drawable** and **color** directories.<br></br>
 
-5. __Start the SDK__ </br>
-    Use ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor UI SDK from Camera screen.
+7. __Start the SDK__ </br>
+    Use ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor SDK from Camera screen.
     Once the SDK starts you can observe export video results.</br>
     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt)</br><br>
 
    
 ## What is next?
 
-We have covered a basic process of integration Video Editor UI SDK into your Flutter project. 
-More integration details and customization options you will find in [Banuba Video Editor UI SDK Integration Sample](https://github.com/Banuba/ve-sdk-android-integration-sample).
+We have covered a basic process of Banuba Video Editor SDK integration into your Flutter project. 
+More integration details and customization options you will find in [Banuba Video Editor SDK Android Integration Sample](https://github.com/Banuba/ve-sdk-android-integration-sample).

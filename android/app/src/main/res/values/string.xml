@@ -2,5 +2,5 @@
 <resources>
     <!-- VIDEO EDITOR TOKEN -->
     <!-- Please contact Banuba https://www.banuba.com/video-editor-sdk to get this token -->
-    <string name="banuba_token">PUT VIDEO EDITOR TOKEN HERE</string>
+    <string name="banuba_token">SET BANUBA VIDEO EDITOR TOKEN</string>
 </resources>
