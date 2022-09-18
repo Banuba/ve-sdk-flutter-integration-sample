@@ -64,9 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
               splashColor: Colors.blueAccent,
               onPressed: () {
                 if (Platform.isAndroid) {
-                  _startVideoEditorActivity();
+                  _startVideoEditorAndroid();
                 } else if (Platform.isIOS) {
-                  _startIOSVideoEditorActivity();
+                  _startVideoEditorIos();
                 } else {
                   _showAlert(context, 'Platform is not supported!');
                 }
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> _startIOSVideoEditorActivity() async {
+  Future<void> _startVideoEditorIos() async {
     try {
       final result = await platform.invokeMethod('openVideoEditor');
       debugPrint('Result: $result ');
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<void> _startVideoEditorActivity() async {
+  Future<void> _startVideoEditorAndroid() async {
     try {
       final result = await platform.invokeMethod('StartBanubaVideoEditor');
       debugPrint('Result: $result ');

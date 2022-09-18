@@ -61,15 +61,37 @@ The following steps help to complete basic integration into your Flutter project
      Add [BanubaVideoEditorSDK.kt](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/BanubaVideoEditorSDK.kt) file.</br>
      This class helps to initialize and customize Video Editor SDK.</br><br>
 
-4. __Initialize the SDK in your application__ </br>
-     Use ```BanubaVideoEditorSDK().initialize(...)``` in your ```Application.onCreate()``` method to initialize the SDK.</br>
+4. __Initialize Video Editor SDK in your application__ </br>
+     Use ```BanubaVideoEditorSDK().initialize(...)``` in your ```Application.onCreate()``` method to initialize Video Editor SDK.</br>
      [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L10)</br><br>
 
-5. __Update AndroidManifest.xml__ </br>
+5. __Setup platform channel to start Video Editor SDK__  
+     Add handler to your ```FlutterActivity``` to listen to calls from Flutter side to start Video Editor.</br>
+     ```kotlin
+      MethodChannel(
+            appFlutterEngine.dartExecutor.binaryMessenger,
+            "CHANNEL"
+        ).setMethodCallHandler { call, result ->
+            // Listen to call from Flutter side
+            if (call.method.equals("StartBanubaVideoEditor")) {
+                exportVideoChanelResult = result
+                startVideoEditorSDK()
+            } else {
+                result.notImplemented()
+            }
+        }
+     ```
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L31).<br></br>
+     Use ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor SDK from Camera screen.
+     Once Video Editor SDK starts you can observe export video results.</br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L46)</br><br>
+     Find more information about platform channels in [Flutter developer documentation](https://docs.flutter.dev/development/platform-integration/platform-channels).</br><br>
+
+6. __Update AndroidManifest.xml__ </br>
      Add ```VideoCreationActivity``` in your AndroidManifest.xml file. The Activity is used to bring together a number of screens in a certain flow.</br>
      [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml#L47)</br><br>
 
-6. __Add assets and resources__</br>
+7. __Add assets and resources__</br>
       1. [bnb-resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/assets/bnb-resources) to use build-in Banuba AR and Lut effects.
       Using Banuba AR ```assets/bnb-resources/effects``` requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.<br></br>
    
@@ -84,10 +106,19 @@ The following steps help to complete basic integration into your Flutter project
    
       3. [values](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/values) to use colors and themes. Theme ```VideoCreationTheme``` and its styles use resources in **drawable** and **color** directories.<br></br>
 
-7. __Start the SDK__ </br>
-    Use ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor SDK from Camera screen.
-    Once the SDK starts you can observe export video results.</br>
-    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt)</br><br>
+8. __Start Video Editor SDK__ </br>
+    Use ```platform.invokeMethod``` to start Video Editor SDK from Flutter.</br>
+    ```dart
+       Future<void> _startVideoEditorAndroid() async {
+          try {
+            final result = await platform.invokeMethod('StartBanubaVideoEditor');
+            debugPrint('Result: $result ');
+          } on PlatformException catch (e) {
+            debugPrint("Error: '${e.message}'.");
+         }
+      }
+   ```
+    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L111).</br>
 
    
 ## What is next?

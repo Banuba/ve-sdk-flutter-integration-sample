@@ -35,7 +35,7 @@ class MainActivity : FlutterActivity() {
             // Listen to call from Flutter side
             if (call.method.equals("StartBanubaVideoEditor")) {
                 exportVideoChanelResult = result
-                startVideoEditorUISDK()
+                startVideoEditorSDK()
             } else {
                 result.notImplemented()
             }
@@ -57,7 +57,7 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    private fun startVideoEditorUISDK() {
+    private fun startVideoEditorSDK() {
         startActivityForResult(
             VideoCreationActivity.startFromCamera(
                 context = this,
