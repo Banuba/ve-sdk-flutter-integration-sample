@@ -1,5 +1,6 @@
 import Foundation
 import BanubaVideoEditorSDK
+import BanubaAudioBrowserSDK
 
 class VideoEditorModule {
   
@@ -10,10 +11,13 @@ class VideoEditorModule {
   ) {
     let config = createVideoEditorConfiguration()
     videoEditorSDK = BanubaVideoEditor(
-      token: /*@START_MENU_TOKEN@*/"SET BANUBA VE SDK TOKEN"/*@END_MENU_TOKEN@*/,
+      token: /*@START_MENU_TOKEN@*/"SET BANUBA VIDEO EDITOR TOKEN"/*@END_MENU_TOKEN@*/,
       configuration: config,
       externalViewControllerFactory: nil
     )
+
+    BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
+
     videoEditorSDK?.delegate = self
     DispatchQueue.main.async {
       let config = VideoEditorLaunchConfig(

@@ -42,6 +42,9 @@ The following steps help to complete basic integration into your Flutter project
     }
    ```
    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L102)</br>
+7. __Connect Mubert to Video Editor Audio Browser__ </br>
+   :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
+   Set Mubert API key in [AudioBrowser initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L20) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
 
 
 ## What is next?
