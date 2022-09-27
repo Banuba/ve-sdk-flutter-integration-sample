@@ -5,7 +5,7 @@ import Firebase
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
   
-  private var useBanubaTokenStorage = true
+  private var useBanubaTokenStorage = false
   
   override func application(
     _ application: UIApplication,
