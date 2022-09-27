@@ -2,7 +2,11 @@ import Foundation
 import BanubaVideoEditorSDK
 import BanubaAudioBrowserSDK
 
-class VideoEditorModule {
+protocol VideoEditor {
+  func openVideoEditor(fromViewController controller: FlutterViewController)
+}
+
+class VideoEditorModule: VideoEditor {
   
   private var videoEditorSDK: BanubaVideoEditor?
   
