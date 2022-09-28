@@ -13,33 +13,36 @@ class VideoEditorModule: VideoEditor {
   func openVideoEditor(
     fromViewController controller: FlutterViewController
   ) {
-    let config = createVideoEditorConfiguration()
+    initializeVideoEditor()
+    
+    DispatchQueue.main.async {
+      self.startVideoEditor(from: controller)
+    }
+  }
+  
+  private func initializeVideoEditor() {
+    let config = VideoEditorConfig()
     videoEditorSDK = BanubaVideoEditor(
       token: /*@START_MENU_TOKEN@*/"SET BANUBA VIDEO EDITOR TOKEN"/*@END_MENU_TOKEN@*/,
       configuration: config,
       externalViewControllerFactory: nil
     )
-
+    
     BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
-
+    
     videoEditorSDK?.delegate = self
-    DispatchQueue.main.async {
-      let config = VideoEditorLaunchConfig(
-        entryPoint: .camera,
-        hostController: controller,
-        animated: true
-      )
-      self.videoEditorSDK?.presentVideoEditor(
-        withLaunchConfiguration: config,
-        completion: nil
-      )
-    }
   }
   
-  private func createVideoEditorConfiguration() -> VideoEditorConfig {
-    let config = VideoEditorConfig()
-    // Do customization here
-    return config
+  private func startVideoEditor(from controller: FlutterViewController) {
+    let config = VideoEditorLaunchConfig(
+      entryPoint: .camera,
+      hostController: controller,
+      animated: true
+    )
+    self.videoEditorSDK?.presentVideoEditor(
+      withLaunchConfiguration: config,
+      completion: nil
+    )
   }
 }
 

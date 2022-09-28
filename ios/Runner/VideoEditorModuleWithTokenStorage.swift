@@ -7,9 +7,6 @@ import FirebaseDatabase
 class VideoEditorModuleWithTokenStorage: VideoEditor {
   
   private var videoEditorSDK: BanubaVideoEditor?
-  private lazy var activityIndicator: UIActivityIndicatorView = {
-    UIActivityIndicatorView(style: .gray)
-  }()
   private lazy var provider: VideoEditorTokenProvider = {
     let firebaseTokenProvider = FirebaseTokenProvider(
       targetURL:  /*@START_MENU_TOKEN@*/"SET FIREBASE DATABASE URL"/*@END_MENU_TOKEN@*/,
@@ -22,50 +19,46 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
     fromViewController controller: FlutterViewController
   ) {
     // Load token using BanubaTokenStorage. Store token in VideoEditorSDK-Info.plist for offline mode
-    fetchToken(in: controller) { [weak self] token in
-      self?.presentVideoEditor(token: token, fromViewController: controller)
+    fetchToken { [weak self] token in
+      guard let self = self else { return }
+      
+      self.initializeVideoEditor(token: token)
+      
+      DispatchQueue.main.async {
+        self.startVideoEditor(from: controller)
+      }
     }
   }
   
-  private func presentVideoEditor(token: String, fromViewController controller: FlutterViewController) {
-    let config = createVideoEditorConfiguration()
+  private func initializeVideoEditor(token: String) {
+    let config = VideoEditorConfig()
+    
     videoEditorSDK = BanubaVideoEditor(
       token: token,
       configuration: config,
       externalViewControllerFactory: nil
     )
-
-    BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
-
-    videoEditorSDK?.delegate = self
-    DispatchQueue.main.async {
-      let config = VideoEditorLaunchConfig(
-        entryPoint: .camera,
-        hostController: controller,
-        animated: true
-      )
-      self.videoEditorSDK?.presentVideoEditor(
-        withLaunchConfiguration: config,
-        completion: nil
-      )
-    }
-  }
-  
-  private func createVideoEditorConfiguration() -> VideoEditorConfig {
-    let config = VideoEditorConfig()
-    // Do customization here
-    return config
-  }
-  
-  private func fetchToken(in controller: UIViewController, completion: @escaping (_ token: String) -> Void) {
-    controller.view.addSubview(activityIndicator)
-    activityIndicator.center = controller.view.center
-    activityIndicator.center.y = 150
-    activityIndicator.startAnimating()
     
-    provider.loadToken { [weak self] error, token in
-      DispatchQueue.main.async { self?.activityIndicator.removeFromSuperview() }
-      guard let token = token else { fatalError("Something wrong with fetching token from Firebase") }
+    videoEditorSDK?.delegate = self
+    
+    BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
+  }
+  
+  private func startVideoEditor(from controller: FlutterViewController) {
+    let config = VideoEditorLaunchConfig(
+      entryPoint: .camera,
+      hostController: controller,
+      animated: true
+    )
+    self.videoEditorSDK?.presentVideoEditor(
+      withLaunchConfiguration: config,
+      completion: nil
+    )
+  }
+  
+  private func fetchToken(completion: @escaping (_ token: String) -> Void) {
+    provider.loadToken { error, token in
+      guard let token = token else { fatalError("Something went wrong with fetching token from Firebase") }
       completion(token)
     }
   }
