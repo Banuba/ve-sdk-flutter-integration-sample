@@ -5,6 +5,10 @@ import Firebase
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
   
+  /*
+   true - to enable Banuba token storage and load token from Firebase in this sample..
+   false - to use token stored locally.
+   */
   private var useBanubaTokenStorage = false
   
   override func application(
@@ -13,7 +17,6 @@ import Firebase
   ) -> Bool {
     var videoEditor: VideoEditor
     
-    // In case of using BanubaTokenStorageSDK and Firebase Database configure FirebaseApp
     if useBanubaTokenStorage {
       FirebaseApp.configure()
       videoEditor = VideoEditorModuleWithTokenStorage()

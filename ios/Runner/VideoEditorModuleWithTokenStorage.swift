@@ -18,7 +18,7 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
   func openVideoEditor(
     fromViewController controller: FlutterViewController
   ) {
-    // Load token using BanubaTokenStorage. Store token in VideoEditorSDK-Info.plist for offline mode
+    // It might take some time to fetch a token. You can show progress indicator to your users.
     fetchToken { [weak self] token in
       guard let self = self else { return }
       
