@@ -89,9 +89,18 @@ The following steps help to complete basic integration into your Flutter project
 
 6. __Update AndroidManifest.xml__ </br>
      Add ```VideoCreationActivity``` in your AndroidManifest.xml file. The Activity is used to bring together a number of screens in a certain flow.</br>
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml#L47)</br><br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml#L53)</br><br>
 
-7. __Add assets and resources__</br>
+7. __Add Network settings__ </br>
+     Add permissions into [AndroidManifest.xml](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml) 
+     ```xml
+       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+       <uses-permission android:name="android.permission.INTERNET" />
+     ```
+   and use ```android:usesCleartextTraffic="true"``` to allow network traffic for downloading effects from AR Cloud and stickers from [Giphy](https://giphy.com/).</br>
+   Please set up correctly [network security config](https://developer.android.com/training/articles/security-config) and use of ```android:usesCleartextTraffic``` based on this [doc](https://developer.android.com/guide/topics/manifest/application-element).<br></br>
+
+8. __Add assets and resources__</br>
       1. [bnb-resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/assets/bnb-resources) to use build-in Banuba AR and Lut effects.
       Using Banuba AR ```assets/bnb-resources/effects``` requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.<br></br>
    
@@ -106,7 +115,7 @@ The following steps help to complete basic integration into your Flutter project
    
       3. [values](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/values) to use colors and themes. Theme ```VideoCreationTheme``` and its styles use resources in **drawable** and **color** directories.<br></br>
 
-8. __Start Video Editor SDK__ </br>
+9. __Start Video Editor SDK__ </br>
     Use ```platform.invokeMethod``` to start Video Editor SDK from Flutter.</br>
     ```dart
        Future<void> _startVideoEditorAndroid() async {
@@ -120,9 +129,9 @@ The following steps help to complete basic integration into your Flutter project
    ```
     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L111).</br>
 
-9. __Connect Mubert to Video Editor Audio Browser__ </br>
-    :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
-    Set Mubert API key in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L8) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
+10. __Connect Mubert to Video Editor Audio Browser__ </br>
+     :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
+     Set Mubert API key in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L8) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
 
    
 ## What is next?
