@@ -54,21 +54,24 @@ class BanubaVideoEditorSDK {
         startKoin {
             androidContext(application)
             allowOverride(true)
-            
+
+            // IMPORTANT! order of modules is required
             modules(
                 VeSdkKoinModule().module,
                 VeExportKoinModule().module,
+                VePlaybackSdkKoinModule().module,
+
+                // Use AudioBrowserKoinModule ONLY if your contract includes this feature.
+                AudioBrowserKoinModule().module,
+
                 // IMPORTANT! ArCloudKoinModule should be set before TokenStorageKoinModule to get effects from the cloud
                 ArCloudKoinModule().module,
+
                 TokenStorageKoinModule().module,
                 VeUiSdkKoinModule().module,
                 VeFlowKoinModule().module,
                 BanubaEffectPlayerKoinModule().module,
                 GalleryKoinModule().module,
-                VePlaybackSdkKoinModule().module,
-
-                // Use module AudioBrowserKoinModule ONLY if your contract includes this feature.
-                AudioBrowserKoinModule().module,
 
                 // Sample integration module
                 SampleIntegrationVeKoinModule().module,
