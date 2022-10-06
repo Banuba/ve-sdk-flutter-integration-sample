@@ -22,10 +22,15 @@ class VideoEditorModule: VideoEditor {
   
   private func initializeVideoEditor() {
     let config = VideoEditorConfig()
+    
+    let viewControllerFactory = ViewControllerFactory()
+    let musicEditorViewControllerFactory = MusicEditorViewControllerFactory()
+    viewControllerFactory.musicEditorFactory = musicEditorViewControllerFactory
+    
     videoEditorSDK = BanubaVideoEditor(
       token: /*@START_MENU_TOKEN@*/"SET BANUBA VIDEO EDITOR TOKEN"/*@END_MENU_TOKEN@*/,
       configuration: config,
-      externalViewControllerFactory: nil
+      externalViewControllerFactory: viewControllerFactory
     )
     
     BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
