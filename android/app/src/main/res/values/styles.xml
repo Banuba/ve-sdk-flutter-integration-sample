@@ -378,6 +378,9 @@
         </item>
         <item name="audioBrowserErrorViewStyle">@style/CustomAudioBrowserErrorViewStyle</item>
         <item name="audioBrowserRecyclerViewStyle">@style/CustomAudioBrowserRecyclerViewStyle</item>
+        <item name="audioBrowserConnectionErrorTitle">@style/CustomAudioBrowserConnectionErrorTitleStyle</item>
+        <item name="audioBrowserConnectionErrorMessage">@style/CustomAudioBrowserConnectionErrorMessageStyle</item>
+        <item name="audioBrowserConnectionErrorBtn">@style/CustomAudioBrowserConnectionErrorBtnStyle</item>
         <item name="audioBrowserSearchViewStyle">@style/CustomAudioBrowserSearchViewStyle</item>
         <item name="audioBrowserCloseViewStyle">@style/CustomAudioBrowserCloseViewStyle</item>
         <item name="audioBrowserTitleViewStyle">@style/CustomAudioBrowserTitleViewStyle</item>
@@ -1201,6 +1204,12 @@
     <style name="CustomAudioBrowserErrorViewStyle" parent="AudioBrowserErrorViewStyle" />
 
     <style name="CustomAudioBrowserRecyclerViewStyle" parent="AudioBrowserRecyclerViewStyle" />
+
+    <style name="CustomAudioBrowserConnectionErrorTitleStyle" parent="AudioBrowserConnectionErrorTitleStyle" />
+
+    <style name="CustomAudioBrowserConnectionErrorMessageStyle" parent="AudioBrowserConnectionErrorMessageStyle"/>
+
+    <style name="CustomAudioBrowserConnectionErrorBtnStyle" parent="AudioBrowserConnectionErrorBtnStyle" />
 
     <style name="CustomAudioBrowserSearchViewStyle" parent="AudioBrowserSearchViewStyle" />
 
