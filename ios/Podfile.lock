@@ -35,6 +35,7 @@ PODS:
   - FirebaseDatabase (9.6.0):
     - FirebaseCore (~> 9.0)
     - leveldb-library (~> 1.22)
+  - Flutter (1.0.0)
   - GoogleDataTransport (9.2.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -50,6 +51,8 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
+  - path_provider_ios (0.0.1):
+    - Flutter
   - PromisesObjC (2.1.1)
   - VEEffectsSDK (1.24.1)
   - VEExportSDK (1.24.1)
@@ -72,6 +75,8 @@ DEPENDENCIES:
   - BanubaVideoEditorSDK (= 1.24.1)
   - BanubaVideoEditorTrimSDK (= 1.24.1)
   - BNBLicenseUtils (= 1.24.1)
+  - Flutter (from `Flutter`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - VEEffectsSDK (= 1.24.1)
   - VEExportSDK (= 1.24.1)
   - VEPlaybackSDK (= 1.24.1)
@@ -110,6 +115,12 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
 
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
+
 SPEC CHECKSUMS:
   BanubaARCloudSDK: 4b672f7f64f5d9367b9d5bf184add54aa4c74537
   BanubaAudioBrowserSDK: 57c944886ec511ef56ceb62988a2aee283284e56
@@ -131,16 +142,18 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 99a495094b10a57eeb3ae8efa1665700ad0bdaa6
   FirebaseCoreInternal: bca76517fe1ed381e989f5e7d8abb0da8d85bed3
   FirebaseDatabase: 3de19e533a73d45e25917b46aafe1dd344ec8119
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   VEEffectsSDK: 55473673265e3f50062b0988e357abbf39a08a60
   VEExportSDK: 5dff7cbf92aaf9e848ca341ea7dccf9eca257c68
   VEPlaybackSDK: ec6dd489c028c05b738327c8841d25ba3675883e
   VideoEditor: f0380d5ba43be94a9099d520830fbc0ccd83e16d
 
-PODFILE CHECKSUM: d1036b318f62b906c475ec314ffd8b66a68b14a8
+PODFILE CHECKSUM: 0425553aac6981cae96a16b951e035665c00031e
 
 COCOAPODS: 1.11.3

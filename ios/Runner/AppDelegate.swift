@@ -11,6 +11,8 @@ import Firebase
    */
   private var useBanubaTokenStorage = false
   
+  lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
+  
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -41,7 +43,13 @@ import Firebase
         }
       }
     }
+    
     GeneratedPluginRegistrant.register(with: self)
+    
+    // Register audio browser engine
+    audioBrowserFlutterEngine.run(withEntrypoint: "audioBrowser")
+    GeneratedPluginRegistrant.register(with: audioBrowserFlutterEngine)
+    
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

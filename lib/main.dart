@@ -2,10 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ve_sdk/audio_browser.dart';
 
 void main() {
   runApp(MyApp());
 }
+
+@pragma('vm:entry-point')
+void audioBrowser() => runApp(AudioBrowserWidget());
 
 class MyApp extends StatelessWidget {
   @override

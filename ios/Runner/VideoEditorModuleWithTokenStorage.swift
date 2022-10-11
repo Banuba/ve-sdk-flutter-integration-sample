@@ -36,7 +36,7 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
     videoEditorSDK = BanubaVideoEditor(
       token: token,
       configuration: config,
-      externalViewControllerFactory: nil
+      externalViewControllerFactory: FlutterExternalViewFactory()
     )
     
     videoEditorSDK?.delegate = self

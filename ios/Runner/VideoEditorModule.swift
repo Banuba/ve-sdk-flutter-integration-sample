@@ -22,10 +22,11 @@ class VideoEditorModule: VideoEditor {
   
   private func initializeVideoEditor() {
     let config = VideoEditorConfig()
+    // Use token without BanubaAudioBrowser support to open custom audio browser or remove pod BanubaAudioBrowser from Podfile
     videoEditorSDK = BanubaVideoEditor(
       token: /*@START_MENU_TOKEN@*/"SET BANUBA VIDEO EDITOR TOKEN"/*@END_MENU_TOKEN@*/,
       configuration: config,
-      externalViewControllerFactory: nil
+      externalViewControllerFactory: FlutterExternalViewFactory()
     )
     
     BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
