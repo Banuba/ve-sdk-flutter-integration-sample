@@ -33,11 +33,27 @@ import Firebase
       )
       
       channel.setMethodCallHandler { methodCall, result in
-        if methodCall.method == "openVideoEditor" {
-          videoEditor.openVideoEditor(
+        if methodCall.method == "StartBanubaVideoEditor" {
+          videoEditor.openVideoEditorDefault(
             fromViewController: controller
           )
           result("Success")
+        } else if methodCall.method == "StartBanubaVideoEditorPIP" {
+            let videoFilePath = methodCall.arguments as? String
+            if (videoFilePath == nil) {
+                result("Failed! Invalid video file path")
+                return
+            }
+            
+            let videoURL = URL.init(fileURLWithPath: videoFilePath!)
+            
+            videoEditor.openVideoEditorPIP(
+              fromViewController: controller,
+              videoURL: videoURL
+            )
+            
+            result("Success")
+            
         }
       }
     }
