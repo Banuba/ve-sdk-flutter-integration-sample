@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,6 +35,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const platform = MethodChannel('startActivity/VideoEditorChannel');
+
+  Future<void> _startVideoEditorPipAndroid() async {
+    try {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
+
+      if (file == null) {
+        debugPrint('Cannot open video editor with PIP - video was not selected!');
+      } else {
+        debugPrint('Open video editor in pip with video = ${file.path}');
+        final result = await platform.invokeMethod('StartBanubaVideoEditorPIP', file.path);
+        debugPrint('Result: $result ');
+      }
+    } on PlatformException catch (e) {
+      debugPrint("Error: '${e.message}'.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +93,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Open Banuba Video Editor',
                 style: TextStyle(
                   fontSize: 17.0,
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+            MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              disabledColor: Colors.grey,
+              disabledTextColor: Colors.black,
+              padding: const EdgeInsets.all(16.0),
+              splashColor: Colors.blueAccent,
+              onPressed: () => _startVideoEditorPipAndroid(),
+              child: const Text(
+                'Open Video Editor - PIP',
+                style: TextStyle(
+                  fontSize: 15.0,
                 ),
               ),
             )

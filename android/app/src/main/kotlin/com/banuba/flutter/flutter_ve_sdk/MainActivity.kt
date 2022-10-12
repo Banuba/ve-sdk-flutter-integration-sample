@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
@@ -11,11 +12,13 @@ import com.banuba.sdk.ve.flow.VideoCreationActivity
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
+import java.io.File
 
 class MainActivity : FlutterActivity() {
 
     companion object {
         private const val VIDEO_EDITOR_REQUEST_CODE = 7788
+        const val TAG = "FlutterVE"
     }
 
     private val CHANNEL = "startActivity/VideoEditorChannel"
@@ -35,7 +38,22 @@ class MainActivity : FlutterActivity() {
             // Listen to call from Flutter side
             if (call.method.equals("StartBanubaVideoEditor")) {
                 exportVideoChanelResult = result
-                startVideoEditorSDK()
+                startVideoEditorModeNormal()
+            } else if (call.method.equals("StartBanubaVideoEditorPIP")) {
+                exportVideoChanelResult = result
+
+                val videoFilePath = call.arguments as? String
+                Log.d(TAG, "Trying to start video editor in pip mode with video = $videoFilePath")
+
+                val videoUri = videoFilePath?.let { Uri.fromFile(File(it)) }
+                if (videoUri == null) {
+                    Log.w(
+                        TAG,
+                        "Cannot create 'Uri' to start video editor in PIP mode with video = $videoFilePath."
+                    )
+                } else {
+                    startVideoEditorModePIP(videoUri)
+                }
             } else {
                 result.notImplemented()
             }
@@ -52,12 +70,13 @@ class MainActivity : FlutterActivity() {
             }
             exportVideoChanelResult.success(exportedVideoResult.toString())
         } else {
-            exportVideoChanelResult.success(null)
+            // TODO
+            //exportVideoChanelResult.success(null)
             super.onActivityResult(requestCode, result, intent)
         }
     }
 
-    private fun startVideoEditorSDK() {
+    private fun startVideoEditorModeNormal() {
         startActivityForResult(
             VideoCreationActivity.startFromCamera(
                 context = this,
@@ -73,4 +92,22 @@ class MainActivity : FlutterActivity() {
             ), VIDEO_EDITOR_REQUEST_CODE
         )
     }
+
+    private fun startVideoEditorModePIP(pipVideo: Uri) {
+        startActivityForResult(
+            VideoCreationActivity.startFromCamera(
+                context = this,
+                // setup data that will be acceptable during export flow
+                additionalExportData = null,
+                // set TrackData object if you open VideoCreationActivity with preselected music track
+                audioTrackData = null,
+                // set PiP video configuration
+                pictureInPictureConfig = PipConfig(
+                    video = pipVideo,
+                    openPipSettings = false
+                )
+            ), VIDEO_EDITOR_REQUEST_CODE
+        )
+    }
+
 }
