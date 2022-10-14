@@ -29,7 +29,6 @@ import com.banuba.sdk.export.data.ExportParamsProvider
 import com.banuba.sdk.export.data.ForegroundExportFlowManager
 import com.banuba.sdk.export.di.VeExportKoinModule
 import com.banuba.sdk.gallery.di.GalleryKoinModule
-import com.banuba.sdk.playback.PlayerType
 import com.banuba.sdk.playback.di.VePlaybackSdkKoinModule
 import com.banuba.sdk.token.storage.di.TokenStorageKoinModule
 import com.banuba.sdk.ve.di.VeSdkKoinModule
@@ -163,10 +162,6 @@ private class SampleIntegrationVeKoinModule {
             ObjectEditorConfig(
                 objectEffectDefaultDuration = 2000
             )
-        }
-
-        factory<PlayerType>{
-            PlayerType.AV
         }
     }
 }
