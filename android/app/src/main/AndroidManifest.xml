@@ -59,5 +59,19 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!--
+        NOT REQUIRED FOR INTEGRATION
+        Added for playing exported video file.
+        -->
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 </manifest>
