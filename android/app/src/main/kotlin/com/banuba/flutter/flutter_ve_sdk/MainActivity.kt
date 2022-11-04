@@ -34,7 +34,7 @@ class MainActivity : FlutterActivity() {
         private const val CHANNEL = "startActivity/VideoEditorChannel"
     }
 
-    private lateinit var exportVideoChanelResult: MethodChannel.Result
+    private var exportVideoChanelResult: MethodChannel.Result? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,7 @@ class MainActivity : FlutterActivity() {
             appFlutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
         ).setMethodCallHandler { call, result ->
+            // Initialize export result callback that will allow to deliver results back to Flutter
             exportVideoChanelResult = result
 
             when (call.method) {
@@ -59,7 +60,7 @@ class MainActivity : FlutterActivity() {
                             TAG,
                             "Missing or invalid video file path = [$videoFilePath] to start video editor in PIP mode."
                         )
-                        exportVideoChanelResult.error(
+                        exportVideoChanelResult?.error(
                             ERR_START_PIP_MISSING_VIDEO,
                             "Missing video to start video editor in PIP mode",
                             null
@@ -82,7 +83,7 @@ class MainActivity : FlutterActivity() {
                             TAG,
                             "Missing or invalid video file path = [$videoFilePath] to play video."
                         )
-                        exportVideoChanelResult.error(
+                        exportVideoChanelResult?.error(
                             ERR_EXPORT_PLAY_MISSING_VIDEO,
                             "Missing exported video file path to play",
                             null
@@ -107,14 +108,14 @@ class MainActivity : FlutterActivity() {
                 val exportResult =
                     intent?.getParcelableExtra(EXTRA_EXPORTED_SUCCESS) as? ExportResult.Success
                 if (exportResult == null) {
-                   exportVideoChanelResult.error(
+                   exportVideoChanelResult?.error(
                         ERR_MISSING_EXPORT_RESULT,
                         "Export finished with no result!",
                         null
                     )
                 } else {
                     val data = prepareExportData(exportResult)
-                    exportVideoChanelResult.success(data)
+                    exportVideoChanelResult?.success(data)
                 }
             }
         }
