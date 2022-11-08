@@ -1,3 +1,5 @@
+let isPlaying = true;
+
 function Effect() {
     var self = this;
     
@@ -12,8 +14,14 @@ function Effect() {
         
         Api.meshfxMsg("spawn", 0, 0, "!glfx_FACE");
         Api.playVideo("frx", true, 1);
-        Api.playVideo("foreground", true, 1);
+        // Api.playVideo("foreground", true, 1);
+        isPlaying && Api.playSound("LinesBGM.ogg", true, 1);
     };
+}
+
+function stopMusic(){
+    isPlaying = false;
+    Api.stopSound("LinesBGM.ogg");
 }
 
 configure(new Effect());
