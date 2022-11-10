@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.FileProvider
 import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
@@ -19,11 +20,21 @@ class MainActivity : FlutterActivity() {
     companion object {
         private const val VIDEO_EDITOR_REQUEST_CODE = 7788
         const val TAG = "FlutterVE"
+
+        private const val METHOD_START_VIDEO_EDITOR = "StartBanubaVideoEditor"
+        private const val METHOD_START_VIDEO_EDITOR_PIP = "StartBanubaVideoEditorPIP"
+        private const val METHOD_DEMO_PLAY_EXPORTED_VIDEO = "PlayExportedVideo"
+
+        private const val ERR_MISSING_EXPORT_RESULT = "ERR_MISSING_EXPORT_RESULT"
+        private const val ERR_START_PIP_MISSING_VIDEO = "ERR_START_PIP_MISSING_VIDEO"
+        private const val ERR_EXPORT_PLAY_MISSING_VIDEO = "ERR_EXPORT_PLAY_MISSING_VIDEO"
+
+        private const val ARG_EXPORTED_VIDEO_FILE = "exportedVideoFilePath"
+
+        private const val CHANNEL = "startActivity/VideoEditorChannel"
     }
 
-    private val CHANNEL = "startActivity/VideoEditorChannel"
-
-    private lateinit var exportVideoChanelResult: MethodChannel.Result
+    private var exportVideoChanelResult: MethodChannel.Result? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,44 +46,78 @@ class MainActivity : FlutterActivity() {
             appFlutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
         ).setMethodCallHandler { call, result ->
-            // Listen to call from Flutter side
-            if (call.method.equals("StartBanubaVideoEditor")) {
-                exportVideoChanelResult = result
-                startVideoEditorModeNormal()
-            } else if (call.method.equals("StartBanubaVideoEditorPIP")) {
-                exportVideoChanelResult = result
+            // Initialize export result callback that will allow to deliver results back to Flutter
+            exportVideoChanelResult = result
 
-                val videoFilePath = call.arguments as? String
-                Log.d(TAG, "Trying to start video editor in pip mode with video = $videoFilePath")
+            when (call.method) {
+                METHOD_START_VIDEO_EDITOR -> startVideoEditorModeNormal()
 
-                val videoUri = videoFilePath?.let { Uri.fromFile(File(it)) }
-                if (videoUri == null) {
-                    Log.w(
-                        TAG,
-                        "Cannot create 'Uri' to start video editor in PIP mode with video = $videoFilePath."
-                    )
-                } else {
-                    startVideoEditorModePIP(videoUri)
+                METHOD_START_VIDEO_EDITOR_PIP -> {
+                    val videoFilePath = call.arguments as? String
+                    val pipVideoUri = videoFilePath?.let { Uri.fromFile(File(it)) }
+                    if (pipVideoUri == null) {
+                        Log.w(
+                            TAG,
+                            "Missing or invalid video file path = [$videoFilePath] to start video editor in PIP mode."
+                        )
+                        exportVideoChanelResult?.error(
+                            ERR_START_PIP_MISSING_VIDEO,
+                            "Missing video to start video editor in PIP mode",
+                            null
+                        )
+                    } else {
+                        startVideoEditorModePIP(pipVideoUri)
+                    }
                 }
-            } else {
-                result.notImplemented()
+
+                /*
+                NOT REQUIRED FOR INTEGRATION
+                Added for playing exported video file.
+                */
+                METHOD_DEMO_PLAY_EXPORTED_VIDEO -> {
+                    val videoFilePath = call.arguments as? String
+                    val exportedVideoUri = videoFilePath?.let { Uri.fromFile(File(it)) }
+
+                    if (exportedVideoUri == null) {
+                        Log.w(
+                            TAG,
+                            "Missing or invalid video file path = [$videoFilePath] to play video."
+                        )
+                        exportVideoChanelResult?.error(
+                            ERR_EXPORT_PLAY_MISSING_VIDEO,
+                            "Missing exported video file path to play",
+                            null
+                        )
+                    } else {
+                        demoPlayExportedVideo(exportedVideoUri)
+                        result.success(null)
+                    }
+                }
+
+                else -> result.notImplemented()
             }
         }
     }
 
     // Observe export video results
     override fun onActivityResult(requestCode: Int, result: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, result, intent)
+
         if (requestCode == VIDEO_EDITOR_REQUEST_CODE) {
-            val exportedVideoResult = if (result == Activity.RESULT_OK) {
-                intent?.getParcelableExtra(EXTRA_EXPORTED_SUCCESS) as? ExportResult.Success
-            } else {
-                ExportResult.Inactive
+            if (result == Activity.RESULT_OK) {
+                val exportResult =
+                    intent?.getParcelableExtra(EXTRA_EXPORTED_SUCCESS) as? ExportResult.Success
+                if (exportResult == null) {
+                   exportVideoChanelResult?.error(
+                        ERR_MISSING_EXPORT_RESULT,
+                        "Export finished with no result!",
+                        null
+                    )
+                } else {
+                    val data = prepareExportData(exportResult)
+                    exportVideoChanelResult?.success(data)
+                }
             }
-            exportVideoChanelResult.success(exportedVideoResult.toString())
-        } else {
-            // TODO
-            //exportVideoChanelResult.success(null)
-            super.onActivityResult(requestCode, result, intent)
         }
     }
 
@@ -110,4 +155,33 @@ class MainActivity : FlutterActivity() {
         )
     }
 
+    // Customize export data results to meet your requirements.
+    // You can use Map or JSON to pass custom data for your app.
+    private fun prepareExportData(result: ExportResult.Success): Map<String, Any?> {
+        // First exported video file path is used to play video in this sample to demonstrate
+        // the result of video export.
+        // You can provide your custom logic.
+        val firstVideoFilePath = result.videoList[0].sourceUri.toString()
+        val data = mapOf(
+            ARG_EXPORTED_VIDEO_FILE to firstVideoFilePath
+        )
+        return data
+    }
+
+    /*
+    NOT REQUIRED FOR INTEGRATION
+    Added for playing exported video file.
+    */
+    private fun demoPlayExportedVideo(videoUri: Uri) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            val uri = FileProvider.getUriForFile(
+                applicationContext,
+                "$packageName.provider",
+                File(videoUri.encodedPath)
+            )
+            setDataAndType(uri, "video/mp4")
+        }
+        startActivity(intent)
+    }
 }

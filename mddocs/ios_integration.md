@@ -8,7 +8,7 @@ The following steps help to complete basic integration into your Flutter project
 
 <ins>All changes are made in **ios** directory.</ins>
 1. __Set Banuba Video Editor SDK token__  
-   Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L26).<br></br>
+   Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L65).<br></br>
    To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.<br>
    :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.  
    Check this [guide](#Obtain-Banuba-Video-Editor-SDK-token-from-a-server) to store and obtain a token from a server.<br></br>
@@ -23,7 +23,7 @@ The following steps help to complete basic integration into your Flutter project
 
 4. __Setup platform channel to start Video Editor SDK__  
    Create ```FlutterMethodChannel``` in your ```AppDelegate``` instance to start ```VideoEditorModule```.</br>
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#30)</br>
+   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#49)</br>
    Find more information about platform channels in [Flutter developer documentation](https://docs.flutter.dev/development/platform-integration/platform-channels).</br><br>
 
 5. __Add assets and resources__  
@@ -32,20 +32,20 @@ The following steps help to complete basic integration into your Flutter project
 
 6. __Start Video Editor SDK__  
    Use ```platform.invokeMethod``` to start Video Editor SDK from Flutter.</br>
-   ```dart
-      Future<void> _startVideoEditorIos() async {
-      try {
-        final result = await platform.invokeMethod('openVideoEditor');
-        debugPrint('Result: $result ');
-      } on PlatformException catch (e) {
-        debugPrint("Error: '${e.message}'.");
+    ```dart
+       Future<void> _startVideoEditorDefault() async {
+          try {
+            final result = await platform.invokeMethod('StartBanubaVideoEditor');
+            ...
+          } on PlatformException catch (e) {
+            debugPrint("Error: '${e.message}'.");
+         }
       }
-    }
    ```
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L102)</br>
+   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L49)</br>
 7. __Connect Mubert to Video Editor Audio Browser__ </br>
    :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
-   Set Mubert API key in [AudioBrowser initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L31) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
+   Set Mubert API key in [AudioBrowser initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L70) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
 
 ## Obtain Banuba Video Editor SDK token from a server  
 
@@ -68,11 +68,11 @@ Next, you will see how to use Firebase Realtime Database and start Banuba Video 
    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/BanubaVideoEditorSDK-Info.plist)<br></br>
 4. __Set Firebase Database params__   
    Set ```targetURL``` and ```tokenSnapshot``` of your Firebase Database in ```FirebaseTokenProvider``` class.</br>
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModuleWithTokenStorage.swift#L11)<br></br>
+   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModuleWithTokenStorage.swift#L17)<br></br>
 5. __Usage__  
-   Set ```true``` to ```useBanubaTokenStorage``` in [AppDelegate](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L12) to enable Token Storage. 
+   Set ```true``` to ```useBanubaTokenStorage``` in [AppDelegate](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L26) to enable Token Storage. 
    Use fetched token to initialize and start Video Editor SDK.  
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModuleWithTokenStorage.swift#L25)<br></br>
+   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModuleWithTokenStorage.swift#L34)<br></br>
 
 Check [API for using token from Firebase in the SDK](https://github.com/Banuba/ve-sdk-ios-integration-sample/blob/Add_description_using_banuba_token_storage_sdk/mdDocs/token_on_firebase.md) to get more information about integration.
 
