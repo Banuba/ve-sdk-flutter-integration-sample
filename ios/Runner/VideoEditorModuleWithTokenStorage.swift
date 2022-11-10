@@ -132,7 +132,8 @@ extension VideoEditorModuleWithTokenStorage {
         
         // Export func
         videoEditorSDK?.export(
-            using: exportConfiguration
+            using: exportConfiguration,
+            exportProgress: nil
         ) { [weak self] (success, error, coverImage) in
             // Export Callback
             DispatchQueue.main.async {

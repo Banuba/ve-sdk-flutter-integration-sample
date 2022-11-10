@@ -27,7 +27,7 @@ apply plugin: 'kotlin-android-extensions'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -41,7 +41,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.banuba.flutter.flutter_ve_sdk"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -73,7 +73,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Banuba Video Editor SDK dependencies
-    def banubaSdkVersion = '1.24.2'
+    def banubaSdkVersion = '1.25.0'
     implementation "com.banuba.sdk:ffmpeg:4.4"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
