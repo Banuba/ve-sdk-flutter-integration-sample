@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:ui' as ui;
-
-import 'package:flutter_ve_sdk/file_provider.dart';
+import 'package:flutter_ve_sdk/file_plugin.dart';
+import 'package:uuid/uuid.dart';
 
 class AudioBrowserWidget extends StatefulWidget {
   AudioBrowserWidget({
@@ -18,7 +19,14 @@ class AudioBrowserWidget extends StatefulWidget {
 }
 
 class _AudioBrowserState extends State<AudioBrowserWidget> {
-  static const platform = MethodChannel('audioBrowserChannel');
+  static const _channelName = 'audioBrowserChannel';
+  static const _methodApplyAudioTrack = 'applyAudioTrack';
+  static const _methodDiscardAudioTrack = 'discardAudioTrack';
+  static const _methodClose = 'close';
+
+  static const _sampleAudioTrack = "sample_audio.mp3";
+
+  static const _methodChannel = MethodChannel(_channelName);
 
   @override
   Widget build(BuildContext context) {
@@ -38,38 +46,40 @@ class _AudioBrowserState extends State<AudioBrowserWidget> {
                 disabledTextColor: Colors.black,
                 padding: const EdgeInsets.all(12.0),
                 splashColor: Colors.blueAccent,
+                minWidth: 240,
                 onPressed: () {
-                  _useLocalAudio();
+                  _applyLocalAudio();
                 },
                 child: const Text(
-                  'Use local audio',
+                  'Apply audio track',
                   style: TextStyle(
-                    fontSize: 17.0,
+                    fontSize: 14.0,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 40.0,
+                height: 24.0,
               ),
               MaterialButton(
-                color: Colors.yellow,
+                color: Colors.red,
                 textColor: Colors.white,
                 disabledColor: Colors.grey,
                 disabledTextColor: Colors.black,
                 padding: const EdgeInsets.all(12.0),
-                splashColor: Colors.blueAccent,
+                splashColor: Colors.redAccent,
+                minWidth: 240,
                 onPressed: () {
-                  _stopUsingCurrentTrack();
+                  _discardLocalAudio();
                 },
                 child: const Text(
-                  'Stop using track',
+                  'Discard audio track',
                   style: TextStyle(
-                    fontSize: 17.0,
+                    fontSize: 14.0,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 40.0,
+                height: 24.0,
               ),
               MaterialButton(
                 color: Colors.grey,
@@ -77,14 +87,15 @@ class _AudioBrowserState extends State<AudioBrowserWidget> {
                 disabledColor: Colors.grey,
                 disabledTextColor: Colors.black,
                 padding: const EdgeInsets.all(12.0),
-                splashColor: Colors.blueAccent,
+                splashColor: Colors.grey,
+                minWidth: 240,
                 onPressed: () {
                   _close();
                 },
                 child: const Text(
                   'Close',
                   style: TextStyle(
-                    fontSize: 17.0,
+                    fontSize: 14.0,
                   ),
                 ),
               ),
@@ -95,46 +106,75 @@ class _AudioBrowserState extends State<AudioBrowserWidget> {
     );
   }
 
-  Future<void> _useLocalAudio() async {
+  /// Applies provided audio track in Video Editor SDK
+  /// Banuba Video Editor SDK is not responsible for downloading or managing remote audio files.
+  /// The SDK can only apply audio file stored on the device.
+  /// This sample demonstrates how locally stored audio file can be applied in Video Editor SDK
+  Future<void> _applyLocalAudio() async {
+    debugPrint('Apply audio track');
     try {
-      // Banuba VE is not responsible for downloading music track. You should use local URI to music file here
-      final trackUrl = await FilePlugin().createAssetFileUri("assets/audio/", "sample_audio.mp3");
-      final args = {
-        "url": trackUrl.toString(),
-        "id": 111,
-        "title": "My favorite song",
-      };
-      final result = await platform.invokeMethod(
-        'trackSelected',
-        jsonEncode(args),
-      );
-      debugPrint('Result: $result ');
+      final audioTrackUri =
+          await FilePlugin().createAssetFileUri("assets/audio/", _sampleAudioTrack);
+
+      final dynamic result;
+      if (Platform.isAndroid) {
+        final androidArgs = {
+          "url": audioTrackUri.toString(),
+          "id": Uuid().v1(),
+          "artist": "The best artist",
+          "title": "My favorite song",
+        };
+
+        result = await _methodChannel.invokeMethod(_methodApplyAudioTrack, jsonEncode(androidArgs));
+      } else {
+        final iosArgs = {
+          "url": audioTrackUri.toString(),
+          "id": 111,
+          "artist": "The best artist",
+          "title": "My favorite song",
+        };
+        result = await _methodChannel.invokeMethod(_methodApplyAudioTrack, jsonEncode(iosArgs));
+      }
+
+      debugPrint('Apply audio track result: $result ');
     } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
+      debugPrint("Error while applying audio track: '${e.message}'.");
     }
   }
 
-  Future<void> _stopUsingCurrentTrack() async {
+  /// Discards last used audio track in Video Editor SDK
+  /// Use this method if you need to reset audio track.
+  /// The user decides to discard or change previous audio track on your custom audio browser screen.
+  Future<void> _discardLocalAudio() async {
+    debugPrint('Discard audio track');
     try {
-      final args = {
-        "id": 111,
-      };
-      final result = await platform.invokeMethod(
-        'stopUsingTrack',
-        jsonEncode(args),
-      );
-      debugPrint('Result: $result ');
+      final dynamic result;
+      if (Platform.isAndroid) {
+        result = await _methodChannel.invokeMethod(_methodDiscardAudioTrack);
+      } else {
+        final iosArgs = {
+          "id": 111,
+        };
+        result = await _methodChannel.invokeMethod(
+          _methodDiscardAudioTrack,
+          jsonEncode(iosArgs),
+        );
+      }
+      debugPrint('Discard audio track result: $result ');
     } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
+      debugPrint("Error while discarding audio track: '${e.message}'.");
     }
   }
 
+  /// Closes custom audio browser. In this case previous audio track will be used
   Future<void> _close() async {
+    debugPrint('Close custom audio browser');
+
     try {
-      final result = await platform.invokeMethod('close');
-      debugPrint('Result: $result ');
+      final result = await _methodChannel.invokeMethod(_methodClose);
+      debugPrint('Close result: $result ');
     } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
+      debugPrint("Error while closing: '${e.message}'.");
     }
   }
 }

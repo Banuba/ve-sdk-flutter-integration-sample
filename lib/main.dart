@@ -8,6 +8,7 @@ void main() {
   runApp(MyApp());
 }
 
+/// The entry point for Audio Browser implementation
 @pragma('vm:entry-point')
 void audioBrowser() => runApp(AudioBrowserWidget());
 
@@ -106,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(15.0),
               child: Text(
                 'The sample demonstrates how to run Banuba Video Editor SDK with Flutter',
                 textAlign: TextAlign.center,
@@ -122,11 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
               disabledTextColor: Colors.black,
               padding: const EdgeInsets.all(12.0),
               splashColor: Colors.blueAccent,
+              minWidth: 240,
               onPressed: () => _startVideoEditorDefault(),
               child: const Text(
                 'Open Video Editor - Default',
                 style: TextStyle(
-                  fontSize: 17.0,
+                  fontSize: 14.0,
                 ),
               ),
             ),
@@ -138,11 +140,12 @@ class _MyHomePageState extends State<MyHomePage> {
               disabledTextColor: Colors.black,
               padding: const EdgeInsets.all(16.0),
               splashColor: Colors.greenAccent,
+              minWidth: 240,
               onPressed: () => _startVideoEditorPIP(),
               child: const Text(
                 'Open Video Editor - PIP',
                 style: TextStyle(
-                  fontSize: 17.0,
+                  fontSize: 14.0,
                 ),
               ),
             )
@@ -187,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Text(
               'Cancel',
               style: TextStyle(
-                fontSize: 17.0,
+                fontSize: 14.0,
               ),
             ),
           ),
@@ -205,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Text(
               'Ok',
               style: TextStyle(
-                fontSize: 17.0,
+                fontSize: 14.0,
               ),
             ),
           )

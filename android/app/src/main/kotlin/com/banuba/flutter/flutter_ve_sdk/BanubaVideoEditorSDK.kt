@@ -132,10 +132,15 @@ private class SampleIntegrationVeKoinModule {
             )
         }
 
+        // Audio Browser provider implementation.
         single<ContentFeatureProvider<TrackData, Fragment>>(
             named("musicTrackProvider")
         ) {
-            AudioBrowserMusicProvider()
+            // Use AudioBrowserMusicProvider to check built-in Video Editor Audio Browser.
+            //AudioBrowserMusicProvider()
+
+            // Use AudioBrowserContentProvider to check custom sample Audio Browser.
+            AudioBrowserContentProvider()
         }
 
         single<CoverProvider> {
