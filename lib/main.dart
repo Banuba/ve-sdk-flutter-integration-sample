@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ve_sdk/audio_browser.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Banuba VE SDK Sample'),
+      home: MyHomePage(title: 'Banuba Video Editor SDK Sample'),
     );
   }
 }
@@ -37,7 +37,63 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const platform = MethodChannel('startActivity/VideoEditorChannel');
+  static const channelName = 'startActivity/VideoEditorChannel';
+
+  static const methodStartVideoEditor = 'StartBanubaVideoEditor';
+  static const methodStartVideoEditorPIP = 'StartBanubaVideoEditorPIP';
+  static const methodDemoPlayExportedVideo = 'PlayExportedVideo';
+
+  static const errMissingExportResult = 'ERR_MISSING_EXPORT_RESULT';
+  static const errStartPIPMissingVideo = 'ERR_START_PIP_MISSING_VIDEO';
+  static const errExportPlayMissingVideo = 'ERR_EXPORT_PLAY_MISSING_VIDEO';
+
+  static const argExportedVideoFile = 'exportedVideoFilePath';
+
+  static const platform = MethodChannel(channelName);
+
+  Future<void> _startVideoEditorDefault() async {
+    try {
+      final result = await platform.invokeMethod(methodStartVideoEditor);
+
+      _handleExportResult(result);
+    } on PlatformException catch (e) {
+      debugPrint("Error: '${e.message}'.");
+      _showAlert(context, 'Platform is not supported!');
+    }
+  }
+
+  void _handleExportResult(dynamic result) {
+    debugPrint('Export result = $result');
+
+    // You can use any kind of export result passed from platform.
+    // Map is used for this sample to demonstrate playing exported video file.
+    if (result is Map) {
+      final exportedVideoFilePath = result[argExportedVideoFile];
+      _showConfirmation(context, "Play exported video file?", () {
+        platform.invokeMethod(methodDemoPlayExportedVideo, exportedVideoFilePath);
+      });
+    }
+  }
+
+  Future<void> _startVideoEditorPIP() async {
+    try {
+      // Use your implementation to provide correct video file path to start Video Editor SDK in PIP mode
+      final ImagePicker _picker = ImagePicker();
+      final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
+
+      if (file == null) {
+        debugPrint('Cannot open video editor with PIP - video was not selected!');
+      } else {
+        debugPrint('Open video editor in pip with video = ${file.path}');
+        final result = await platform.invokeMethod(methodStartVideoEditorPIP, file.path);
+
+        _handleExportResult(result);
+      }
+    } on PlatformException catch (e) {
+      debugPrint("Error: '${e.message}'.");
+      _showAlert(context, 'Platform is not supported!');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +122,25 @@ class _MyHomePageState extends State<MyHomePage> {
               disabledTextColor: Colors.black,
               padding: const EdgeInsets.all(12.0),
               splashColor: Colors.blueAccent,
-              onPressed: () {
-                if (Platform.isAndroid) {
-                  _startVideoEditorAndroid();
-                } else if (Platform.isIOS) {
-                  _startVideoEditorIos();
-                } else {
-                  _showAlert(context, 'Platform is not supported!');
-                }
-              },
+              onPressed: () => _startVideoEditorDefault(),
               child: const Text(
-                'Open Banuba Video Editor',
+                'Open Video Editor - Default',
+                style: TextStyle(
+                  fontSize: 17.0,
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+            MaterialButton(
+              color: Colors.green,
+              textColor: Colors.white,
+              disabledColor: Colors.grey,
+              disabledTextColor: Colors.black,
+              padding: const EdgeInsets.all(16.0),
+              splashColor: Colors.greenAccent,
+              onPressed: () => _startVideoEditorPIP(),
+              child: const Text(
+                'Open Video Editor - PIP',
                 style: TextStyle(
                   fontSize: 17.0,
                 ),
@@ -101,21 +165,52 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> _startVideoEditorIos() async {
-    try {
-      final result = await platform.invokeMethod('openVideoEditor');
-      debugPrint('Result: $result ');
-    } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
-    }
-  }
-
-  Future<void> _startVideoEditorAndroid() async {
-    try {
-      final result = await platform.invokeMethod('StartBanubaVideoEditor');
-      debugPrint('Result: $result ');
-    } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
-    }
+  void _showConfirmation(
+      BuildContext context,
+      String message,
+      VoidCallback block
+      ) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Demo'),
+        content: Text(message),
+        actions: [
+          MaterialButton(
+            color: Colors.red,
+            textColor: Colors.white,
+            disabledColor: Colors.grey,
+            disabledTextColor: Colors.black,
+            padding: const EdgeInsets.all(12.0),
+            splashColor: Colors.redAccent,
+            onPressed: () => { Navigator.pop(context) },
+            child: const Text(
+              'Cancel',
+              style: TextStyle(
+                fontSize: 17.0,
+              ),
+            ),
+          ),
+          MaterialButton(
+            color: Colors.green,
+            textColor: Colors.white,
+            disabledColor: Colors.grey,
+            disabledTextColor: Colors.black,
+            padding: const EdgeInsets.all(12.0),
+            splashColor: Colors.greenAccent,
+            onPressed: () {
+              Navigator.pop(context);
+              block.call();
+            },
+            child: const Text(
+              'Ok',
+              style: TextStyle(
+                fontSize: 17.0,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

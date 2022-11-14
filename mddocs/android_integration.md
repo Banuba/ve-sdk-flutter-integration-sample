@@ -72,19 +72,13 @@ The following steps help to complete basic integration into your Flutter project
             appFlutterEngine.dartExecutor.binaryMessenger,
             "CHANNEL"
         ).setMethodCallHandler { call, result ->
-            // Listen to call from Flutter side
-            if (call.method.equals("StartBanubaVideoEditor")) {
-                exportVideoChanelResult = result
-                startVideoEditorSDK()
-            } else {
-                result.notImplemented()
-            }
+            // Handle method calls
         }
      ```
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L31).<br></br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L45).<br></br>
      Use ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor SDK from Camera screen.
      Once Video Editor SDK starts you can observe export video results.</br>
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L46)</br><br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L105)</br><br>
      Find more information about platform channels in [Flutter developer documentation](https://docs.flutter.dev/development/platform-integration/platform-channels).</br><br>
 
 6. __Update AndroidManifest.xml__ </br>
@@ -118,16 +112,16 @@ The following steps help to complete basic integration into your Flutter project
 9. __Start Video Editor SDK__ </br>
     Use ```platform.invokeMethod``` to start Video Editor SDK from Flutter.</br>
     ```dart
-       Future<void> _startVideoEditorAndroid() async {
+       Future<void> _startVideoEditorDefault() async {
           try {
             final result = await platform.invokeMethod('StartBanubaVideoEditor');
-            debugPrint('Result: $result ');
+            ...
           } on PlatformException catch (e) {
             debugPrint("Error: '${e.message}'.");
          }
       }
    ```
-    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L111).</br>
+    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L49).</br>
 
 10. __Connect Mubert to Video Editor Audio Browser__ </br>
      :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
