@@ -39,7 +39,6 @@ class MainActivity : FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val appFlutterEngine = requireNotNull(flutterEngine)
-
         GeneratedPluginRegistrant.registerWith(appFlutterEngine)
 
         MethodChannel(

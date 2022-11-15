@@ -2,28 +2,37 @@ import UIKit
 import Flutter
 import Firebase
 import AVKit
+import BanubaAudioBrowserSDK
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-    
-    static let channelName = "startActivity/VideoEditorChannel"
-
-    static let methodStartVideoEditor = "StartBanubaVideoEditor"
-    static let methodStartVideoEditorPIP = "StartBanubaVideoEditorPIP"
-    static let methodDemoPlayExportedVideo = "PlayExportedVideo"
-
-    static let errMissingExportResult = "ERR_MISSING_EXPORT_RESULT"
-    static let errStartPIPMissingVideo = "ERR_START_PIP_MISSING_VIDEO"
-    static let errExportPlayMissingVideo = "ERR_EXPORT_PLAY_MISSING_VIDEO"
-
-    static let argExportedVideoFile = "exportedVideoFilePath"
-    
     
     /*
      true - to enable Banuba token storage and load token from Firebase in this sample..
      false - to use token stored locally.
      */
-    private var useBanubaTokenStorage = false
+    private let useBanubaTokenStorage = false
+    
+    /*
+     true - uses custom audio browser implementation in this sample.
+     false - to keep default implementation.
+     */
+    private let useCustomAudioBrowser = false
+    
+    lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
+    
+    static let channelName = "startActivity/VideoEditorChannel"
+    
+    static let methodStartVideoEditor = "StartBanubaVideoEditor"
+    static let methodStartVideoEditorPIP = "StartBanubaVideoEditorPIP"
+    static let methodDemoPlayExportedVideo = "PlayExportedVideo"
+    
+    static let errMissingExportResult = "ERR_MISSING_EXPORT_RESULT"
+    static let errStartPIPMissingVideo = "ERR_START_PIP_MISSING_VIDEO"
+    static let errExportPlayMissingVideo = "ERR_EXPORT_PLAY_MISSING_VIDEO"
+    
+    static let argExportedVideoFile = "exportedVideoFilePath"
+    
     
     override func application(
         _ application: UIApplication,
@@ -71,9 +80,9 @@ import AVKit
                     }
                 } else if call == AppDelegate.methodDemoPlayExportedVideo {
                     /*
-                    NOT REQUIRED FOR INTEGRATION
-                    Added for playing exported video file.
-                    */
+                     NOT REQUIRED FOR INTEGRATION
+                     Added for playing exported video file.
+                     */
                     let demoPlayVideoFilePath = methodCall.arguments as? String
                     
                     if let videoFilePath = demoPlayVideoFilePath {
@@ -88,13 +97,33 @@ import AVKit
             }
         }
         GeneratedPluginRegistrant.register(with: self)
+        
+        // Register audio browser engine
+        audioBrowserFlutterEngine.run(withEntrypoint: "audioBrowser")
+        GeneratedPluginRegistrant.register(with: audioBrowserFlutterEngine)
+        
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
+    // Custom View Factory is used to provide you custom UI/UX experience in Video Editor SDK
+    // i.e. custom audio browser
+    func provideCustomViewFactory() -> FlutterCustomViewFactory? {
+        let factory: FlutterCustomViewFactory?
+        
+        if (useCustomAudioBrowser) {
+            factory = FlutterCustomViewFactory()
+        } else {
+            BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
+            factory = nil
+        }
+        
+        return factory
+    }
+    
     /*
-    NOT REQUIRED FOR INTEGRATION
-    Added for playing exported video file.
-    */
+     NOT REQUIRED FOR INTEGRATION
+     Added for playing exported video file.
+     */
     private func demoPlayExportedVideo(controller: FlutterViewController, videoURL: URL) {
         let player = AVPlayer(url: videoURL)
         let vc = AVPlayerViewController()

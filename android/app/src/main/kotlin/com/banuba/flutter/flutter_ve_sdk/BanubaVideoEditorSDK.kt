@@ -132,10 +132,16 @@ private class SampleIntegrationVeKoinModule {
             )
         }
 
+        // Audio Browser provider implementation.
         single<ContentFeatureProvider<TrackData, Fragment>>(
             named("musicTrackProvider")
         ) {
-            AudioBrowserMusicProvider()
+            if (SampleApp.USE_CUSTOM_AUDIO_BROWSER) {
+                AudioBrowserContentProvider()
+            } else {
+                // Default implementation that supports Mubert and Local audio stored on the device
+                AudioBrowserMusicProvider()
+            }
         }
 
         single<CoverProvider> {

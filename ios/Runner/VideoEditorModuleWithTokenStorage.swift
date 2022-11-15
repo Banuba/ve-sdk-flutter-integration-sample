@@ -31,7 +31,7 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
         fetchToken { [weak self] token in
             guard let self = self else { return }
             
-            self.initializeVideoEditor(token: token)
+            self.initializeVideoEditor(token: token, self.getAppDelegate().provideCustomViewFactory())
             
             DispatchQueue.main.async {
                 
@@ -57,7 +57,7 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
         fetchToken { [weak self] token in
             guard let self = self else { return }
             
-            self.initializeVideoEditor(token: token)
+            self.initializeVideoEditor(token: token, self.getAppDelegate().provideCustomViewFactory())
             
             let pipLaunchConfig = VideoEditorLaunchConfig(
                 entryPoint: .pip,
@@ -73,20 +73,17 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
         }
     }
     
-    private func initializeVideoEditor(token: String) {
+    private func initializeVideoEditor(token: String, _ viewFactory: FlutterCustomViewFactory?) {
         let config = VideoEditorConfig()
         
         videoEditorSDK = BanubaVideoEditor(
             token: token,
             configuration: config,
-            externalViewControllerFactory: nil
+            externalViewControllerFactory: viewFactory
         )
         
         videoEditorSDK?.delegate = self
-        
-        BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
     }
-    
     
     private func startVideoEditor(from controller: FlutterViewController, config: VideoEditorLaunchConfig) {
         self.videoEditorSDK?.presentVideoEditor(
@@ -100,6 +97,10 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
             guard let token = token else { fatalError("Something went wrong with fetching token from Firebase") }
             completion(token)
         }
+    }
+    
+    private func getAppDelegate() -> AppDelegate {
+        return  UIApplication.shared.delegate as! AppDelegate
     }
 }
 

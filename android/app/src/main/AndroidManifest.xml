@@ -56,6 +56,11 @@
             android:theme="@style/CustomIntegrationAppTheme"
             android:windowSoftInputMode="adjustResize"
             tools:replace="android:theme" />
+
+        <!-- DELETE this activity if you do not use custom audio browser. -->
+        <activity
+            android:name=".AudioBrowserActivity" />
+
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

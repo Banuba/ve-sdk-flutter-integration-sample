@@ -24,7 +24,7 @@ class VideoEditorModule: VideoEditor {
     ) {
         self.flutterResult = flutterResult
         
-        initializeVideoEditor()
+        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
         
         let config = VideoEditorLaunchConfig(
             entryPoint: .camera,
@@ -44,7 +44,7 @@ class VideoEditorModule: VideoEditor {
     ) {
         self.flutterResult = flutterResult
         
-        initializeVideoEditor()
+        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
         
         let pipLaunchConfig = VideoEditorLaunchConfig(
             entryPoint: .pip,
@@ -59,15 +59,13 @@ class VideoEditorModule: VideoEditor {
         }
     }
     
-    private func initializeVideoEditor() {
+    private func initializeVideoEditor(_ externalViewControllerFactory: FlutterCustomViewFactory?) {
         let config = VideoEditorConfig()
         videoEditorSDK = BanubaVideoEditor(
             token: "SET BANUBA VIDEO EDITOR SDK TOKEN",
             configuration: config,
-            externalViewControllerFactory: nil
+            externalViewControllerFactory: externalViewControllerFactory
         )
-        
-        BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
         
         videoEditorSDK?.delegate = self
     }
@@ -78,7 +76,12 @@ class VideoEditorModule: VideoEditor {
             completion: nil
         )
     }
+    
+    private func getAppDelegate() -> AppDelegate {
+        return  UIApplication.shared.delegate as! AppDelegate
+    }
 }
+
 
 // MARK: - Export flow
 extension VideoEditorModule {
