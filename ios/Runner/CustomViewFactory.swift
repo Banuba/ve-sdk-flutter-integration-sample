@@ -21,7 +21,7 @@ class FlutterCustomViewFactory: ExternalViewControllerFactory {
 
 class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewControllerFactory {
     
-    // Tracks selection view controller
+    // Audio Browser selection view controller
     func makeTrackSelectionViewController(selectedAudioItem: AudioItem?) -> TrackSelectionViewController? {
         let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).audioBrowserFlutterEngine
         
@@ -118,8 +118,6 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
             let id: Int32
         }
         
-        print("Discard audio = \(args)")
-        
         guard let string = args as? String,
               let data = string.data(using: .utf8),
               let track = try? JSONDecoder().decode(TrackId.self, from: data) else {
@@ -127,7 +125,6 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
             return
         }
         
-        print("Discard audio OK!")
         trackSelectionDelegate?.trackSelectionViewController(
             viewController: self,
             didStopUsingTrackWithId: track.id

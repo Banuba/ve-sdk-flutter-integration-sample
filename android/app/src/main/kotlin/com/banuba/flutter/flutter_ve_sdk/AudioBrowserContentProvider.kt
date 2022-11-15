@@ -13,6 +13,7 @@ import io.flutter.view.FlutterMain
 import java.lang.ref.WeakReference
 
 // Video Editor SDK contract for using custom Audio Browser implementation.
+// Please read more details in AudioBrowserActivity.kt
 class AudioBrowserContentProvider : ContentFeatureProvider<TrackData, Fragment> {
 
     private var activityResultLauncher: ActivityResultLauncher<Intent>? = null

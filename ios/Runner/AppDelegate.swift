@@ -14,10 +14,10 @@ import BanubaAudioBrowserSDK
     private let useBanubaTokenStorage = false
     
     /*
-     true - to use custom integration of audio browser.
-     false - to use default implementation.
+     true - uses custom audio browser implementation in this sample.
+     false - to keep default implementation.
      */
-    private let useCustomAudioBrowser = true
+    private let useCustomAudioBrowser = false
     
     lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
     
@@ -105,6 +105,8 @@ import BanubaAudioBrowserSDK
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
+    // Custom View Factory is used to provide you custom UI/UX experience in Video Editor SDK
+    // i.e. custom audio browser
     func provideCustomViewFactory() -> FlutterCustomViewFactory? {
         let factory: FlutterCustomViewFactory?
         

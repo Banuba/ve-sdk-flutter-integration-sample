@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
-
+/// Util class to prepare audio files for custom audio browser
 class FilePlugin {
   Future<Uri> createAssetFileUri(String prefix, String fileName) async {
     final byteData = await rootBundle.load('$prefix$fileName');

@@ -57,7 +57,7 @@
             android:windowSoftInputMode="adjustResize"
             tools:replace="android:theme" />
 
-        <!-- Uncomment this activity if you want you check custom Audio Browser sample. -->
+        <!-- DELETE this activity if you do not use custom audio browser. -->
         <activity
             android:name=".AudioBrowserActivity" />
 

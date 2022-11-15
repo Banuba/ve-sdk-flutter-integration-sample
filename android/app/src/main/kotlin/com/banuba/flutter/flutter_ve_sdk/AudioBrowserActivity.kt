@@ -13,6 +13,18 @@ import io.flutter.view.FlutterMain
 import org.json.JSONObject
 import java.util.*
 
+/**
+ * Sample Android Activity that demonstrates how to implement the simplest custom audio browser integration.
+ * This implementation is required as a contract of VE SDK for managing audio track.
+ * Use cases:
+ *
+ * 1. There is custom screen implemented on Flutter that shows list of audio tracks. The user can
+ * select, unselect audio or close the screen. All these actions should be delivered to Video Editor SDK.
+ *
+ * 2. The user selected audio track and navigates to custom audio browser screen again.
+ * Last used audio track is passed from Video Editor SDK to custom audio browser so that
+ * you could highlight current audio to the user on your screen. See "lastAudioTrack" variable.
+ */
 class AudioBrowserActivity : FlutterActivity() {
 
     companion object {
@@ -97,7 +109,7 @@ class AudioBrowserActivity : FlutterActivity() {
         Log.d(MainActivity.TAG, "Handle last used audio = $lastAudioTrack")
         if (lastAudioTrack != null) {
             val lastAudioPath = requireNotNull(lastAudioTrack).localUri.toString()
-            // Pass lastAudioPath to Flutter side to implement custom logic if it is needed.
+            // Pass lastAudioPath to Flutter side to highlight the choice to the user.
         }
     }
 }

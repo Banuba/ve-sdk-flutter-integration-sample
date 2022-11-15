@@ -11,13 +11,8 @@ import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import io.flutter.embedding.android.FlutterActivity
-import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.embedding.engine.FlutterEngineCache
-import io.flutter.embedding.engine.dart.DartExecutor
-import io.flutter.embedding.engine.loader.FlutterLoader
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
-import io.flutter.view.FlutterMain
 import java.io.File
 
 class MainActivity : FlutterActivity() {
@@ -45,13 +40,6 @@ class MainActivity : FlutterActivity() {
         super.onCreate(savedInstanceState)
         val appFlutterEngine = requireNotNull(flutterEngine)
         GeneratedPluginRegistrant.registerWith(appFlutterEngine)
-
-        /*val audioBrowserEngine = FlutterEngine(applicationContext)
-        audioBrowserEngine.dartExecutor.executeDartEntrypoint(
-            DartExecutor.DartEntrypoint(
-                FlutterLoader().findAppBundlePath(), "audioBrowser"))
-        //FlutterEngineCache.getInstance().put("audioBrowser", audioBrowserEngine)
-        GeneratedPluginRegistrant.registerWith(audioBrowserEngine)*/
 
         MethodChannel(
             appFlutterEngine.dartExecutor.binaryMessenger,

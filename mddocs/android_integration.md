@@ -36,7 +36,7 @@ The following steps help to complete basic integration into your Flutter project
 
    Add Video Editor SDK dependencies in app gradle file.
     ```groovy
-        def banubaSdkVersion = '1.24.2'
+        def banubaSdkVersion = '1.25.1.4'
         implementation "com.banuba.sdk:ffmpeg:4.4"
         implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -63,7 +63,7 @@ The following steps help to complete basic integration into your Flutter project
 
 4. __Initialize Video Editor SDK in your application__ </br>
      Use ```BanubaVideoEditorSDK().initialize(...)``` in your ```Application.onCreate()``` method to initialize Video Editor SDK.</br>
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L10)</br><br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L18)</br><br>
 
 5. __Setup platform channel to start Video Editor SDK__  
      Add handler to your ```FlutterActivity``` to listen to calls from Flutter side to start Video Editor.</br>
@@ -121,11 +121,15 @@ The following steps help to complete basic integration into your Flutter project
          }
       }
    ```
-    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L49).</br>
+    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L57).</br>
 
 10. __Connect Mubert to Video Editor Audio Browser__ </br>
      :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
      Set Mubert API key in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L8) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
+
+11. __Custom Audio Browser experince__ </br>
+    Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
+    To check out the simplest experience on Flutter you can set ```true``` to [USE_CUSTOM_AUDIO_BROWSER](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L12)
 
    
 ## What is next?
