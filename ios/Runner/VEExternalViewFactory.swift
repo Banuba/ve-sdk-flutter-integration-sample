@@ -132,6 +132,9 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
             viewController: self,
             didStopUsingTrackWithId: track.id
         )
+        trackSelectionDelegate?.trackSelectionViewControllerDidCancel(
+            viewController: self
+        )
         resultHandler(nil)
     }
 }
