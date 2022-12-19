@@ -62,7 +62,7 @@ class VideoEditorModule: VideoEditor {
     private func initializeVideoEditor(_ externalViewControllerFactory: FlutterCustomViewFactory?) {
         let config = VideoEditorConfig()
         videoEditorSDK = BanubaVideoEditor(
-            token: "SET BANUBA VIDEO EDITOR SDK TOKEN",
+            token: AppDelegate.licenseToken,
             configuration: config,
             externalViewControllerFactory: externalViewControllerFactory
         )
