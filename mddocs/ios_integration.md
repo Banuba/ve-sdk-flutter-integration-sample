@@ -8,7 +8,7 @@ The following steps help to complete basic integration into your Flutter project
 
 <ins>All changes are made in **ios** directory.</ins>
 1. __Set Banuba Video Editor SDK token__  
-   Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L65).<br></br>
+   Set Banuba token in the sample app [AppDelegate](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L23).<br></br>
    To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.<br>
    :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.  
    Check this [guide](#Obtain-Banuba-Video-Editor-SDK-token-from-a-server) to store and obtain a token from a server.<br></br>

@@ -18,6 +18,9 @@ import BanubaAudioBrowserSDK
      false - to keep default implementation.
      */
     private let useCustomAudioBrowser = false
+  
+    // Banuba client token
+    static let banubaClientToken: String = <#Please set your Banuba Video Editor SDK token here#>
     
     lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
     
