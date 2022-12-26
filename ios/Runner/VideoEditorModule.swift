@@ -24,7 +24,9 @@ class VideoEditorModule: VideoEditor {
     ) {
         self.flutterResult = flutterResult
         
-        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
+        if videoEditorSDK == nil {
+            initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
+        }
         
         let config = VideoEditorLaunchConfig(
             entryPoint: .camera,
@@ -44,7 +46,9 @@ class VideoEditorModule: VideoEditor {
     ) {
         self.flutterResult = flutterResult
         
-        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
+        if videoEditorSDK == nil {
+            initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
+        }
         
         let pipLaunchConfig = VideoEditorLaunchConfig(
             entryPoint: .pip,
