@@ -73,6 +73,33 @@ class VideoEditorModuleWithTokenStorage: VideoEditor {
         }
     }
     
+    func openVideoEditorTrimmer(
+        fromViewController controller: FlutterViewController,
+        videoURL: URL,
+        flutterResult: @escaping FlutterResult
+    ) {
+        self.flutterResult = flutterResult
+        
+        // It might take some time to fetch a token. You can show progress indicator to your users.
+        fetchToken { [weak self] token in
+            guard let self = self else { return }
+            
+            self.initializeVideoEditor(token: token, self.getAppDelegate().provideCustomViewFactory())
+            
+            let trimmerLaunchConfig = VideoEditorLaunchConfig(
+                entryPoint: .trimmer,
+                hostController: controller,
+                videoItems: [videoURL],
+                musicTrack: nil,
+                animated: true
+            )
+            
+            DispatchQueue.main.async {
+                self.startVideoEditor(from: controller, config: trimmerLaunchConfig)
+            }
+        }
+    }
+    
     private func initializeVideoEditor(token: String, _ viewFactory: FlutterCustomViewFactory?) {
         let config = VideoEditorConfig()
         

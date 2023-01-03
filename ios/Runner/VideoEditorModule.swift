@@ -11,6 +11,8 @@ protocol VideoEditor {
     func openVideoEditorDefault(fromViewController controller: FlutterViewController, flutterResult: @escaping FlutterResult)
     
     func openVideoEditorPIP(fromViewController controller: FlutterViewController, videoURL: URL, flutterResult: @escaping FlutterResult)
+    
+    func openVideoEditorTrimmer(fromViewController controller: FlutterViewController, videoURL: URL, flutterResult: @escaping FlutterResult)
 }
 
 class VideoEditorModule: VideoEditor {
@@ -59,6 +61,28 @@ class VideoEditorModule: VideoEditor {
         }
     }
     
+    func openVideoEditorTrimmer(
+        fromViewController controller: FlutterViewController,
+        videoURL: URL,
+        flutterResult: @escaping FlutterResult
+    ) {
+        self.flutterResult = flutterResult
+        
+        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
+        
+        let trimmerLaunchConfig = VideoEditorLaunchConfig(
+            entryPoint: .trimmer,
+            hostController: controller,
+            videoItems: [videoURL],
+            musicTrack: nil,
+            animated: true
+        )
+        
+        DispatchQueue.main.async {
+            self.startVideoEditor(from: controller, config: trimmerLaunchConfig)
+        }
+    }
+    
     private func initializeVideoEditor(_ externalViewControllerFactory: FlutterCustomViewFactory?) {
         let config = VideoEditorConfig()
         videoEditorSDK = BanubaVideoEditor(
@@ -78,7 +102,7 @@ class VideoEditorModule: VideoEditor {
     }
     
     private func getAppDelegate() -> AppDelegate {
-        return  UIApplication.shared.delegate as! AppDelegate
+        return UIApplication.shared.delegate as! AppDelegate
     }
 }
 
