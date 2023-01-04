@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _startVideoEditorTrimmer() async {
     try {
-      // Use your implementation to provide correct video file path to start Video Editor SDK in PIP mode
+      // Use your implementation to provide correct video file path to start Video Editor SDK in Trimmer mode
       final ImagePicker _picker = ImagePicker();
       final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
 
