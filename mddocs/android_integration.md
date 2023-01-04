@@ -75,10 +75,10 @@ The following steps help to complete basic integration into your Flutter project
             // Handle method calls
         }
      ```
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L45).<br></br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L49).<br></br>
      Use ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor SDK from Camera screen.
      Once Video Editor SDK starts you can observe export video results.</br>
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L105)</br><br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L125)</br><br>
      Find more information about platform channels in [Flutter developer documentation](https://docs.flutter.dev/development/platform-integration/platform-channels).</br><br>
 
 6. __Update AndroidManifest.xml__ </br>
@@ -121,7 +121,7 @@ The following steps help to complete basic integration into your Flutter project
          }
       }
    ```
-    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L57).</br>
+    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L56).</br>
 
 10. __Connect Mubert to Video Editor Audio Browser__ </br>
      :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>

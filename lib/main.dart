@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ve_sdk/audio_browser.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -42,10 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static const methodStartVideoEditor = 'StartBanubaVideoEditor';
   static const methodStartVideoEditorPIP = 'StartBanubaVideoEditorPIP';
+  static const methodStartVideoEditorTrimmer = 'StartBanubaVideoEditorTrimmer';
   static const methodDemoPlayExportedVideo = 'PlayExportedVideo';
 
   static const errMissingExportResult = 'ERR_MISSING_EXPORT_RESULT';
   static const errStartPIPMissingVideo = 'ERR_START_PIP_MISSING_VIDEO';
+  static const errStartTrimmerMissingVideo = 'ERR_START_TRIMMER_MISSING_VIDEO';
   static const errExportPlayMissingVideo = 'ERR_EXPORT_PLAY_MISSING_VIDEO';
 
   static const argExportedVideoFile = 'exportedVideoFilePath';
@@ -87,6 +88,26 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         debugPrint('Open video editor in pip with video = ${file.path}');
         final result = await platform.invokeMethod(methodStartVideoEditorPIP, file.path);
+
+        _handleExportResult(result);
+      }
+    } on PlatformException catch (e) {
+      debugPrint("Error: '${e.message}'.");
+      _showAlert(context, 'Platform is not supported!');
+    }
+  }
+
+  Future<void> _startVideoEditorTrimmer() async {
+    try {
+      // Use your implementation to provide correct video file path to start Video Editor SDK in Trimmer mode
+      final ImagePicker _picker = ImagePicker();
+      final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
+
+      if (file == null) {
+        debugPrint('Cannot open video editor with Trimmer - video was not selected!');
+      } else {
+        debugPrint('Open video editor in trimmer with video = ${file.path}');
+        final result = await platform.invokeMethod(methodStartVideoEditorTrimmer, file.path);
 
         _handleExportResult(result);
       }
@@ -148,7 +169,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontSize: 14.0,
                 ),
               ),
-            )
+            ),
+            SizedBox(height: 24),
+            MaterialButton(
+              color: Colors.red,
+              textColor: Colors.white,
+              disabledColor: Colors.grey,
+              disabledTextColor: Colors.black,
+              padding: const EdgeInsets.all(16.0),
+              splashColor: Colors.redAccent,
+              minWidth: 240,
+              onPressed: () => _startVideoEditorTrimmer(),
+              child: const Text(
+                'Open Video Editor - Trimmer',
+                style: TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
+            ),
           ],
         ),
       ),

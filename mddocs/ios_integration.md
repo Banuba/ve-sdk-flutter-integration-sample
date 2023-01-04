@@ -23,7 +23,7 @@ The following steps help to complete basic integration into your Flutter project
 
 4. __Setup platform channel to start Video Editor SDK__  
    Create ```FlutterMethodChannel``` in your ```AppDelegate``` instance to start ```VideoEditorModule```.</br>
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#53)</br>
+   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#58)</br>
    Find more information about platform channels in [Flutter developer documentation](https://docs.flutter.dev/development/platform-integration/platform-channels).</br><br>
 
 5. __Add assets and resources__  
@@ -42,10 +42,10 @@ The following steps help to complete basic integration into your Flutter project
          }
       }
    ```
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L57)</br>
+   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L58)</br>
 7. __Connect Mubert to Video Editor Audio Browser__ </br>
    :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
-   Set Mubert API key in [AudioBrowser initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L116) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
+   Set Mubert API key in [AudioBrowser initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L139) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
 
 8. __Custom Audio Browser experince__ </br>
     Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  

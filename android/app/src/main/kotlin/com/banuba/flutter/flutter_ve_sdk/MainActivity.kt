@@ -23,10 +23,12 @@ class MainActivity : FlutterActivity() {
 
         private const val METHOD_START_VIDEO_EDITOR = "StartBanubaVideoEditor"
         private const val METHOD_START_VIDEO_EDITOR_PIP = "StartBanubaVideoEditorPIP"
+        private const val METHOD_START_VIDEO_EDITOR_TRIMMER = "StartBanubaVideoEditorTrimmer"
         private const val METHOD_DEMO_PLAY_EXPORTED_VIDEO = "PlayExportedVideo"
 
         private const val ERR_MISSING_EXPORT_RESULT = "ERR_MISSING_EXPORT_RESULT"
         private const val ERR_START_PIP_MISSING_VIDEO = "ERR_START_PIP_MISSING_VIDEO"
+        private const val ERR_START_TRIMMER_MISSING_VIDEO = "ERR_START_TRIMMER_MISSING_VIDEO"
         private const val ERR_EXPORT_PLAY_MISSING_VIDEO = "ERR_EXPORT_PLAY_MISSING_VIDEO"
 
         private const val ARG_EXPORTED_VIDEO_FILE = "exportedVideoFilePath"
@@ -66,6 +68,24 @@ class MainActivity : FlutterActivity() {
                         )
                     } else {
                         startVideoEditorModePIP(pipVideoUri)
+                    }
+                }
+
+                METHOD_START_VIDEO_EDITOR_TRIMMER -> {
+                    val videoFilePath = call.arguments as? String
+                    val trimmerVideoUri = videoFilePath?.let { Uri.fromFile(File(it)) }
+                    if (trimmerVideoUri == null) {
+                        Log.w(
+                                TAG,
+                                "Missing or invalid video file path = [$videoFilePath] to start video editor from trimmer."
+                        )
+                        exportVideoChanelResult?.error(
+                                ERR_START_TRIMMER_MISSING_VIDEO,
+                                "Missing video to start video editor in trimmer mode",
+                                null
+                        )
+                    } else {
+                        startVideoEditorModeTrimmer(trimmerVideoUri)
                     }
                 }
 
@@ -151,6 +171,20 @@ class MainActivity : FlutterActivity() {
                     openPipSettings = false
                 )
             ), VIDEO_EDITOR_REQUEST_CODE
+        )
+    }
+
+    private fun startVideoEditorModeTrimmer(trimmerVideo: Uri) {
+        startActivityForResult(
+                VideoCreationActivity.startFromTrimmer(
+                        context = this,
+                        // setup data that will be acceptable during export flow
+                        additionalExportData = null,
+                        // set TrackData object if you open VideoCreationActivity with preselected music track
+                        audioTrackData = null,
+                        // set Trimmer video configuration
+                        predefinedVideos = arrayOf(trimmerVideo)
+                ), VIDEO_EDITOR_REQUEST_CODE
         )
     }
 
