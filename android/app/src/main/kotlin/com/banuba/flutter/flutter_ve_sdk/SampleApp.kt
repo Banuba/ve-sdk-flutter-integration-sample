@@ -1,6 +1,7 @@
 package com.banuba.flutter.flutter_ve_sdk
 
 import io.flutter.app.FlutterApplication
+import com.banuba.sdk.token.storage.license.BanubaVideoEditor
 
 class SampleApp : FlutterApplication() {
 
@@ -16,5 +17,7 @@ class SampleApp : FlutterApplication() {
         super.onCreate()
         // Initialize Banuba VE UI SDK
         BanubaVideoEditorSDK().initialize(this@SampleApp)
+
+        BanubaVideoEditor.initialize(getString(R.string.banuba_token))
     }
 }
