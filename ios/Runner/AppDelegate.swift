@@ -1,18 +1,10 @@
 import UIKit
 import Flutter
-import Firebase
 import AVKit
 import BanubaAudioBrowserSDK
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-    
-    /*
-     true - to enable Banuba token storage and load token from Firebase in this sample..
-     false - to use token stored locally.
-     */
-    private let useBanubaTokenStorage = false
-    
     /*
      true - uses custom audio browser implementation in this sample.
      false - to keep default implementation.
@@ -43,14 +35,7 @@ import BanubaAudioBrowserSDK
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        var videoEditor: VideoEditor
-        
-        if useBanubaTokenStorage {
-            FirebaseApp.configure()
-            videoEditor = VideoEditorModuleWithTokenStorage()
-        } else {
-            videoEditor = VideoEditorModule()
-        }
+        let videoEditor = VideoEditorModule()
         
         if let controller = window?.rootViewController as? FlutterViewController,
            let binaryMessenger = controller as? FlutterBinaryMessenger {

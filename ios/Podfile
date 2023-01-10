@@ -49,7 +49,6 @@ target 'Runner' do
   pod 'BanubaVideoEditorGallerySDK', sdk_version #optional
   pod 'BanubaLicenseServicingSDK', sdk_version
   pod 'BanubaVideoEditorTrimSDK', sdk_version
-  pod 'BanubaTokenStorageSDK', '1.26.2' #optional
 
   pod 'BNBLicenseUtils', '1.26.3'
 
