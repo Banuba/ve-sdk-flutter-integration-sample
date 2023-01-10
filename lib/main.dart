@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _handleExportResult(result);
     } on PlatformException catch (e) {
       debugPrint("Error: '${e.message}'.");
-      _showAlert(context, 'Platform is not supported!');
+      _showAlert(context, 'Cannot open Video Editor: ${e.message}');
     }
   }
 
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     } on PlatformException catch (e) {
       debugPrint("Error: '${e.message}'.");
-      _showAlert(context, 'Platform is not supported!');
+      _showAlert(context, 'Cannot open Video Editor: ${e.message}');
     }
   }
 
@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     } on PlatformException catch (e) {
       debugPrint("Error: '${e.message}'.");
-      _showAlert(context, 'Platform is not supported!');
+      _showAlert(context, 'Cannot open Video Editor: ${e.message}');
     }
   }
 
