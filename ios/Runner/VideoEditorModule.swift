@@ -92,6 +92,15 @@ class VideoEditorModule: VideoEditor {
         )
         
         videoEditorSDK?.delegate = self
+        
+        // The an example of checking license status
+        videoEditorSDK?.getLicenseState(completion: { isValid in
+          if isValid {
+            print("✅ License is active, all good")
+          } else {
+            print("❌ License is either revoked or expired")
+          }
+        })
     }
     
     private func startVideoEditor(from controller: FlutterViewController, config: VideoEditorLaunchConfig) {
