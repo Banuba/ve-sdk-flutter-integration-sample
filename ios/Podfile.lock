@@ -18,6 +18,8 @@ PODS:
     - Flutter
   - path_provider_ios (0.0.1):
     - Flutter
+  - url_launcher_ios (0.0.1):
+    - Flutter
   - VEEffectsSDK (1.26.3)
   - VEExportSDK (1.26.3)
   - VEPlaybackSDK (1.26.3)
@@ -41,6 +43,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - VEEffectsSDK (= 1.26.3)
   - VEExportSDK (= 1.26.3)
   - VEPlaybackSDK (= 1.26.3)
@@ -74,6 +77,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   BanubaARCloudSDK: 68bf142cedc25c82e1686159eae8e14ef94c1db5
@@ -93,6 +98,7 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
   VEEffectsSDK: c338baf51df9a9850808a66f6bd158696480e7b2
   VEExportSDK: b0939de31deff1c23fabb3a06042bf9c20a91355
   VEPlaybackSDK: f8aa17bdec2486ce3b6a7f0ec66db49b82ce105e

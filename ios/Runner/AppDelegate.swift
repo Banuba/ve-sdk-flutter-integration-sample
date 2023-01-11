@@ -27,6 +27,8 @@ import BanubaAudioBrowserSDK
     static let errStartPIPMissingVideo = "ERR_START_PIP_MISSING_VIDEO"
     static let errStartTrimmerMissingVideo = "ERR_START_TRIMMER_MISSING_VIDEO"
     static let errExportPlayMissingVideo = "ERR_EXPORT_PLAY_MISSING_VIDEO"
+    static let errEditorNotInitialized = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
+    static let errEditorLicenseRevoked = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
     
     static let argExportedVideoFile = "exportedVideoFilePath"
     
