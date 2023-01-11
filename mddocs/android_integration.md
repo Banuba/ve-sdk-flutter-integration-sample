@@ -7,10 +7,10 @@ of your Flutter project using native Android development process.
 The following steps help to complete basic integration into your Flutter project.
 
 <ins>All changes are made in **android** directory.</ins>
-1. __Set Banuba Video Editor SDK token__  
-   Set Banuba token in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5).<br></br>
-   To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.<br>
-   :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.<br></br>
+1. __Use your license token__  
+   Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L20).<br></br>
+   
+   :exclamation: The token **IS REQUIRED** to run the sample and an integration in your app.<br></br>
 
 2. __Add Banuba Video Editor SDK dependencies__ </br>
    Add Banuba repositories in main gradle file to get Video Editor SDK and AR Cloud dependencies.
@@ -36,7 +36,7 @@ The following steps help to complete basic integration into your Flutter project
 
    Add Video Editor SDK dependencies in app gradle file.
     ```groovy
-        def banubaSdkVersion = '1.25.1.4'
+        def banubaSdkVersion = '1.26.3'
         implementation "com.banuba.sdk:ffmpeg:4.4"
         implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -57,13 +57,13 @@ The following steps help to complete basic integration into your Flutter project
    ```
 
     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/build.gradle#L76)</br><br>
-3. __Add SDK Initializer class__ </br>
+3. __Add Video Editor SDK dependencies initializer class__ </br>
      Add [BanubaVideoEditorSDK.kt](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/BanubaVideoEditorSDK.kt) file.</br>
-     This class helps to initialize and customize Video Editor SDK.</br><br>
+     This class helps to initialize dependencies and customize Video Editor SDK.</br><br>
 
 4. __Initialize Video Editor SDK in your application__ </br>
-     Use ```BanubaVideoEditorSDK().initialize(...)``` in your ```Application.onCreate()``` method to initialize Video Editor SDK.</br>
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L18)</br><br>
+     Use ```val videoEditor = BanubaVideoEditor.initialize(LICENSE_TOKEN)``` in your ```Application.onCreate()``` method to initialize Video Editor SDK with license token.</br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L31)</br><br>
 
 5. __Setup platform channel to start Video Editor SDK__  
      Add handler to your ```FlutterActivity``` to listen to calls from Flutter side to start Video Editor.</br>
@@ -75,10 +75,10 @@ The following steps help to complete basic integration into your Flutter project
             // Handle method calls
         }
      ```
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L49).<br></br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L48).<br></br>
      Use ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor SDK from Camera screen.
      Once Video Editor SDK starts you can observe export video results.</br>
-     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L125)</br><br>
+     [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L174)</br><br>
      Find more information about platform channels in [Flutter developer documentation](https://docs.flutter.dev/development/platform-integration/platform-channels).</br><br>
 
 6. __Update AndroidManifest.xml__ </br>
@@ -121,15 +121,15 @@ The following steps help to complete basic integration into your Flutter project
          }
       }
    ```
-    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L56).</br>
+    [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L69).</br>
 
 10. __Connect Mubert to Video Editor Audio Browser__ </br>
      :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
-     Set Mubert API key in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L8) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
+     Set Mubert API key in [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L4) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
 
 11. __Custom Audio Browser experince__ </br>
     Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
-    To check out the simplest experience on Flutter you can set ```true``` to [USE_CUSTOM_AUDIO_BROWSER](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L12)
+    To check out the simplest experience on Flutter you can set ```true``` to [USE_CUSTOM_AUDIO_BROWSER](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L15)
 
    
 ## What is next?

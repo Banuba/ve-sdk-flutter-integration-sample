@@ -1,18 +1,10 @@
 import UIKit
 import Flutter
-import Firebase
 import AVKit
 import BanubaAudioBrowserSDK
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-    
-    /*
-     true - to enable Banuba token storage and load token from Firebase in this sample..
-     false - to use token stored locally.
-     */
-    private let useBanubaTokenStorage = false
-    
     /*
      true - uses custom audio browser implementation in this sample.
      false - to keep default implementation.
@@ -20,7 +12,10 @@ import BanubaAudioBrowserSDK
     private let useCustomAudioBrowser = false
   
     // License token is required to start Video Editor SDK
-    static let licenseToken: String = <#Enter your license token#>
+    static let licenseToken: String = SET YOUR LICENSE TOKEN
+    
+    // Set your Mubert Api key here
+    static let mubertApiKey = ""
     
     lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
     
@@ -35,6 +30,8 @@ import BanubaAudioBrowserSDK
     static let errStartPIPMissingVideo = "ERR_START_PIP_MISSING_VIDEO"
     static let errStartTrimmerMissingVideo = "ERR_START_TRIMMER_MISSING_VIDEO"
     static let errExportPlayMissingVideo = "ERR_EXPORT_PLAY_MISSING_VIDEO"
+    static let errEditorNotInitialized = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
+    static let errEditorLicenseRevoked = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
     
     static let argExportedVideoFile = "exportedVideoFilePath"
     
@@ -43,14 +40,7 @@ import BanubaAudioBrowserSDK
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        var videoEditor: VideoEditor
-        
-        if useBanubaTokenStorage {
-            FirebaseApp.configure()
-            videoEditor = VideoEditorModuleWithTokenStorage()
-        } else {
-            videoEditor = VideoEditorModule()
-        }
+        let videoEditor = VideoEditorModule()
         
         if let controller = window?.rootViewController as? FlutterViewController,
            let binaryMessenger = controller as? FlutterBinaryMessenger {
@@ -136,7 +126,7 @@ import BanubaAudioBrowserSDK
         if useCustomAudioBrowser {
             factory = FlutterCustomViewFactory()
         } else {
-            BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
+            BanubaAudioBrowser.setMubertPat(AppDelegate.mubertApiKey)
             factory = nil
         }
         

@@ -32,13 +32,13 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 Run ```flutter pub get``` in terminal to load dependencies.
 
 ### Android
-1. Set Banuba token in the sample app [resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L5).
+1. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L20).
 2. Run ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
 3. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate Video Editor SDK into your Flutter project.
 
 ### iOS
 1. Install CocoaPods dependencies. Open **ios** directory and run ```pod install``` in terminal.
 2. Open **Signing & Capabilities** tab in Target settings and select your Development Team.
-3. Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L23) .
+3. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L15).
 4. Run ```flutter run``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
 5. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate Video Editor SDK into your Flutter project.

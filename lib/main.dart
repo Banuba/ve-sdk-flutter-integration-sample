@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_ve_sdk/audio_browser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,9 +51,18 @@ class _MyHomePageState extends State<MyHomePage> {
   static const errStartTrimmerMissingVideo = 'ERR_START_TRIMMER_MISSING_VIDEO';
   static const errExportPlayMissingVideo = 'ERR_EXPORT_PLAY_MISSING_VIDEO';
 
+  static const errEditorNotInitializedCode = 'ERR_VIDEO_EDITOR_NOT_INITIALIZED';
+  static const errEditorNotInitializedMessage =
+      'Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
+  static const errEditorLicenseRevokedCode = 'ERR_VIDEO_EDITOR_LICENSE_REVOKED';
+  static const errEditorLicenseRevokedMessage =
+      'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
+
   static const argExportedVideoFile = 'exportedVideoFilePath';
 
   static const platform = MethodChannel(channelName);
+
+  String _errorMessage = '';
 
   Future<void> _startVideoEditorDefault() async {
     try {
@@ -59,8 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       _handleExportResult(result);
     } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
-      _showAlert(context, 'Platform is not supported!');
+      _handlePlatformException(e);
     }
   }
 
@@ -92,8 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _handleExportResult(result);
       }
     } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
-      _showAlert(context, 'Platform is not supported!');
+      _handlePlatformException(e);
     }
   }
 
@@ -112,8 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _handleExportResult(result);
       }
     } on PlatformException catch (e) {
-      debugPrint("Error: '${e.message}'.");
-      _showAlert(context, 'Platform is not supported!');
+      _handlePlatformException(e);
     }
   }
 
@@ -134,6 +142,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 17.0,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Linkify(
+                text: _errorMessage,
+                onOpen: (link) async {
+                  if (await canLaunchUrlString(link.url)) {
+                    await launchUrlString(link.url);
+                  } else {
+                    throw 'Could not launch $link';
+                  }
+                },
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.redAccent,
                 ),
               ),
             ),
@@ -193,17 +220,24 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showAlert(
-    BuildContext context,
-    String message,
-  ) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Attention'),
-        content: Text(message),
-      ),
-    );
+  // Handle exceptions thrown on Android, iOS platform while opening Video Editor SDK
+  void _handlePlatformException(PlatformException exception) {
+    debugPrint("Error: '${exception.message}'.");
+
+    String errorMessage = '';
+    switch (exception.code) {
+      case errEditorLicenseRevokedCode:
+        errorMessage = errEditorLicenseRevokedMessage;
+        break;
+      case errEditorNotInitializedCode:
+        errorMessage = errEditorNotInitializedMessage;
+        break;
+      default:
+        errorMessage = 'unknown error';
+    }
+
+    _errorMessage = errorMessage;
+    setState(() {});
   }
 
   void _showConfirmation(

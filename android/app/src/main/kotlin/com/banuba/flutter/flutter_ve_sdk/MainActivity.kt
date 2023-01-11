@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider
 import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
+import com.banuba.sdk.token.storage.license.LicenseStateCallback
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
@@ -19,7 +20,6 @@ class MainActivity : FlutterActivity() {
 
     companion object {
         private const val VIDEO_EDITOR_REQUEST_CODE = 7788
-        const val TAG = "FlutterVE"
 
         private const val METHOD_START_VIDEO_EDITOR = "StartBanubaVideoEditor"
         private const val METHOD_START_VIDEO_EDITOR_PIP = "StartBanubaVideoEditorPIP"
@@ -30,6 +30,8 @@ class MainActivity : FlutterActivity() {
         private const val ERR_START_PIP_MISSING_VIDEO = "ERR_START_PIP_MISSING_VIDEO"
         private const val ERR_START_TRIMMER_MISSING_VIDEO = "ERR_START_TRIMMER_MISSING_VIDEO"
         private const val ERR_EXPORT_PLAY_MISSING_VIDEO = "ERR_EXPORT_PLAY_MISSING_VIDEO"
+        private const val ERR_VIDEO_EDITOR_NOT_INITIALIZED = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
+        private const val ERR_VIDEO_EDITOR_LICENSE_REVOKED = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
 
         private const val ARG_EXPORTED_VIDEO_FILE = "exportedVideoFilePath"
 
@@ -51,14 +53,31 @@ class MainActivity : FlutterActivity() {
             exportVideoChanelResult = result
 
             when (call.method) {
-                METHOD_START_VIDEO_EDITOR -> startVideoEditorModeNormal()
+                METHOD_START_VIDEO_EDITOR -> {
+                    checkVideoEditorLicense(
+                        licenseStateCallback = { isValid ->
+                            if (isValid) {
+                                // ✅ License is active, all good
+                                // You can show button that opens Video Editor or
+                                // Start Video Editor right away
+                                startVideoEditorModeNormal()
+                            } else {
+                                // ❌ Use of Video Editor is restricted. License is revoked or expired.
+                                result.error(ERR_VIDEO_EDITOR_LICENSE_REVOKED, SampleApp.ERR_LICENSE_REVOKED, null)
+                            }
+                        },
+                        notInitializedError = {
+                            result.error(ERR_VIDEO_EDITOR_NOT_INITIALIZED, SampleApp.ERR_SDK_NOT_INITIALIZED, null)
+                        }
+                    )
+                }
 
                 METHOD_START_VIDEO_EDITOR_PIP -> {
                     val videoFilePath = call.arguments as? String
                     val pipVideoUri = videoFilePath?.let { Uri.fromFile(File(it)) }
                     if (pipVideoUri == null) {
                         Log.w(
-                            TAG,
+                            SampleApp.TAG,
                             "Missing or invalid video file path = [$videoFilePath] to start video editor in PIP mode."
                         )
                         exportVideoChanelResult?.error(
@@ -67,7 +86,22 @@ class MainActivity : FlutterActivity() {
                             null
                         )
                     } else {
-                        startVideoEditorModePIP(pipVideoUri)
+                        checkVideoEditorLicense(
+                            licenseStateCallback = { isValid ->
+                                if (isValid) {
+                                    // ✅ License is active, all good
+                                    // You can show button that opens Video Editor or
+                                    // Start Video Editor right away
+                                    startVideoEditorModePIP(pipVideoUri)
+                                } else {
+                                    // ❌ Use of Video Editor is restricted. License is revoked or expired.
+                                    result.error(ERR_VIDEO_EDITOR_LICENSE_REVOKED, SampleApp.ERR_LICENSE_REVOKED, null)
+                                }
+                            },
+                            notInitializedError = {
+                                result.error(ERR_VIDEO_EDITOR_NOT_INITIALIZED, SampleApp.ERR_SDK_NOT_INITIALIZED, null)
+                            }
+                        )
                     }
                 }
 
@@ -76,8 +110,8 @@ class MainActivity : FlutterActivity() {
                     val trimmerVideoUri = videoFilePath?.let { Uri.fromFile(File(it)) }
                     if (trimmerVideoUri == null) {
                         Log.w(
-                                TAG,
-                                "Missing or invalid video file path = [$videoFilePath] to start video editor from trimmer."
+                            SampleApp.TAG,
+                            "Missing or invalid video file path = [$videoFilePath] to start video editor from trimmer."
                         )
                         exportVideoChanelResult?.error(
                                 ERR_START_TRIMMER_MISSING_VIDEO,
@@ -85,7 +119,22 @@ class MainActivity : FlutterActivity() {
                                 null
                         )
                     } else {
-                        startVideoEditorModeTrimmer(trimmerVideoUri)
+                        checkVideoEditorLicense(
+                            licenseStateCallback = { isValid ->
+                                if (isValid) {
+                                    // ✅ License is active, all good
+                                    // You can show button that opens Video Editor or
+                                    // Start Video Editor right away
+                                    startVideoEditorModeTrimmer(trimmerVideoUri)
+                                } else {
+                                    // ❌ Use of Video Editor is restricted. License is revoked or expired.
+                                    result.error(ERR_VIDEO_EDITOR_LICENSE_REVOKED, SampleApp.ERR_LICENSE_REVOKED, null)
+                                }
+                            },
+                            notInitializedError = {
+                                result.error(ERR_VIDEO_EDITOR_NOT_INITIALIZED, SampleApp.ERR_SDK_NOT_INITIALIZED, null)
+                            }
+                        )
                     }
                 }
 
@@ -99,7 +148,7 @@ class MainActivity : FlutterActivity() {
 
                     if (exportedVideoUri == null) {
                         Log.w(
-                            TAG,
+                            SampleApp.TAG,
                             "Missing or invalid video file path = [$videoFilePath] to play video."
                         )
                         exportVideoChanelResult?.error(
@@ -199,6 +248,24 @@ class MainActivity : FlutterActivity() {
             ARG_EXPORTED_VIDEO_FILE to firstVideoFilePath
         )
         return data
+    }
+
+    private fun checkVideoEditorLicense(
+        licenseStateCallback: LicenseStateCallback,
+        notInitializedError: () -> Unit
+    ) {
+        val videoEditor = (application as SampleApp).videoEditor
+        if (videoEditor == null) {
+            Log.e(
+                "BanubaVideoEditor",
+                "Cannot check license state. Please initialize Video Editor SDK"
+            )
+            notInitializedError()
+        } else {
+            // Checking the license might take around 1 sec in the worst case.
+            // Please optimize use if this method in your application for the best user experience
+            videoEditor.getLicenseState(licenseStateCallback)
+        }
     }
 
     /*

@@ -93,7 +93,7 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
     private func handleApplyAudioTrack(args: Any?, resultHandler: (Any?) -> Void) {
         struct Track: Codable {
             let url: URL
-            let id: Int32
+            let id: UUID
             let title: String
         }
         guard let string = args as? String,
@@ -108,14 +108,14 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
             isEditable: true,
             title: track.title,
             additionalTitle: nil,
-            id: track.id
+            uuid: track.id
         )
         resultHandler(nil)
     }
     
     private func handleDiscardAudioTrack(args: Any?, resultHandler: (Any?) -> Void) {
         struct TrackId: Codable {
-            let id: Int32
+            let id: UUID
         }
         
         guard let string = args as? String,
@@ -127,7 +127,7 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
         
         trackSelectionDelegate?.trackSelectionViewController(
             viewController: self,
-            didStopUsingTrackWithId: track.id
+            didStopUsingTrackWith: track.id
         )
         trackSelectionDelegate?.trackSelectionViewControllerDidCancel(
             viewController: self

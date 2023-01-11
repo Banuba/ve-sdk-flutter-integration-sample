@@ -26,17 +26,14 @@ class VideoEditorModule: VideoEditor {
     ) {
         self.flutterResult = flutterResult
         
-        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
+        self.initializeVideoEditor(self.getAppDelegate().provideCustomViewFactory())
         
         let config = VideoEditorLaunchConfig(
             entryPoint: .camera,
             hostController: controller,
             animated: true
         )
-        
-        DispatchQueue.main.async {
-            self.startVideoEditor(from: controller, config: config)
-        }
+        checkLicenseAndStartVideoEditor(with: config, flutterResult: flutterResult)
     }
     
     func openVideoEditorPIP(
@@ -56,9 +53,7 @@ class VideoEditorModule: VideoEditor {
             animated: true
         )
         
-        DispatchQueue.main.async {
-            self.startVideoEditor(from: controller, config: pipLaunchConfig)
-        }
+        checkLicenseAndStartVideoEditor(with: pipLaunchConfig, flutterResult: flutterResult)
     }
     
     func openVideoEditorTrimmer(
@@ -78,9 +73,7 @@ class VideoEditorModule: VideoEditor {
             animated: true
         )
         
-        DispatchQueue.main.async {
-            self.startVideoEditor(from: controller, config: trimmerLaunchConfig)
-        }
+        checkLicenseAndStartVideoEditor(with: trimmerLaunchConfig, flutterResult: flutterResult)
     }
     
     private func initializeVideoEditor(_ externalViewControllerFactory: FlutterCustomViewFactory?) {
@@ -94,11 +87,42 @@ class VideoEditorModule: VideoEditor {
         videoEditorSDK?.delegate = self
     }
     
-    private func startVideoEditor(from controller: FlutterViewController, config: VideoEditorLaunchConfig) {
-        self.videoEditorSDK?.presentVideoEditor(
-            withLaunchConfiguration: config,
-            completion: nil
-        )
+    func checkLicenseAndStartVideoEditor(with config: VideoEditorLaunchConfig, flutterResult: @escaping FlutterResult) {
+        if videoEditorSDK == nil {
+            flutterResult(
+                FlutterError(
+                    code: AppDelegate.errEditorNotInitialized,
+                    message: "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba",
+                    details: nil
+                )
+            )
+            return
+        }
+        
+        // Checking the license might take around 1 sec in the worst case.
+        // Please optimize use if this method in your application for the best user experience
+        videoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
+            guard let self else { return }
+            if isValid {
+                print("✅ License is active, all good")
+                DispatchQueue.main.async {
+                    self.videoEditorSDK?.presentVideoEditor(
+                        withLaunchConfiguration: config,
+                        completion: nil
+                    )
+                }
+            } else {
+                self.videoEditorSDK = nil
+                print("❌ License is either revoked or expired")
+                flutterResult(
+                    FlutterError(
+                        code: AppDelegate.errEditorLicenseRevoked,
+                        message: "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new",
+                        details: nil
+                    )
+                )
+            }
+        })
     }
     
     private func getAppDelegate() -> AppDelegate {

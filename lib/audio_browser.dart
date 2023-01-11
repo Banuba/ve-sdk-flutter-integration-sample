@@ -117,24 +117,14 @@ class _AudioBrowserState extends State<AudioBrowserWidget> {
           await FilePlugin().createAssetFileUri("assets/audio/", _sampleAudioTrack);
 
       final dynamic result;
-      if (Platform.isAndroid) {
-        final androidArgs = {
-          "url": audioTrackUri.toString(),
-          "id": Uuid().v1(),
-          "artist": "The best artist",
-          "title": "My favorite song",
-        };
+      final args = {
+        "url": audioTrackUri.toString(),
+        "id": Uuid().v1(),
+        "artist": "The best artist",
+        "title": "My favorite song",
+      };
 
-        result = await _methodChannel.invokeMethod(_methodApplyAudioTrack, jsonEncode(androidArgs));
-      } else {
-        final iosArgs = {
-          "url": audioTrackUri.toString(),
-          "id": 111,
-          "artist": "The best artist",
-          "title": "My favorite song",
-        };
-        result = await _methodChannel.invokeMethod(_methodApplyAudioTrack, jsonEncode(iosArgs));
-      }
+      result = await _methodChannel.invokeMethod(_methodApplyAudioTrack, jsonEncode(args));
 
       debugPrint('Apply audio track result: $result ');
     } on PlatformException catch (e) {
@@ -153,7 +143,7 @@ class _AudioBrowserState extends State<AudioBrowserWidget> {
         result = await _methodChannel.invokeMethod(_methodDiscardAudioTrack);
       } else {
         final iosArgs = {
-          "id": 111,
+          "id": Uuid().v1(),
         };
         result = await _methodChannel.invokeMethod(
           _methodDiscardAudioTrack,
