@@ -99,7 +99,8 @@ class VideoEditorModule: VideoEditor {
             return
         }
         
-        // The an example of checking license status
+        // Checking the license might take around 1 sec in the worst case.
+        // Please optimize use if this method in your application for the best user experience
         videoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
             guard let self else { return }
             if isValid {

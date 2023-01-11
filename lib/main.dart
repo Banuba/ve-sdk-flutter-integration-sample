@@ -220,6 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // Handle exceptions thrown on Android, iOS platform while opening Video Editor SDK
   void _handlePlatformException(PlatformException exception) {
     debugPrint("Error: '${exception.message}'.");
 
@@ -232,6 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
         errorMessage = errEditorNotInitializedMessage;
         break;
       default:
+        errorMessage = 'unknown error';
     }
 
     _errorMessage = errorMessage;

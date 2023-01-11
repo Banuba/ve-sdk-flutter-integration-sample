@@ -262,6 +262,8 @@ class MainActivity : FlutterActivity() {
             )
             notInitializedError()
         } else {
+            // Checking the license might take around 1 sec in the worst case.
+            // Please optimize use if this method in your application for the best user experience
             videoEditor.getLicenseState(licenseStateCallback)
         }
     }

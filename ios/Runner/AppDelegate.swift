@@ -12,7 +12,10 @@ import BanubaAudioBrowserSDK
     private let useCustomAudioBrowser = false
   
     // License token is required to start Video Editor SDK
-    static let licenseToken: String = <#Enter your license token#>
+    static let licenseToken: String = SET YOUR LICENSE TOKEN
+    
+    // Set your Mubert Api key here
+    static let mubertApiKey = ""
     
     lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
     
@@ -123,7 +126,7 @@ import BanubaAudioBrowserSDK
         if useCustomAudioBrowser {
             factory = FlutterCustomViewFactory()
         } else {
-            BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
+            BanubaAudioBrowser.setMubertPat(AppDelegate.mubertApiKey)
             factory = nil
         }
         

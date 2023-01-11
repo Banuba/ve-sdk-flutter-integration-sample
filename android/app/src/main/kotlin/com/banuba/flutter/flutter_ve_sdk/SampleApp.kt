@@ -17,7 +17,7 @@ class SampleApp : FlutterApplication() {
         const val TAG = "FlutterVideoEditor"
 
         // Please set your license token for Banuba Video Editor SDK
-        private const val LICENSE_TOKEN = YOUR LICENSE TOKEN
+        private const val LICENSE_TOKEN = SET YOUR LICENSE TOKEN HERE
 
         const val ERR_SDK_NOT_INITIALIZED = "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba"
         const val ERR_LICENSE_REVOKED = "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new"
