@@ -28,6 +28,8 @@ import java.util.*
 class AudioBrowserActivity : FlutterActivity() {
 
     companion object {
+        private const val TAG = "AudioBrowserActivity"
+
         private const val FLUTTER_ENTRY_POINT = "audioBrowser"
         private const val CHANNEL_AUDIO_BROWSER = "audioBrowserChannel"
         private const val METHOD_APPLY_AUDIO_TRACK = "applyAudioTrack"
@@ -41,7 +43,7 @@ class AudioBrowserActivity : FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d(SampleApp.TAG, "AudioBrowserActivity. onCreate");
+        Log.d(TAG, "AudioBrowserActivity. onCreate");
 
         handleLastUsedAudio()
 
@@ -106,7 +108,7 @@ class AudioBrowserActivity : FlutterActivity() {
     private fun handleLastUsedAudio() {
         lastAudioTrack = intent.getParcelableExtra<TrackData>("EXTRA_LAST_PROVIDED_TRACK")
 
-        Log.d(SampleApp.TAG, "Handle last used audio = $lastAudioTrack")
+        Log.d(TAG, "Handle last used audio = $lastAudioTrack")
         if (lastAudioTrack != null) {
             val lastAudioPath = requireNotNull(lastAudioTrack).localUri.toString()
             // Pass lastAudioPath to Flutter side to highlight the choice to the user.
