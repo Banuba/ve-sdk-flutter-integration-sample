@@ -8,6 +8,8 @@ import VEExportSDK
 import Flutter
 
 protocol VideoEditor {
+    func initVideoEditor(token: String?, flutterResult: @escaping FlutterResult)
+    
     func openVideoEditorDefault(fromViewController controller: FlutterViewController, flutterResult: @escaping FlutterResult)
     
     func openVideoEditorPIP(fromViewController controller: FlutterViewController, videoURL: URL, flutterResult: @escaping FlutterResult)
@@ -20,14 +22,36 @@ class VideoEditorModule: VideoEditor {
     private var videoEditorSDK: BanubaVideoEditor?
     private var flutterResult: FlutterResult?
     
+    func initVideoEditor(
+        token: String?,
+        flutterResult: @escaping FlutterResult
+    ) {
+        let config = VideoEditorConfig()
+        videoEditorSDK = BanubaVideoEditor(
+            token: token ?? "",
+            configuration: config,
+            externalViewControllerFactory: self.getAppDelegate().provideCustomViewFactory()
+        )
+        
+        if videoEditorSDK == nil {
+            flutterResult(
+                FlutterError(
+                    code: AppDelegate.errEditorNotInitialized,
+                    message: "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba",
+                    details: nil
+                )
+            )
+            return
+        }
+        
+        videoEditorSDK?.delegate = self
+        flutterResult(nil)
+    }
+    
     func openVideoEditorDefault(
         fromViewController controller: FlutterViewController,
-        flutterResult : @escaping FlutterResult
+        flutterResult: @escaping FlutterResult
     ) {
-        self.flutterResult = flutterResult
-        
-        self.initializeVideoEditor(self.getAppDelegate().provideCustomViewFactory())
-        
         let config = VideoEditorLaunchConfig(
             entryPoint: .camera,
             hostController: controller,
@@ -42,8 +66,6 @@ class VideoEditorModule: VideoEditor {
         flutterResult: @escaping FlutterResult
     ) {
         self.flutterResult = flutterResult
-        
-        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
         
         let pipLaunchConfig = VideoEditorLaunchConfig(
             entryPoint: .pip,
@@ -63,8 +85,6 @@ class VideoEditorModule: VideoEditor {
     ) {
         self.flutterResult = flutterResult
         
-        initializeVideoEditor(getAppDelegate().provideCustomViewFactory())
-        
         let trimmerLaunchConfig = VideoEditorLaunchConfig(
             entryPoint: .trimmer,
             hostController: controller,
@@ -74,17 +94,6 @@ class VideoEditorModule: VideoEditor {
         )
         
         checkLicenseAndStartVideoEditor(with: trimmerLaunchConfig, flutterResult: flutterResult)
-    }
-    
-    private func initializeVideoEditor(_ externalViewControllerFactory: FlutterCustomViewFactory?) {
-        let config = VideoEditorConfig()
-        videoEditorSDK = BanubaVideoEditor(
-            token: AppDelegate.licenseToken,
-            configuration: config,
-            externalViewControllerFactory: externalViewControllerFactory
-        )
-        
-        videoEditorSDK?.delegate = self
     }
     
     func checkLicenseAndStartVideoEditor(with config: VideoEditorLaunchConfig, flutterResult: @escaping FlutterResult) {

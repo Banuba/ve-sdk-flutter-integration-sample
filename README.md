@@ -7,7 +7,6 @@
 
 This sample demonstrates how to integrate Video Editor SDK to [Flutter](https://flutter.dev/) project.
 
-
 ## Dependencies
 |       |   Version | 
 | --------- |:---------:| 
@@ -25,20 +24,18 @@ You can store the token within the app.
 
 Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have any questions.  
 
-
 :exclamation: __The token **IS REQUIRED** to run sample and an integration in your app.__</br>
 
-### Prepare project
-Run ```flutter pub get``` in terminal to load dependencies.
+### Installation
+1. Run ```flutter pub get``` in terminal to load dependencies.
+2. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L43).
 
-### Android
-1. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/SampleApp.kt#L20).
-2. Run ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
-3. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate Video Editor SDK into your Flutter project.
+### Run on Android
+1. Run ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
+2. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate Video Editor SDK into your Flutter project.
 
-### iOS
+### Run on iOS
 1. Install CocoaPods dependencies. Open **ios** directory and run ```pod install``` in terminal.
 2. Open **Signing & Capabilities** tab in Target settings and select your Development Team.
-3. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L15).
-4. Run ```flutter run``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
-5. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate Video Editor SDK into your Flutter project.
+3. Run ```flutter run``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
+4. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate Video Editor SDK into your Flutter project.

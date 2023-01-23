@@ -39,8 +39,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+// Set Banuba license token for Video Editor SDK
+  static const String LICENSE_TOKEN = SET LICENSE TOKEN
+
   static const channelName = 'startActivity/VideoEditorChannel';
 
+  static const methodInitVideoEditor = 'InitBanubaVideoEditor';
   static const methodStartVideoEditor = 'StartBanubaVideoEditor';
   static const methodStartVideoEditorPIP = 'StartBanubaVideoEditorPIP';
   static const methodStartVideoEditorTrimmer = 'StartBanubaVideoEditorTrimmer';
@@ -64,8 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String _errorMessage = '';
 
+  Future<void> _initVideoEditor() async {
+    await platform.invokeMethod(methodInitVideoEditor, LICENSE_TOKEN);
+  }
+
   Future<void> _startVideoEditorDefault() async {
     try {
+      await _initVideoEditor();
+      
       final result = await platform.invokeMethod(methodStartVideoEditor);
 
       _handleExportResult(result);
@@ -89,6 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _startVideoEditorPIP() async {
     try {
+      await _initVideoEditor();
+
       // Use your implementation to provide correct video file path to start Video Editor SDK in PIP mode
       final ImagePicker _picker = ImagePicker();
       final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
@@ -108,6 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _startVideoEditorTrimmer() async {
     try {
+      await _initVideoEditor();
+
       // Use your implementation to provide correct video file path to start Video Editor SDK in Trimmer mode
       final ImagePicker _picker = ImagePicker();
       final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);

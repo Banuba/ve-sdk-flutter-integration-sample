@@ -10,9 +10,6 @@ import BanubaAudioBrowserSDK
      false - to keep default implementation.
      */
     private let useCustomAudioBrowser = false
-  
-    // License token is required to start Video Editor SDK
-    static let licenseToken: String = SET YOUR LICENSE TOKEN
     
     // Set your Mubert Api key here
     static let mubertApiKey = ""
@@ -21,6 +18,7 @@ import BanubaAudioBrowserSDK
     
     static let channelName = "startActivity/VideoEditorChannel"
     
+    static let methodInitVideoEditor = "InitBanubaVideoEditor"
     static let methodStartVideoEditor = "StartBanubaVideoEditor"
     static let methodStartVideoEditorPIP = "StartBanubaVideoEditorPIP"
     static let methodStartVideoEditorTrimmer = "StartBanubaVideoEditorTrimmer"
@@ -53,6 +51,12 @@ import BanubaAudioBrowserSDK
             channel.setMethodCallHandler { methodCall, result in
                 let call = methodCall.method
                 switch call {
+                case AppDelegate.methodInitVideoEditor:
+                    let token = methodCall.arguments as? String
+                    videoEditor.initVideoEditor(
+                        token: token,
+                        flutterResult: result
+                    )
                 case AppDelegate.methodStartVideoEditor:
                     videoEditor.openVideoEditorDefault(
                         fromViewController: controller,
