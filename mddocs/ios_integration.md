@@ -1,60 +1,85 @@
-# iOS Integration Guide into Flutter project
+# iOS integration guide into Flutter project
 
-An integration and customization of Banuba Video Editor SDK is implemented in **ios** directory
+The following guide covers basic integration process into your Flutter project
+where required part of an integration and customization of Banuba Video Editor SDK is implemented in **ios** directory
 of your Flutter project using native iOS development process.
 
-## Basic
-The following steps help to complete basic integration into your Flutter project.
+### Prerequisite
+:exclamation: The license token **IS REQUIRED** to run sample and an integration into your app.  
+Please follow [Installation](../README.md#Installation) guide if the license token is not set.
 
-:exclamation: The license token **IS REQUIRED** to run sample and an integration in your app.  
-Please follow [Installation](../README.md#Installation) guide if the license token is not set<br></br>
+### Add SDK dependencies
+Add iOS Video Editor SDK dependencies to your [Podfile](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Podfile)
 
-<ins>All changes are made in **ios** directory.</ins>
-1. __Add Banuba Video Editor SDK dependencies__  
-   Add iOS Video Editor SDK dependencies to your Podfile.</br>
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Podfile)</br><br>
+### Add SDK integration module
+Add [VideoEditorModule.swift](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift) file
+to initialize SDK dependencies. This class also allows you to customize many Video Editor SDK features i.e. min/max video durations, export flow, order of effects and others.
 
-2. __Add SDK Initializer class__  
-   Add [VideoEditorModule.swift](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift) file to your project.
-   This class helps to initialize and customize Video Editor SDK.</br><br>
+### Add resources
+Video Editor SDK uses a lot of resources required for running.  
+Please make sure all these resources are provided in your project.
+1. [bundleEffects](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/ios/bundleEffects) to use build-in Banuba AR effects. Using Banuba AR requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.
+2. [luts](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/ios/luts) to use Lut effects shown in the Effects tab.
 
-3. __Setup platform channel to start Video Editor SDK__  
-   Create ```FlutterMethodChannel``` in your ```AppDelegate``` instance to start ```VideoEditorModule```.</br>
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#54)</br>
-   Find more information about platform channels in [Flutter developer documentation](https://docs.flutter.dev/development/platform-integration/platform-channels).</br><br>
+### Add platform channel
+[Platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) is used for communication between Flutter and iOS.
 
-4. __Add assets and resources__  
-   1. [bundleEffects](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/ios/bundleEffects) to use build-in Banuba AR effects. Using Banuba AR requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.
-   2. [luts](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/ios/luts) to use Lut effects shown in the Effects tab.</br><br>
+Add channel message handler to your [AppDelegate.swift]((https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#54))
+to listen to calls from Flutter side. Flutter sends messages in this channel to initialize or start Video Editor.
+```swift
+    let binaryMessenger = controller as? FlutterBinaryMessenger {
+            
+    let channel = FlutterMethodChannel(
+        name: AppDelegate.channelName,
+        binaryMessenger: binaryMessenger
+    )
+            
+     channel.setMethodCallHandler { methodCall, result in
+     ... 
+     }
+```
 
-5. __Start Video Editor SDK__  
-   Use ```platform.invokeMethod``` to start Video Editor SDK from Flutter.</br>
-    ```dart
-       Future<void> _initVideoEditor() async {
-          await platform.invokeMethod(methodInitVideoEditor, LICENSE_TOKEN);
-       }
-       
-       Future<void> _startVideoEditorDefault() async {
-          try {
-            await _initVideoEditor();
-          
-            final result = await platform.invokeMethod('StartBanubaVideoEditor');
-            ...
+### Start SDK
+First, initialize Video Editor SDK using license token in [VideoEditorModule](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L30) on iOS.
+```swift
+let videoEditor = BanubaVideoEditor(
+        token: token,
+        ...
+      )
+```
+Please note, instance ```videoEditor``` can be **nil** if the license token is incorrect.
+
+Next, to start Video Editor SDK from Flutter use ```platform.invokeMethod``` method from [Flutter](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L79).
+It will open Video Editor SDK from camera screen.
+
+```dart
+    Future<void> _initVideoEditor() async {
+        await platform.invokeMethod(methodInitVideoEditor, LICENSE_TOKEN);
+    }
+   
+    Future<void> _startVideoEditorDefault() async {
+        try {
+          await _initVideoEditor();
+          final result = await platform.invokeMethod('StartBanubaVideoEditor');
+          ...
           } on PlatformException catch (e) {
             debugPrint("Error: '${e.message}'.");
          }
-      }
+    }
    ```
-   [See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L75)</br>
-6. __Connect Mubert to Video Editor Audio Browser__ </br>
-   :exclamation: Please request API key from Mubert. <ins>Banuba is not responsible for providing Mubert API key.</ins><br></br>
-   Set Mubert API key in [AudioBrowser initializer](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L15) to play [Mubert](https://mubert.com/) content in Video Editor Audio Browser.<br></br>
+Export returns [result](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L79)  where you can pass required data i.e. exported video stored to Flutter.
 
-7. __Custom Audio Browser experience__ </br>
-    Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
-    To check out the simplest experience on Flutter you can set ```true``` to [useCustomAudioBrowser](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#L12)
+### Enable custom Audio Browser experience
+Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
+To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#12)  
+:exclamation: Video Editor SDK can play only files stored on device.
+
+### Connect Mubert
+:exclamation: Please request API key from [Mubert](https://mubert.com/). Banuba is not responsible for providing Mubert API key.  
+Set Mubert API key [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#15) and
+[configEnableCustomAudioBrowser](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#12)  to ```false```
+for playing Mubert content in Video Editor Audio Browser.
 
 ## What is next?
-
 We have covered a basic process of Banuba Video Editor SDK integration into your Flutter project.</br>
 More details and customization options you will find in [Banuba Video Editor SDK iOS Integration Sample](https://github.com/Banuba/ve-sdk-ios-integration-sample).

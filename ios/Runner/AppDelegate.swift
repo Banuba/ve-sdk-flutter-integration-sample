@@ -9,7 +9,7 @@ import BanubaAudioBrowserSDK
      true - uses custom audio browser implementation in this sample.
      false - to keep default implementation.
      */
-    private let useCustomAudioBrowser = false
+    private let configEnableCustomAudioBrowser = false
     
     // Set your Mubert Api key here
     static let mubertApiKey = ""
@@ -127,7 +127,7 @@ import BanubaAudioBrowserSDK
     func provideCustomViewFactory() -> FlutterCustomViewFactory? {
         let factory: FlutterCustomViewFactory?
         
-        if useCustomAudioBrowser {
+        if configEnableCustomAudioBrowser {
             factory = FlutterCustomViewFactory()
         } else {
             BanubaAudioBrowser.setMubertPat(AppDelegate.mubertApiKey)

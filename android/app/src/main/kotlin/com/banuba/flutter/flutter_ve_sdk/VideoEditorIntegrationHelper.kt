@@ -48,7 +48,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class BanubaVideoEditorSDK {
+class VideoEditorIntegrationHelper {
 
     fun initialize(application: Application) {
         startKoin {
@@ -136,7 +136,7 @@ private class SampleIntegrationVeKoinModule {
         single<ContentFeatureProvider<TrackData, Fragment>>(
             named("musicTrackProvider")
         ) {
-            if (MainActivity.USE_CUSTOM_AUDIO_BROWSER) {
+            if (MainActivity.CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER) {
                 AudioBrowserContentProvider()
             } else {
                 // Default implementation that supports Mubert and Local audio stored on the device

@@ -26,7 +26,7 @@ class MainActivity : FlutterActivity() {
          * true - uses custom audio browser implementation in this sample
          * false - to keep default implementation
          */
-        const val USE_CUSTOM_AUDIO_BROWSER = false
+        const val CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER = false
 
         private const val VIDEO_EDITOR_REQUEST_CODE = 7788
 
@@ -55,7 +55,7 @@ class MainActivity : FlutterActivity() {
     private var exportVideoChanelResult: MethodChannel.Result? = null
 
     private var videoEditorSDK: BanubaVideoEditor? = null
-    private var videoEditorSdkDependencies: BanubaVideoEditorSDK? = null
+    private var videoEditorIntegrationHelper: VideoEditorIntegrationHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,9 +79,9 @@ class MainActivity : FlutterActivity() {
                         Log.e(TAG, ERR_SDK_NOT_INITIALIZED_MESSAGE)
                         result.error(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
                     } else {
-                        if (videoEditorSdkDependencies == null) {
+                        if (videoEditorIntegrationHelper == null) {
                             // Initialize video editor sdk dependencies
-                            videoEditorSdkDependencies = BanubaVideoEditorSDK().apply {
+                            videoEditorIntegrationHelper = VideoEditorIntegrationHelper().apply {
                                 initialize(application)
                             }
                         }
