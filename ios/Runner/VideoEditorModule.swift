@@ -183,11 +183,15 @@ extension VideoEditorModule {
                     let exportedVideoFilePath = firstFileURL.absoluteString
                     print("Export video completed successfully. Video: \(exportedVideoFilePath))")
                     
-                    let pngImageData = coverImage?.coverImage?.pngData()
+                    let coverImageData = coverImage?.coverImage?.pngData()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH-mm-ss.SSS"
+                    let coverImageURL = FileManager.default.temporaryDirectory.appendingPathComponent("export_preview-\(dateFormatter.string(from: Date())).png")
+                    try? coverImageData?.write(to: coverImageURL)
                     
                     let data = [
                         AppDelegate.argExportedVideoFile: exportedVideoFilePath,
-                        AppDelegate.argExportedVideoCoverImage: pngImageData as Any
+                        AppDelegate.argExportedVideoCoverPreviewPath: coverImageURL.path
                     ]
                     self?.flutterResult?(data)
                     
