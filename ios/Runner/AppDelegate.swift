@@ -32,6 +32,7 @@ import BanubaAudioBrowserSDK
     static let errEditorLicenseRevoked = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
     
     static let argExportedVideoFile = "exportedVideoFilePath"
+    static let argExportedVideoCoverImage = "exportedVideoCoverImage"
     
     
     override func application(

@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
 
   static const argExportedVideoFile = 'exportedVideoFilePath';
+  static const argExportedVideoCoverImage = 'exportedVideoCoverImage';
 
   static const platform = MethodChannel(channelName);
 
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _startVideoEditorDefault() async {
     try {
       await _initVideoEditor();
-      
+
       final result = await platform.invokeMethod(methodStartVideoEditor);
 
       _handleExportResult(result);
@@ -91,7 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // Map is used for this sample to demonstrate playing exported video file.
     if (result is Map) {
       final exportedVideoFilePath = result[argExportedVideoFile];
-      _showConfirmation(context, "Play exported video file?", () {
+      final exportedCoverImageData = result[argExportedVideoCoverImage] as Uint8List;
+      _showConfirmation(context, exportedCoverImageData, "Play exported video file?", () {
         platform.invokeMethod(methodDemoPlayExportedVideo, exportedVideoFilePath);
       });
     }
@@ -255,15 +257,24 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showConfirmation(
-      BuildContext context,
-      String message,
-      VoidCallback block
-      ) {
+      BuildContext context, Uint8List coverImageData, String message, VoidCallback block) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Demo'),
-        content: Text(message),
+        content: SizedBox.fromSize(
+          child: Column(
+            children: [
+              Image.memory(
+                coverImageData,
+                width: 90,
+                height: 160,
+              ),
+              Text(message),
+            ],
+          ),
+          size: Size(100, 180),
+        ),
         actions: [
           MaterialButton(
             color: Colors.red,
@@ -272,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
             disabledTextColor: Colors.black,
             padding: const EdgeInsets.all(12.0),
             splashColor: Colors.redAccent,
-            onPressed: () => { Navigator.pop(context) },
+            onPressed: () => {Navigator.pop(context)},
             child: const Text(
               'Cancel',
               style: TextStyle(
