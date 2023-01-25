@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
 
   static const argExportedVideoFile = 'exportedVideoFilePath';
-  static const argExportedVideoCoverImage = 'exportedVideoCoverImage';
+  static const argExportedVideoCoverPreviewPath = 'exportedVideoCoverPreviewPath';
 
   static const platform = MethodChannel(channelName);
 
@@ -92,8 +92,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // Map is used for this sample to demonstrate playing exported video file.
     if (result is Map) {
       final exportedVideoFilePath = result[argExportedVideoFile];
-      final exportedCoverImageData = result[argExportedVideoCoverImage] as Uint8List;
-      _showConfirmation(context, exportedCoverImageData, "Play exported video file?", () {
+
+      // Use video cover preview to meet your requirements
+      final exportedVideoCoverPreviewPath = result[argExportedVideoCoverPreviewPath];
+
+      _showConfirmation(context, "Play exported video file?", () {
         platform.invokeMethod(methodDemoPlayExportedVideo, exportedVideoFilePath);
       });
     }
@@ -257,24 +260,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showConfirmation(
-      BuildContext context, Uint8List coverImageData, String message, VoidCallback block) {
+      BuildContext context, String message, VoidCallback block) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Demo'),
-        content: SizedBox.fromSize(
-          child: Column(
-            children: [
-              Image.memory(
-                coverImageData,
-                width: 90,
-                height: 160,
-              ),
-              Text(message),
-            ],
-          ),
-          size: Size(100, 180),
-        ),
+        title: Text(message),
         actions: [
           MaterialButton(
             color: Colors.red,

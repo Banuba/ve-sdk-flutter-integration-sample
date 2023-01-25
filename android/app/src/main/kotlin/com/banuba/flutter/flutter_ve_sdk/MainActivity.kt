@@ -44,6 +44,7 @@ class MainActivity : FlutterActivity() {
         private const val ERR_VIDEO_EDITOR_LICENSE_REVOKED = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
 
         private const val ARG_EXPORTED_VIDEO_FILE = "exportedVideoFilePath"
+        private const val ARG_EXPORTED_VIDEO_COVER = "exportedVideoCoverPreviewPath"
 
         private const val CHANNEL = "startActivity/VideoEditorChannel"
 
@@ -280,8 +281,10 @@ class MainActivity : FlutterActivity() {
         // the result of video export.
         // You can provide your custom logic.
         val firstVideoFilePath = result.videoList[0].sourceUri.toString()
+        val videoCoverImagePath = result.preview.toString()
         val data = mapOf(
-            ARG_EXPORTED_VIDEO_FILE to firstVideoFilePath
+            ARG_EXPORTED_VIDEO_FILE to firstVideoFilePath,
+            ARG_EXPORTED_VIDEO_COVER to videoCoverImagePath
         )
         return data
     }
