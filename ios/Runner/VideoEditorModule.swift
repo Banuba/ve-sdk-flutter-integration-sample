@@ -27,6 +27,9 @@ class VideoEditorModule: VideoEditor {
         flutterResult: @escaping FlutterResult
     ) {
         let config = VideoEditorConfig()
+        
+        // Make customization here
+        
         videoEditorSDK = BanubaVideoEditor(
             token: token ?? "",
             configuration: config,
@@ -52,6 +55,8 @@ class VideoEditorModule: VideoEditor {
         fromViewController controller: FlutterViewController,
         flutterResult: @escaping FlutterResult
     ) {
+        self.flutterResult = flutterResult
+        
         let config = VideoEditorLaunchConfig(
             entryPoint: .camera,
             hostController: controller,
@@ -178,7 +183,16 @@ extension VideoEditorModule {
                     let exportedVideoFilePath = firstFileURL.absoluteString
                     print("Export video completed successfully. Video: \(exportedVideoFilePath))")
                     
-                    let data = [AppDelegate.argExportedVideoFile: exportedVideoFilePath]
+                    let coverImageData = coverImage?.coverImage?.pngData()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH-mm-ss.SSS"
+                    let coverImageURL = FileManager.default.temporaryDirectory.appendingPathComponent("export_preview-\(dateFormatter.string(from: Date())).png")
+                    try? coverImageData?.write(to: coverImageURL)
+                    
+                    let data = [
+                        AppDelegate.argExportedVideoFile: exportedVideoFilePath,
+                        AppDelegate.argExportedVideoCoverPreviewPath: coverImageURL.path
+                    ]
                     self?.flutterResult?(data)
                     
                     // Remove strong reference to video editor sdk instance
