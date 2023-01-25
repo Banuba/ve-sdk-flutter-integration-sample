@@ -52,11 +52,11 @@ Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L3
     implementation "com.banuba.sdk:ve-playback-sdk:${banubaSdkVersion}"
 ```
 ### Add SDK integration helper
-Add [VideoEditorIntegrationHelper.kt](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorIntegrationHelper.kt) file
+Add [VideoEditorIntegrationHelper.kt](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorIntegrationHelper.kt) file
 to initialize SDK dependencies. This class also allows you to customize many Video Editor SDK features i.e. min/max video durations, export flow, order of effects and others.
 
 ### Update AndroidManifest
-Add ```VideoCreationActivity``` in your [AndroidManifest.xml](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml#L53) file.
+Add ```VideoCreationActivity``` in your [AndroidManifest.xml](../android/app/src/main/AndroidManifest.xml#L53) file.
 The Activity is used to bring together a number of screens in a certain flow.
 
 Next, allow Network by adding permissions
@@ -64,7 +64,7 @@ Next, allow Network by adding permissions
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.INTERNET" />
 ```
-and ```android:usesCleartextTraffic="true"``` in [AndroidManifest.xml](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/AndroidManifest.xml).
+and ```android:usesCleartextTraffic="true"``` in [AndroidManifest.xml](../android/app/src/main/AndroidManifest.xml).
 
 Network traffic is used for downloading AR effects from AR Cloud and stickers from [Giphy](https://giphy.com/).
 
@@ -75,30 +75,30 @@ by following [guide](https://developer.android.com/guide/topics/manifest/applica
 Video Editor SDK uses a lot of resources required for running.  
 Please make sure all these resources are provided in your project.
 
-1. [bnb-resources](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/assets/bnb-resources) to use build-in Banuba AR and Lut effects. Using Banuba AR ```assets/bnb-resources/effects``` requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.  
+1. [bnb-resources](../android/app/src/main/assets/bnb-resources) to use build-in Banuba AR and Lut effects. Using Banuba AR ```assets/bnb-resources/effects``` requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.  
    
-2. [color](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/color),
-[drawable](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/drawable),
-[drawable-hdpi](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/drawable-hdpi),
-[drawable-ldpi](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/drawable-ldpi),
-[drawable-mdpi](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/drawable-mdpi),
-[drawable-xhdpi](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/drawable-xhdpi),
-[drawable-xxhdpi](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/drawable-xxhdpi),
-[drawable-xxxhdpi](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/drawable-xxxhdpi) are visual assets used in views and added in the sample for simplicity. You can use your specific assets.  
+2. [color](../android/app/src/main/res/color),
+[drawable](../android/app/src/main/res/drawable),
+[drawable-hdpi](../android/app/src/main/res/drawable-hdpi),
+[drawable-ldpi](../android/app/src/main/res/drawable-ldpi),
+[drawable-mdpi](../android/app/src/main/res/drawable-mdpi),
+[drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
+[drawable-xxhdpi](../android/app/src/main/res/drawable-xxhdpi),
+[drawable-xxxhdpi](../android/app/src/main/res/drawable-xxxhdpi) are visual assets used in views and added in the sample for simplicity. You can use your specific assets.  
    
-3. [values](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/android/app/src/main/res/values) to use colors and themes. Theme ```VideoCreationTheme``` and its styles use resources in **drawable** and **color** directories.  
+3. [values](../android/app/src/main/res/values) to use colors and themes. Theme ```VideoCreationTheme``` and its styles use resources in **drawable** and **color** directories.  
 
 ### Configure media export
 Video Editor SDK allows to export a number of media files to meet your requirements.
 Implement ```ExportParamsProvider``` and provide ```List<ExportParams>``` where every ```ExportParams``` is a media file i.e. video or audio -
-[See example](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorIntegrationHelper.kt#L175).
+[See example](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorIntegrationHelper.kt#L175).
 
 Use ```ExportParams.Builder.fileName()``` method to provide custom media file name.
 
 ### Add platform channel
 [Platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) is used for communication between Flutter and Android.
 
-Add channel message handler to your [FlutterActivity](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L48) 
+Add channel message handler to your [FlutterActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L48) 
 to listen to calls from Flutter side. Flutter sends messages in this channel to initialize or start Video Editor.
 ```kotlin
     val appFlutterEngine = requireNotNull(flutterEngine)
@@ -113,13 +113,13 @@ to listen to calls from Flutter side. Flutter sends messages in this channel to 
 ```
 
 ### Start SDK
-First, initialize Video Editor SDK using license token in [MainActivity](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L75)` on Android.
+First, initialize Video Editor SDK using license token in [MainActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L75)` on Android.
 ```kotlin
 val videoEditor = BanubaVideoEditor.initialize(LICENSE_TOKEN)
 ```
 Please note, instance ```videoEditor``` can be **null** if the license token is incorrect.  
 
-Next, to start Video Editor SDK from Flutter use ```platform.invokeMethod``` method from [Flutter](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L79).
+Next, to start Video Editor SDK from Flutter use ```platform.invokeMethod``` method from [Flutter](../lib/main.dart#L79).
 It will open Video Editor SDK from camera screen.
 
 ```dart
@@ -139,19 +139,19 @@ It will open Video Editor SDK from camera screen.
    ```
 
 Since Video Editor SDK is launched within ```VideoCreationActivity``` exported video is returned from the Activity
-into [onActivityResult](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#207).
+into [onActivityResult](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#207).
 
-Export returns [result](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L79)  where you can pass required data i.e. exported video stored to Flutter.
+Export returns [result](../lib/main.dart#L79)  where you can pass required data i.e. exported video stored to Flutter.
 
 ### Enable custom Audio Browser experience
 Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
-To check out the simplest experience on Flutter you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L29)  
+To check out the simplest experience on Flutter you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L29)  
 :exclamation:Video Editor SDK can play only files stored on device.
 
 ### Connect Mubert 
 :exclamation: Please request API key from [Mubert](https://mubert.com/). Banuba is not responsible for providing Mubert API key.  
-Set Mubert API [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/res/values/string.xml#L4) and
-[CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L29)  to ```false```
+Set Mubert API [within the app](../android/app/src/main/res/values/string.xml#L4) and
+[CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L29)  to ```false```
 for playing Mubert content in Video Editor Audio Browser.  
 
 ## What is next?

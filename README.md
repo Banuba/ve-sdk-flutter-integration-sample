@@ -14,7 +14,7 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 
 ### Installation
 1. Run ```flutter pub get``` in terminal to load dependencies.
-2. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L43).
+2. Set Banuba license token [within the app](lib/main.dart#L43).
 
 ### Run on Android
 1. Run ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.

@@ -9,22 +9,22 @@ of your Flutter project using native iOS development process.
 Please follow [Installation](../README.md#Installation) guide if the license token is not set.
 
 ### Add SDK dependencies
-Add iOS Video Editor SDK dependencies to your [Podfile](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Podfile)
+Add iOS Video Editor SDK dependencies to your [Podfile](../ios/Podfile)
 
 ### Add SDK integration module
-Add [VideoEditorModule.swift](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift) file
+Add [VideoEditorModule.swift](../ios/Runner/VideoEditorModule.swift) file
 to initialize SDK dependencies. This class also allows you to customize many Video Editor SDK features i.e. min/max video durations, export flow, order of effects and others.
 
 ### Add resources
 Video Editor SDK uses a lot of resources required for running.  
 Please make sure all these resources are provided in your project.
-1. [bundleEffects](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/ios/bundleEffects) to use build-in Banuba AR effects. Using Banuba AR requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.
-2. [luts](https://github.com/Banuba/ve-sdk-flutter-integration-sample/tree/main/ios/luts) to use Lut effects shown in the Effects tab.
+1. [bundleEffects](../ios/bundleEffects) to use build-in Banuba AR effects. Using Banuba AR requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.
+2. [luts](../ios/luts) to use Lut effects shown in the Effects tab.
 
 ### Add platform channel
 [Platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) is used for communication between Flutter and iOS.
 
-Add channel message handler to your [AppDelegate.swift]((https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#54))
+Add channel message handler to your [AppDelegate.swift]((../ios/Runner/AppDelegate.swift#54))
 to listen to calls from Flutter side. Flutter sends messages in this channel to initialize or start Video Editor.
 ```swift
     let binaryMessenger = controller as? FlutterBinaryMessenger {
@@ -40,7 +40,7 @@ to listen to calls from Flutter side. Flutter sends messages in this channel to 
 ```
 
 ### Start SDK
-First, initialize Video Editor SDK using license token in [VideoEditorModule](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/VideoEditorModule.swift#L30) on iOS.
+First, initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Runner/VideoEditorModule.swift#L30) on iOS.
 ```swift
 let videoEditor = BanubaVideoEditor(
         token: token,
@@ -49,7 +49,7 @@ let videoEditor = BanubaVideoEditor(
 ```
 Please note, instance ```videoEditor``` can be **nil** if the license token is incorrect.
 
-Next, to start Video Editor SDK from Flutter use ```platform.invokeMethod``` method from [Flutter](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L79).
+Next, to start Video Editor SDK from Flutter use ```platform.invokeMethod``` method from [Flutter](../lib/main.dart#L79).
 It will open Video Editor SDK from camera screen.
 
 ```dart
@@ -67,17 +67,16 @@ It will open Video Editor SDK from camera screen.
          }
     }
    ```
-Export returns [result](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/lib/main.dart#L79)  where you can pass required data i.e. exported video stored to Flutter.
+Export returns [result](../lib/main.dart#L79)  where you can pass required data i.e. exported video stored to Flutter.
 
 ### Enable custom Audio Browser experience
 Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
-To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#12)  
+To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#12)  
 :exclamation: Video Editor SDK can play only files stored on device.
 
 ### Connect Mubert
 :exclamation: Please request API key from [Mubert](https://mubert.com/). Banuba is not responsible for providing Mubert API key.  
-Set Mubert API key [within the app](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#15) and
-[configEnableCustomAudioBrowser](https://github.com/Banuba/ve-sdk-flutter-integration-sample/blob/main/ios/Runner/AppDelegate.swift#12)  to ```false```
+Set Mubert API key [within the app](../ios/Runner/AppDelegate.swift#15) and [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#12)  to ```false```
 for playing Mubert content in Video Editor Audio Browser.
 
 ## What is next?
