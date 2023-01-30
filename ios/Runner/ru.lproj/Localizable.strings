@@ -21,14 +21,17 @@
 /* Move to next screen */
 "Next" = "Дальше";
 
-/* Publish video */
-"Publish" = "Опубликовать";
-
 /* Return to the previous screen */
 "Back" = "Назад";
 
 /* Ability to cancel */
 "Cancel" = "Отмена";
+
+/* Ability to close */
+"Close" = "Закрыть";
+
+/* Ability to close */
+"CLOSE" = "ЗАКРЫТЬ";
 
 "alert.reset.all.title" = "Сбросить все?";
 "alert.reset.all.message" = "";
@@ -49,7 +52,7 @@
 "alert.stop.capturing.video.message" = "";
 
 /* Used in alert with Yes and No options when resetting filters. */
-"record.screen.reset.all.title" = "Сбросить все?";
+"record.screen.reset.all.title" = "Удалить изменения?";
 "editor.screen.reset.all.title" = "Сбросить все?";
 "record.screen.reset.all.message" = "";
 "editor.screen.reset.all.message" = "";
@@ -93,14 +96,14 @@
 /* Pictures not found by custom keyword */
 "No stickers found" = "Стикеры не найдены";
 
+/* Stickers search can not be performed due to missing API key */
+"Giphy API key missing" = "Здесь появятся стикеры, когда вы укажите ключ Giphy";
+
 /*'Seconds' for maximum */
 "Max length %d sec" = "Максимум %d сек";
 
 /* 'Seconds' for short */
 "%d sec" = "%d сек";
-
-/* Screen title when multi-select mode is enabled on the video gallery screen */
-"Choose video" = "Выберете видео";
 
 /* Name of the button in multi-select mode, which confirms the selection of user files and continues the process further */
 "Choose" = "Выбрать";
@@ -116,18 +119,12 @@
 
 /* Step one of two to edit your avatar: take a photo */
 "Make cover photo" = "Пожалуйста, сделай фото на обложку";
-
-/* The first step of two when taking a profile photo using the camera */
-"Step 1 / 2" = "Шаг 1 / 2";
     
 /* Step two of two when taking a profile photo using the camera */
 "Step 2 / 2" = "Шаг 2 / 2";
     
 /* Description of the zone selection screen for the user avatar when taking pictures on the profile screen */
 "Crop your profile photo for feed and comments" = "Круглая аватарка нужна для потока и комментариев";
-
-/* Suggestion to choose a cover for a video before publishing it online */
-"Choose cover" = "Пожалуйста, выбери обложку для видео";
     
 /* Hint on how to apply visual filters or time filter to video */
 "Press and hold" = "Нажми и держи";
@@ -137,18 +134,9 @@
  
 /* Screen title with video from phone gallery */
 "Gallery" = "Галерея";
-    
-/* Shows instead of a blank screen on the Gallery screen */
-"No files found" = "В галерее нет подходящих видео";
-
-/* Shows instead of a blank screen on the Gallery screen */
-"Videos should be longer than 5 seconds" = "Вполне возможно, что они короче 5 секунд";
 
 /* Activity signature */
 "LOADING" = "ЗАГРУЗКА";
-
-/* Text under the trobber when downloading a video */
-"VIDEO IS\nLOADING" = "ВИДЕО\nСКАЧИВАЕТСЯ";
 
 /* Message about downloading videos from iCloud in the window for selecting videos saved on the mobile device */
 "Video is uploading from iCloud" = "Видео загружаются из iCloud";
@@ -167,9 +155,6 @@
 
 /* Screen name which will be visible if enable in configuration */
 "Multi Trim Video Screen Name" = "Обрезать несколько видео";
-
-/* Screen name which will be visible if enable in configuration */
-"Multi Trim Video Item Screen Name" = "Обрезать видео";
 
 /* Recorder mask effect screen name */
 "Mask Effect Screen Name" = "Маска";
@@ -214,6 +199,9 @@
 /* Message displayed when there is no internet connection */
 "You don't seem to be connected to the internet. \nPlease try again" = "Не получается соединиться с интернетом.\nПожалуйста, попробуй еще раз";
 
+/* Message displayed when media file cannot be downloaded */
+"Cannot download media file from your iCloud" = "Не удалось загрузить медиа файл из вашего iCloud";
+
 /* Error if the format of the response from the server does not match the expected */
 "Unknown data format" = "Неожиданный формат данных";
 
@@ -233,9 +221,6 @@
 "alert.microphone.unavailable.title" = "Пожалуйста, разреши доступ к микрофону в настройках";
 "alert.microphone.unavailable.message" = "";
 
-/* Message when opening the trimmer screen */
-"Choose %i seconds" = "Выберете %d секунд";
-
 // MARK: - Settings
 
 /* The name of the button, by clicking on which you can go to the Settings application. */
@@ -245,7 +230,7 @@
 "Settings.Close" = "Закрыть";
 
 /* Used in an alert with Yes and No when resetting effects. */
-"alert.reset.effects.title" = "Отменить изменения?";
+"alert.reset.effects.title" = "Сбросить изменения?";
 "alert.reset.effects.message" = "";
 
 /* Undo filters applied to video in the add filters screen */
@@ -301,8 +286,8 @@
 /* Rapid effect name */
 "com.banuba.editor.effect.name.rapid" = "2x";
 
-/* DSLR Kaleidoscope effect name*/
-"com.banuba.editor.effect.name.dslrkaleidoscope" = "DSLR Kaleidoscope";
+/* Mirror 2 effect name*/
+"com.banuba.editor.effect.name.mirror2" = "Mirror 2";
 
 /* DV Cam effect name */
 "com.banuba.editor.effect.name.dvcam" = "DV Cam";
@@ -316,8 +301,8 @@
 /* Heat map effect name */
 "com.banuba.editor.effect.name.heatmap" = "Heat Map";
 
-/* Kaleidoscope effect name */
-"com.banuba.editor.effect.name.kaleidoscope" = "Kaleidoscope";
+/* Mirror effect name */
+"com.banuba.editor.effect.name.mirror" = "Mirror";
 
 /* Lumiere */
 "com.banuba.editor.effect.name.lumiere" = "Lumiere";
@@ -327,6 +312,9 @@
 
 /* Pixel static effect name */
 "com.banuba.editor.effect.name.pixelationstatic" = "Pixel Static";
+
+/* Blur effect name */
+"com.banuba.editor.effect.name.blur" = "Blur";
 
 /* Stars effect name */
 "com.banuba.editor.effect.name.stars" = "Stars";
@@ -346,87 +334,90 @@
 /* VHS 2 effect name */
 "com.banuba.editor.effect.name.vhs2" = "VHS 2";
 
+/* Twitch effect name */
+"com.banuba.editor.effect.name.twitch" = "Twitch";
+
+/* Open trimmer button name (for dradt) */
+"com.banuba.editor.openTrimButtonTitle" ="Коррекция";
+
 // MARK: - Filter names
 
 /* glitch filter name */
-"com.banuba.filter.name.lux" = "lux";
+"com.banuba.filter.name.lux" = "Lux";
 
 /* remy filter name */
-"com.banuba.filter.name.remy" = "remy";
+"com.banuba.filter.name.remy" = "Remy";
 
 /* hyla filter name */
-"com.banuba.filter.name.hyla" = "hyla";
+"com.banuba.filter.name.hyla" = "Hyla";
 
 /* neon filter name */
-"com.banuba.filter.name.neon" = "neon";
+"com.banuba.filter.name.neon" = "Neon";
 
 /* retro filter name */
-"com.banuba.filter.name.retro" = "retro";
+"com.banuba.filter.name.retro" = "Retro";
 
 /* sunny filter name */
-"com.banuba.filter.name.sunny" = "sunny";
+"com.banuba.filter.name.sunny" = "Sunny";
 
 /* egypt filter name */
-"com.banuba.filter.name.egypt" = "egypt";
+"com.banuba.filter.name.egypt" = "Egypt";
 
 /* spark filter name */
-"com.banuba.filter.name.spark" = "spark";
+"com.banuba.filter.name.spark" = "Spark";
 
 /* byers filter name */
-"com.banuba.filter.name.byers" = "byers";
+"com.banuba.filter.name.byers" = "Byers";
 
 /* lilac filter name */
-"com.banuba.filter.name.lilac" = "lilac";
+"com.banuba.filter.name.lilac" = "Lilac";
 
 /* vinyl filter name */
-"com.banuba.filter.name.vinyl" = "vinyl";
+"com.banuba.filter.name.vinyl" = "Vinyl";
 
 /* japan filter name */
-"com.banuba.filter.name.japan" = "japan";
+"com.banuba.filter.name.japan" = "Japan";
 
 /* chile filter name */
-"com.banuba.filter.name.chile" = "chile";
+"com.banuba.filter.name.chile" = "Chile";
 
 /* glitch filter name */
-"com.banuba.filter.name.glitch" = "glitch";
+"com.banuba.filter.name.glitch" = "Glitch";
 
 /* grunge filter name */
-"com.banuba.filter.name.grunge" = "grunge";
+"com.banuba.filter.name.grunge" = "Grunge";
 
 /* canada filter name */
-"com.banuba.filter.name.canada" = "canada";
+"com.banuba.filter.name.canada" = "Canada";
 
 /* chroma filter name */
-"com.banuba.filter.name.chroma" = "chroma";
+"com.banuba.filter.name.chroma" = "Chroma";
 
 /* norway filter name */
-"com.banuba.filter.name.norway" = "norway";
+"com.banuba.filter.name.norway" = "Norway";
 
 /* korben filter name */
-"com.banuba.filter.name.korben" = "korben";
+"com.banuba.filter.name.korben" = "Korben";
 
 /* sunset filter name */
-"com.banuba.filter.name.sunset" = "sunset";
+"com.banuba.filter.name.sunset" = "Sunset";
 
 /* instant filter name */
-"com.banuba.filter.name.instant" = "instant";
+"com.banuba.filter.name.instant" = "Instant";
 
 /* england filter name */
-"com.banuba.filter.name.england" = "england";
+"com.banuba.filter.name.england" = "England";
 
 /* pinkvine filter name */
-"com.banuba.filter.name.pinkvine" = "pinkvine";
+"com.banuba.filter.name.pinkvine" = "Pinkvine";
 
-/* bubblegum filter name */
-"com.banuba.filter.name.bubblegum" = "bubblegum";
+/* vivid filter name */
+"com.banuba.filter.name.vivid" = "Vivid";
 
-/* new zeland filter name */
-"com.banuba.filter.name.new_zeland" = "new_zeland";
+/* bright filter name */
+"com.banuba.filter.name.bright" = "Bright";
 
 // MARK: - GALLERY SCREEN / SLIDE SHOW
-
-/* No photo in the combined gallery */
-"No matching files found in gallery" = "В галерее не нашлось подходящих файлов";
 
 /* No photo in gallery */
 "No matching photos found in gallery" = "В галерее не нашлось подходящих фото";
@@ -434,14 +425,8 @@
 /* No video in gallery */
 "No matching video found in gallery" = "В галерее не нашлось подходящих видео";
 
-/* Shown when the user tries to add a file to import beyond what is possible */
-"You can choose %i videos" = "Вы можете выбрать %i видео";
-
-/* User selected too many photos in the gallery */
-"Too much, %d - max number of photos" = "Слишком много, %d – макс количество фото";
-
-/* Failed to download photos for slideshow */
-"Error loading images" = "Ошибка загрузки изображений";
+/* User selected too many files in the gallery */
+"You can select only %d files" = "Вы можете выбрать только %d файлов";
 
 /* Failed to export a video */
 "Failed to create video" = "Не удалось создать видео";
@@ -450,9 +435,6 @@
 
 /* Delete track button title */
 "MusicEditor.Delete" = "Удалить";
-
-/* Edit track volume button title */
-"MusicEditor.Volume" = "Громкость";
 
 /* Voice effect button title */
 "MusicEditor.VoiceEffect" = "Эффект";
@@ -474,15 +456,6 @@
 
 /* Audio duration title */
 "MusicEditor.Duration" = "Длительность";
-
-/* Cancel button title */
-"MusicEditor.Cancel" = "Отменить";
-
-/* Confirmation button title */
-"MusicEditor.Yes" = "Да";
-
-/* Discarding button title */
-"MusicEditor.No" = "Нет";
 
 /* Confirmation message for discarding changes */
 "com.banuba.musicEditor.mainScreen.resetAll.title" = "Сбросить изменения?";
@@ -518,6 +491,12 @@
 /* Add sticker button title */
 "OverlayEditor.Sticker" = "Стикер";
 
+/* Add square blur button title */
+"OverlayEditor.Square.Blur" = "Квадрат";
+
+/* Add circle Blur button title */
+"OverlayEditor.Circle.Blur" = "Круг";
+
 /* Cancel button title */
 "OverlayEditor.Cancel" = "Отменить";
 
@@ -535,38 +514,6 @@
 "com.banuba.overlayEditor.mainScreen.resetAll.message" = "";
 "com.banuba.overlayEditor.mainScreen.resetAll.agree" = "Сбросить";
 "com.banuba.overlayEditor.mainScreen.resetAll.disagree" = "Отмена";
-
-// MARK: - Interactives
-
-/* Placeholder for interactive interests */
-"OverlayEditor.Intereset" = "Интерес";
-
-/* Interactive test header */
-"OverlayEditor.Create test" = "Создайте тест…";
-
-/* Interactive question header */
-"OverlayEditor.Create question" = "Задайте вопрос…";
-
-/* Title for initial interactive test fields */
-"OverlayEditor.Variant %i" = "Вариант %i";
-
-/* Title for additional interactive test fields */
-"OverlayEditor.Another option" = "Еще вариант";
-
-/* Interactive poll title */
-"OverlayEditor.Create a poll" = "Создайте опрос";
-
-/* Toast when an interactive title is missing */
-"OverlayEditor.Add a question" = "Добавьте вопрос";
-
-/* Add at least %i answer option */
-"OverlayEditor.Add at least %i answer option" = "Добавьте хотя бы %i варианта ответа";
-
-/* Message when the correct answer appears in the interactive test */
-"OverlayEditor.Click here to correct the answer" = "Нажмите здесь, чтобы сделать ответ правильным";
-
-/* Message when no interest is entered in the interest interactive */
-"OverlayEditor.Enter interest" = "Введите интерес";
 
 // MARK: - AudioBrowser
 
@@ -597,15 +544,17 @@
 "audioBrowser.my.library" = "Моя библиотека";
 "audioBrowser.no.matches" = "Нет совпадений";
 "audioBrowser.no.tracks" = "Нет треков";
+/* Track format for displaying mubert track title*/
+"audioBrowser.mubertTrackFormat" = "Трек %d";
+
+/* Wrong Mubert key error text */
+"audioBrowser.wrongPatError" = "Ключ сервиса ‘Муберт’ отсутствует. Чтобы получить его, свяжитесь с представителем Banuba.";
 
 "feature.disabled.audiobrowser" = "Музыкальный браузер по умолчанию не входит в ваш пакет. Вы можете добавить свою музыку.";
 
 // MARK: - Hands-free
-
-"hands.free.timer.title" = "Обратный отсчет";
-"hands.free.video.mode.title" = "Hands-free видео режим";
 "hands.free.video.drag.title" = "Установите продолжительность видео:";
-"hands.free.btn.title" = "НАЧАТЬ ЗАПИСЬ";
+"hands.free.btn.title" = "Начать отсчёт";
 "hands.free.seconds" = "%@ с";
 
 // MARK: - Video Editor
@@ -619,8 +568,24 @@
 /* Gallery custom All Photos title */
 "BanubaVideoEditor.Gallery.AllPhotosTitle" = "Вce фото";
 
+/* Gallery previe select button name*/
+"BanubaVideoEditor.Gallery.SelectItemName" = "Выбрать";
+
+/* Gallery previe deselect button name*/
+"BanubaVideoEditor.Gallery.DeselectItemName" = "Отменить";
+
+/* Gallery header info title */
+"BanubaVideoEditor.Gallery.HeaderInfoTitle" = "Открыть %@, чтобы разрешить доступ к фотографиям";
+"BanubaVideoEditor.Gallery.HeaderInfoColoredTitle" = "настройки";
+
 /* Gallery Recent Photos title */
 "BanubaVideoEditor.Gallery.RecentPhotosTitle" = "Недавние";
+
+/* Damaged file from gallery */
+"BanubaVideoEditor.Gallery.DamagedFile" = "Поврежденный файл";
+
+/* Export video from gallery failed */
+"BanubaVideoEditor.Gallery.ExportVideoFailed" = "Загрузка была прервана";
 
 /* Gallery selection hint */
 "BanubaVideoEditor.Gallery.SelectItems" = "Выберите элементы";
@@ -630,6 +595,9 @@
 
 /* Import multiple videos template */
 "BanubaVideoEditor.Gallery.ImportMultipleVideos" = "Выбрать %d видео";
+
+/* Import multiple videos template */
+"BanubaVideoEditor.Gallery.ImportMultipleVideosAndPhotos" = "Выбрать %d видео и фото";
 
 /* Import single image template */
 "BanubaVideoEditor.Gallery.ImportSingleImage" = "Выбрать 1 фото";
@@ -679,10 +647,11 @@
 "BanubaVideoEditor.Gallery.DraftsTitle" = "Черновики";
 /* Draft actions subtitle */
 "BanubaVideoEditor.Gallery.DraftTitle" = "Черновик";
+/* Draft edit action name */
+"BanubaVideoEditor.Gallery.DraftEditActionName" = "Изменить";
 /* Draft remove action name */
 "BanubaVideoEditor.Gallery.DraftRemoveActionName" = "Удалить";
-/* Displays hint about drafts location */
-"BanubaVideoEditor.Recorder.DraftHintMessage" = "Вы можете найти свой черновик в галерее";
+
 /* Used in alert with Yes and No options when resetting current sequence */
 "com.banuba.BanubaVideoEditor.draft.question.title" = "Сохранить черновик?";
 "com.banuba.BanubaVideoEditor.draft.question.message" = "";
@@ -702,12 +671,16 @@
 "com.banuba.BanubaVideoEditor.draft.update.message" = "";
 "com.banuba.BanubaVideoEditor.draft.update.agree" = "Обновить";
 "com.banuba.BanubaVideoEditor.draft.update.disagree" = "Отмена";
+"com.banuba.BanubaVideoEditor.draft.lose.message" = "Внимание! Вы потеряете текущие настройки редактирования. Продолжить?";
+"com.banuba.BanubaVideoEditor.draft.lose.agree" ="Продолжить";
+"com.banuba.BanubaVideoEditor.draft.discardChangesAction" = "Отменить изменения";
+"com.banuba.BanubaVideoEditor.draft.updateAction" = "Обновить драфт";
 
 //MARK: - Additional buttons
 "com.banuba.recorder.link.title" = "Ссылка";
 "com.banuba.recorder.color.title" = "Фильтры";
 "com.banuba.recorder.sticker.title" = "Стикеры";
-"com.banuba.recorder.pixalate.title" = "Блюр";
+"com.banuba.recorder.blur.title" = "Блюр";
 "com.banuba.recorder.text.title" = "Текст";
 "com.banuba.recorder.time.title" = " Скорость";
 "com.banuba.recorder.sound.title" = "Музыка";
@@ -719,11 +692,14 @@
 "com.banuba.recorder.beauty.title" = "Ретушь";
 "com.banuba.recorder.masks.title" = "Маски";
 "com.banuba.recorder.muteSound.title" = "Звук";
-"com.banuba.recorder.interactive.title" = "Интерактивы";
 "com.banuba.recorder.pip.title" = "Пип";
 
 /* Gallery button title */
 "com.banuba.recorder.gallery.title" = "Галерея";
+
+/* Recorder video duration */
+"com.banuba.recorder.secondsFormat" = "%d сек";
+"com.banuba.recorder.minutesFormat" = "%d мин";
 
 /* Aspect title for cells*/
 "com.banuba.videoEditor.aspect.original" = "Оригинал";
@@ -731,6 +707,22 @@
 "com.banuba.videoEditor.aspect.9:16" = "9:16";
 "com.banuba.videoEditor.aspect.4:3" = "4:3";
 "com.banuba.videoEditor.aspect.4:5" = "4:5";
+
+/* Transitions title for cells*/
+"com.banuba.videoEditor.transition.none" = "Нет";
+"com.banuba.videoEditor.transition.whipDown" = "Размытие\nвниз";
+"com.banuba.videoEditor.transition.whipUp" = "Размытие\nвверх";
+"com.banuba.videoEditor.transition.whipRight" = "Размытие\nвправо";
+"com.banuba.videoEditor.transition.whipLeft" = "Размытие\nвлево";
+"com.banuba.videoEditor.transition.scrollDown" = "Сдвиг\nвниз";
+"com.banuba.videoEditor.transition.scrollUp" = "Сдвиг\nвверх";
+"com.banuba.videoEditor.transition.scrollRight" = "Сдвиг\nвправо";
+"com.banuba.videoEditor.transition.scrollLeft" = "Сдвиг\nвлево";
+"com.banuba.videoEditor.transition.spinRight" = "Враще-\nние";
+"com.banuba.videoEditor.transition.fade" = "Затемне-\nние";
+
+/* Transition disabled alert message */
+"com.banuba.videoEditor.transition.disabledToastMessage" = "Видео должно быть длиннее 0.5 сек чтобы прменить переход.";
 
 /* Text editor font names */
 "com.banuba.textEditor.fontName.regular" = "Обычный";
@@ -751,8 +743,8 @@
 
 /* discard all alert type for record screen */
 "com.banuba.alert.discardAllRecord.additionalButtonTitle" = "Переснять";
-"com.banuba.alert.discardAllRecord.agreeButtonTitle" = "Сбросить";
-"com.banuba.alert.discardAllRecord.disagreeButtonTitle" = "Отмена";
+"com.banuba.alert.discardAllRecord.agreeButtonTitle" = "Выйти";
+"com.banuba.alert.discardAllRecord.disagreeButtonTitle" = "Закрыть";
 /* discard all alert type for editor screen */
 "com.banuba.alert.discardAllEditor.agreeButtonTitle" = "Сбросить";
 "com.banuba.alert.discardAllEditor.disagreeButtonTitle" = "Отмена";
@@ -771,6 +763,23 @@
 /* discard music alert type */
 "com.banuba.alert.discardMusic.agreeButtonTitle" = "Сбросить";
 "com.banuba.alert.discardMusic.disagreeButtonTitle" = "Отмена";
+/* progress view alert type */
+"com.banuba.alert.progressView.agreeButtonTitle" = "Повторить";
+"com.banuba.alert.progressView.disagreeButtonTitle" = "Отмена";
+"com.banuba.alert.progressView.importingMedia" = "Загрузка медиа";
+"com.banuba.alert.progressView.exportingVideo" = "Экспорт видео";
+"com.banuba.alert.progressView.tooltipMessage" = "Пожалуйста, не блокируйте экран и не переходите в другие приложения";
+"com.banuba.alert.progressView.exportVideoInterrupted" = "Экспорт был прерван";
+
+/* need to update iOS alert */
+"com.banuba.alert.needToUpdateIos.title" = "К сожалению, минимальная поддерживаемая версия - iOS 12.";
+"com.banuba.alert.needToUpdateIos.message" = "Вы должны выполнить обновление до ios 12.0, чтобы использовать это приложение.";
+
+/* remove and start over record video */
+"com.banuba.trim.startOverRecordVideoTitle" = "Хотите записать новое видео?";
+"com.banuba.trim.startOverRecordVideoMessage" = "";
+"com.banuba.trim.startOverRecordVideoAgreeButtonTitle" = "Начать сначала";
+"com.banuba.trim.startOverRecordVideoDisagreeButtonTitle" = "Отказаться";
 
 // MARK: - Trim
 /* Edit video rotate button title */
@@ -793,3 +802,17 @@
 // MARK: - Capture button modes
 "com.banuba.record.captureButtonVideoMode" = "ВИДЕО";
 "com.banuba.record.captureButtonPhotoMode" = "ФОТО";
+
+/* Sharing other button */
+"sharing.other.title" = "Другое";
+
+/* Sharing video main title */
+"sharing.video.title" = "Поделиться Видео";
+
+/* Error if sharing application is not installed */
+"sharing.app.not.installed" = "К сожалению, приложение не установлено";
+
+// MARK: - Expired license screen
+"com.banuba.expiredLicense.infoLabel" = "Создание видео временно недоступно";
+"com.banuba.expiredLicense.cancelButtonTitle" = "Закрыть";
+
