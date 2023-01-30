@@ -40,7 +40,7 @@ to listen to calls from Flutter side. Flutter sends messages in this channel to 
 ```
 
 ### Start SDK
-First, initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Runner/VideoEditorModule.swift#L30) on iOS.
+First, initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Runner/VideoEditorModule.swift#L33) on iOS.
 ```swift
 let videoEditor = BanubaVideoEditor(
         token: token,
