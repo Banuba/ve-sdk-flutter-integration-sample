@@ -148,6 +148,14 @@ class VideoEditorModule: VideoEditor {
 // MARK: - Export flow
 extension VideoEditorModule {
     func exportVideo() {
+        let progressView = ProgressViewController.makeViewController()
+        
+        progressView.cancelHandler = { [weak self] in
+            self?.videoEditorSDK?.stopExport()
+        }
+        
+        getTopViewController()?.present(progressView, animated: true)
+        
         let manager = FileManager.default
         // File name
         let firstFileURL = manager.temporaryDirectory.appendingPathComponent("banuba_demo_ve.mov")
@@ -175,39 +183,62 @@ extension VideoEditorModule {
         // Export func
         videoEditorSDK?.export(
             using: exportConfiguration,
-            exportProgress: nil
+            exportProgress: { [weak progressView] progress in progressView?.updateProgressView(with: Float(progress)) }
         ) { [weak self] (success, error, coverImage) in
             // Export Callback
             DispatchQueue.main.async {
-                if success {
-                    let exportedVideoFilePath = firstFileURL.absoluteString
-                    print("Export video completed successfully. Video: \(exportedVideoFilePath))")
-                    
-                    let coverImageData = coverImage?.coverImage?.pngData()
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH-mm-ss.SSS"
-                    let coverImageURL = FileManager.default.temporaryDirectory.appendingPathComponent("export_preview-\(dateFormatter.string(from: Date())).png")
-                    try? coverImageData?.write(to: coverImageURL)
-                    
-                    let data = [
-                        AppDelegate.argExportedVideoFile: exportedVideoFilePath,
-                        AppDelegate.argExportedVideoCoverPreviewPath: coverImageURL.path
-                    ]
-                    self?.flutterResult?(data)
-                    
-                    // Remove strong reference to video editor sdk instance
-                    self?.videoEditorSDK = nil
-                } else {
-                    print("Export video completed with error: \(String(describing: error))")
-                    self?.flutterResult?(FlutterError(code: AppDelegate.errMissingExportResult,
-                                                      message: "Export video completed with error: \(String(describing: error))",
-                                                      details: nil))
-                    
-                    // Remove strong reference to video editor sdk instance
-                    self?.videoEditorSDK = nil
+                progressView.dismiss(animated: true) {
+                    // if export cancelled just hide progress view
+                    if let error, error as NSError == exportCancelledError {
+                        return
+                    }
+                    self?.completeExport(success: success, videoUrl: firstFileURL, error: error, coverImage: coverImage?.coverImage)
                 }
             }
         }
+    }
+    
+    private func completeExport(success: Bool, videoUrl: URL, error: Error?, coverImage: UIImage?) {
+        videoEditorSDK?.dismissVideoEditor(animated: true) {
+            if success {
+                let exportedVideoFilePath = videoUrl.absoluteString
+                print("Export video completed successfully. Video: \(exportedVideoFilePath))")
+                
+                let coverImageData = coverImage?.pngData()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH-mm-ss.SSS"
+                let coverImageURL = FileManager.default.temporaryDirectory.appendingPathComponent("export_preview-\(dateFormatter.string(from: Date())).png")
+                try? coverImageData?.write(to: coverImageURL)
+                
+                let data = [
+                    AppDelegate.argExportedVideoFile: exportedVideoFilePath,
+                    AppDelegate.argExportedVideoCoverPreviewPath: coverImageURL.path
+                ]
+                self.flutterResult?(data)
+            } else {
+                print("Export video completed with error: \(String(describing: error))")
+                self.flutterResult?(FlutterError(code: AppDelegate.errMissingExportResult,
+                                            message: "Export video completed with error: \(String(describing: error))",
+                                            details: nil))
+            }
+            
+            // Remove strong reference to video editor sdk instance
+            self.videoEditorSDK = nil
+        }
+    }
+    
+    func getTopViewController() -> UIViewController? {
+        guard let window = UIApplication.shared.keyWindow, let rootViewController = window.rootViewController else {
+            return nil
+        }
+        
+        var topController = rootViewController
+        
+        while let newTopController = topController.presentedViewController {
+            topController = newTopController
+        }
+        
+        return topController
     }
 }
 
@@ -221,8 +252,6 @@ extension VideoEditorModule: BanubaVideoEditorDelegate {
     }
     
     func videoEditorDone(_ videoEditor: BanubaVideoEditor) {
-        videoEditor.dismissVideoEditor(animated: true) { [weak self] in
-            self?.exportVideo()
-        }
+        exportVideo()
     }
 }
