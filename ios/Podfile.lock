@@ -1,18 +1,18 @@
 PODS:
-  - BanubaARCloudSDK (1.26.3)
-  - BanubaAudioBrowserSDK (1.26.3)
-  - BanubaEffectPlayer (1.26.3)
-  - BanubaLicenseServicingSDK (1.26.3)
-  - BanubaMusicEditorSDK (1.26.3)
-  - BanubaOverlayEditorSDK (1.26.3)
-  - BanubaSDK (1.26.3)
-  - BanubaSDKServicing (1.26.3)
-  - BanubaSDKSimple (1.26.3)
-  - BanubaUtilities (1.26.3)
-  - BanubaVideoEditorGallerySDK (1.26.3)
-  - BanubaVideoEditorSDK (1.26.3)
-  - BanubaVideoEditorTrimSDK (1.26.3)
-  - BNBLicenseUtils (1.26.3)
+  - BanubaARCloudSDK (1.26.4)
+  - BanubaAudioBrowserSDK (1.26.4)
+  - BanubaEffectPlayer (1.26.4)
+  - BanubaLicenseServicingSDK (1.26.4)
+  - BanubaMusicEditorSDK (1.26.4)
+  - BanubaOverlayEditorSDK (1.26.4)
+  - BanubaSDK (1.26.4)
+  - BanubaSDKServicing (1.26.4)
+  - BanubaSDKSimple (1.26.4)
+  - BanubaUtilities (1.26.4)
+  - BanubaVideoEditorGallerySDK (1.26.4)
+  - BanubaVideoEditorSDK (1.26.4)
+  - BanubaVideoEditorTrimSDK (1.26.4)
+  - BNBLicenseUtils (1.26.4)
   - Flutter (1.0.0)
   - image_picker_ios (0.0.1):
     - Flutter
@@ -20,34 +20,34 @@ PODS:
     - Flutter
   - url_launcher_ios (0.0.1):
     - Flutter
-  - VEEffectsSDK (1.26.3)
-  - VEExportSDK (1.26.3)
-  - VEPlaybackSDK (1.26.3)
-  - VideoEditor (1.26.3)
+  - VEEffectsSDK (1.26.4)
+  - VEExportSDK (1.26.4)
+  - VEPlaybackSDK (1.26.4)
+  - VideoEditor (1.26.4)
 
 DEPENDENCIES:
-  - BanubaARCloudSDK (= 1.26.3)
-  - BanubaAudioBrowserSDK (= 1.26.3)
-  - BanubaEffectPlayer (= 1.26.3)
-  - BanubaLicenseServicingSDK (= 1.26.3)
-  - BanubaMusicEditorSDK (= 1.26.3)
-  - BanubaOverlayEditorSDK (= 1.26.3)
-  - BanubaSDK (= 1.26.3)
-  - BanubaSDKServicing (= 1.26.3)
-  - BanubaSDKSimple (= 1.26.3)
-  - BanubaUtilities (= 1.26.3)
-  - BanubaVideoEditorGallerySDK (= 1.26.3)
-  - BanubaVideoEditorSDK (= 1.26.3)
-  - BanubaVideoEditorTrimSDK (= 1.26.3)
-  - BNBLicenseUtils (= 1.26.3)
+  - BanubaARCloudSDK (= 1.26.4)
+  - BanubaAudioBrowserSDK (= 1.26.4)
+  - BanubaEffectPlayer (= 1.26.4)
+  - BanubaLicenseServicingSDK (= 1.26.4)
+  - BanubaMusicEditorSDK (= 1.26.4)
+  - BanubaOverlayEditorSDK (= 1.26.4)
+  - BanubaSDK (= 1.26.4)
+  - BanubaSDKServicing (= 1.26.4)
+  - BanubaSDKSimple (= 1.26.4)
+  - BanubaUtilities (= 1.26.4)
+  - BanubaVideoEditorGallerySDK (= 1.26.4)
+  - BanubaVideoEditorSDK (= 1.26.4)
+  - BanubaVideoEditorTrimSDK (= 1.26.4)
+  - BNBLicenseUtils (= 1.26.4)
   - Flutter (from `Flutter`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
-  - VEEffectsSDK (= 1.26.3)
-  - VEExportSDK (= 1.26.3)
-  - VEPlaybackSDK (= 1.26.3)
-  - VideoEditor (= 1.26.3)
+  - VEEffectsSDK (= 1.26.4)
+  - VEExportSDK (= 1.26.4)
+  - VEPlaybackSDK (= 1.26.4)
+  - VideoEditor (= 1.26.4)
 
 SPEC REPOS:
   https://github.com/Banuba/specs.git:
@@ -81,29 +81,29 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  BanubaARCloudSDK: 68bf142cedc25c82e1686159eae8e14ef94c1db5
-  BanubaAudioBrowserSDK: 7e4b4fba7d59c77ed39e062c10b5f6a1d486318e
-  BanubaEffectPlayer: d42424f078459fb0956fc65dd96bc50d5b832a06
-  BanubaLicenseServicingSDK: b2797988657665539cfc3202301b39c34b728ad5
-  BanubaMusicEditorSDK: ee0ce01df33d9938327fcefb2b7cb800ebf9ab1f
-  BanubaOverlayEditorSDK: 6576ce071ed215f0fcf23d2da45a0f1f7a084e21
-  BanubaSDK: 564ced795b037d952cbea1ca9ffbfdb5d44b2bdf
-  BanubaSDKServicing: 54b895c32ad4a3ead86d1dbfb3ff9829ba0262a4
-  BanubaSDKSimple: 5046532052f82fe4ab3a0328bf83b70d32711dd5
-  BanubaUtilities: 064c11c16df21547d26cf153a324adf8a2680af5
-  BanubaVideoEditorGallerySDK: 7eac3efcbe9ed261401af88f24eb7b839b86aeac
-  BanubaVideoEditorSDK: 4301b9309314104bf42149d6034ba018d385fb34
-  BanubaVideoEditorTrimSDK: 2675ad7aed3a0458935db88b63e342d797f22561
-  BNBLicenseUtils: 7df035b3c1e8c017cd16aa5ba3473cfd3f48dd13
+  BanubaARCloudSDK: 31e043322ac9d60ac0e29f3e578daf750bac4661
+  BanubaAudioBrowserSDK: 41c107e05df3d587bc2973c4f5384b991f674f72
+  BanubaEffectPlayer: dded82c0701697b2b080a76eceb47dc81a28e822
+  BanubaLicenseServicingSDK: 6f6b4c6afbd6b1273e226cbd92ba72cb54ebdf1a
+  BanubaMusicEditorSDK: e08a9f2021c0d9ec2a677f8e07a67a66bc6e7fb4
+  BanubaOverlayEditorSDK: 2dc8e99c00c3f986c6ca3dfdade74cdcf6ba6979
+  BanubaSDK: eaef15cca648e7e79b1336779c7f743d65fea724
+  BanubaSDKServicing: 08d253792529822d25e11430139edb5b81f3b34c
+  BanubaSDKSimple: b3453b7fb3d95f2aee28acd8d3b8903d770074a1
+  BanubaUtilities: 1b49e0e75f37d3e6f8372a4907c778872a483555
+  BanubaVideoEditorGallerySDK: ce681970c888db60589ac322424b2a9188eab814
+  BanubaVideoEditorSDK: add12d7b96deaa10d3a4a6879f89ffd754d080b2
+  BanubaVideoEditorTrimSDK: a874abdbf6d4885a173cce9711a883df2cf1f0c6
+  BNBLicenseUtils: 33a6eedbd93a30666dc3a899a59bd2df9149f97f
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
-  VEEffectsSDK: c338baf51df9a9850808a66f6bd158696480e7b2
-  VEExportSDK: b0939de31deff1c23fabb3a06042bf9c20a91355
-  VEPlaybackSDK: f8aa17bdec2486ce3b6a7f0ec66db49b82ce105e
-  VideoEditor: c5c8ca0740008c449274717fc2d5fb05ca6c7c13
+  VEEffectsSDK: db302bf80bef6f11a566d769f6aab06b1cfe0a7a
+  VEExportSDK: d0f09ffbd29c7512a6946017f2f9567efc00da18
+  VEPlaybackSDK: 473d0ca2b0ee104432686afc86c95f4be1f97bfc
+  VideoEditor: 8e30a6641cd49cc7d1af660cd4ab79459846e828
 
-PODFILE CHECKSUM: f59f9599a5193d907502b0b2e8172059085ce34c
+PODFILE CHECKSUM: 01edabec61df33727f27bb7ca603358fee3a2a12
 
 COCOAPODS: 1.11.3
