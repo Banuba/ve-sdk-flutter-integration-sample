@@ -18,13 +18,13 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 
 ### Run on Android
 1. Run ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
-2. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate Video Editor SDK into your Flutter project.
+2. Learn [Android quickstart](mddocs/android_integration.md) to quickly integrate Android Video Editor SDK into your Flutter project.
 
 ### Run on iOS
 1. Install CocoaPods dependencies. Open **ios** directory and run ```pod install``` in terminal.
 2. Open **Signing & Capabilities** tab in Target settings and select your Development Team.
 3. Run ```flutter run``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
-4. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate Video Editor SDK into your Flutter project.
+4. Learn [iOS quickstart](mddocs/ios_integration.md) to quickly integrate iOS Video Editor SDK into your Flutter project.
 
 ## Dependencies
 |       |   Version | 

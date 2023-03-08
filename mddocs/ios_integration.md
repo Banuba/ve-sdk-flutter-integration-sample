@@ -1,14 +1,13 @@
-# iOS integration guide into Flutter project
+# iOS Video Editor SDK quickstart
 
 The following guide covers basic integration process into your Flutter project
 where required part of an integration and customization of Banuba Video Editor SDK is implemented in **ios** directory
 of your Flutter project using native iOS development process.
 
-### Prerequisite
-:exclamation: The license token **IS REQUIRED** to run sample and an integration into your app.  
-Please follow [Installation](../README.md#Installation) guide if the license token is not set.
+## Prerequisite
+Complete [Installation](../README.md#Installation) guide to proceed.
 
-### Add SDK dependencies
+## Add SDK dependencies
 Add iOS Video Editor SDK dependencies to your [Podfile](../ios/Podfile)
 
 ### Add SDK integration module

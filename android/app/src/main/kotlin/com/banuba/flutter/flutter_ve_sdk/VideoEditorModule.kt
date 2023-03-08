@@ -48,7 +48,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class VideoEditorIntegrationHelper {
+class VideoEditorModule {
 
     fun initialize(application: Application) {
         startKoin {
@@ -107,7 +107,7 @@ private class SampleIntegrationVeKoinModule {
          * Provides params for export
          * */
         factory<ExportParamsProvider> {
-            SampleExportParamsProvider(
+            CustomExportParamsProvider(
                 exportDir = get(named("exportDir")),
                 watermarkBuilder = get()
             )
@@ -172,7 +172,7 @@ private class SampleIntegrationVeKoinModule {
     }
 }
 
-private class SampleExportParamsProvider(
+private class CustomExportParamsProvider(
     private val exportDir: Uri,
     private val watermarkBuilder: WatermarkBuilder
 ) : ExportParamsProvider {

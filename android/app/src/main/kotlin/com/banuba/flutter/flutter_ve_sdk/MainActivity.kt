@@ -56,7 +56,7 @@ class MainActivity : FlutterActivity() {
     private var exportVideoChanelResult: MethodChannel.Result? = null
 
     private var videoEditorSDK: BanubaVideoEditor? = null
-    private var videoEditorIntegrationHelper: VideoEditorIntegrationHelper? = null
+    private var videoEditorModule: VideoEditorModule? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,9 +80,9 @@ class MainActivity : FlutterActivity() {
                         Log.e(TAG, ERR_SDK_NOT_INITIALIZED_MESSAGE)
                         result.error(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
                     } else {
-                        if (videoEditorIntegrationHelper == null) {
+                        if (videoEditorModule == null) {
                             // Initialize video editor sdk dependencies
-                            videoEditorIntegrationHelper = VideoEditorIntegrationHelper().apply {
+                            videoEditorModule = VideoEditorModule().apply {
                                 initialize(application)
                             }
                         }
