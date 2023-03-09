@@ -11,7 +11,7 @@
 - [Init and start](#Init-and-start)
 - [Enable custom Audio Browser experience](#Enable-custom-Audio-Browser-experience)
 - [Connect Mubert](#Connect-Mubert)
-- [Complete full integration](#Complete full integration)
+- [Complete full integration](#Complete-full-integration)
 
 ## Overview
 The following quickstart guide explains how to quickly integrate Android Video Editor SDK into your Flutter project.
