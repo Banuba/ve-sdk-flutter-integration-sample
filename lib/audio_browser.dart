@@ -138,18 +138,7 @@ class _AudioBrowserState extends State<AudioBrowserWidget> {
   Future<void> _discardLocalAudio() async {
     debugPrint('Discard audio track');
     try {
-      final dynamic result;
-      if (Platform.isAndroid) {
-        result = await _methodChannel.invokeMethod(_methodDiscardAudioTrack);
-      } else {
-        final iosArgs = {
-          "id": Uuid().v1(),
-        };
-        result = await _methodChannel.invokeMethod(
-          _methodDiscardAudioTrack,
-          jsonEncode(iosArgs),
-        );
-      }
+      final result = await _methodChannel.invokeMethod(_methodDiscardAudioTrack);
       debugPrint('Discard audio track result: $result ');
     } on PlatformException catch (e) {
       debugPrint("Error while discarding audio track: '${e.message}'.");

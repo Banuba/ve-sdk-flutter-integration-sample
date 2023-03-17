@@ -33,7 +33,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  sdk_version = '1.26.5'
+  sdk_version = '1.26.6'
 
   pod 'BanubaARCloudSDK', sdk_version #optional
   pod 'BanubaVideoEditorSDK', sdk_version
