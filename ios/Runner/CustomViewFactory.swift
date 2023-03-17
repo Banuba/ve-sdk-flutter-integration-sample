@@ -79,7 +79,13 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
                 self.handleApplyAudioTrack(args: methodCall.arguments, resultHandler: resultHandler)
                 
             case self.methodDiscardAudioTrack:
-                self.handleDiscardAudioTrack(args: methodCall.arguments, resultHandler: resultHandler)
+              self.trackSelectionDelegate?.trackSelectionViewControllerDiscardCurrentTrack(
+                viewController: self
+              )
+              self.trackSelectionDelegate?.trackSelectionViewControllerDidCancel(
+                  viewController: self
+              )
+              resultHandler(nil)
                 
             case self.methodClose:
                 self.trackSelectionDelegate?.trackSelectionViewControllerDidCancel(viewController: self)
@@ -109,28 +115,6 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
             title: track.title,
             additionalTitle: nil,
             uuid: track.id
-        )
-        resultHandler(nil)
-    }
-    
-    private func handleDiscardAudioTrack(args: Any?, resultHandler: (Any?) -> Void) {
-        struct TrackId: Codable {
-            let id: UUID
-        }
-        
-        guard let string = args as? String,
-              let data = string.data(using: .utf8),
-              let track = try? JSONDecoder().decode(TrackId.self, from: data) else {
-            resultHandler(FlutterMethodNotImplemented)
-            return
-        }
-        
-        trackSelectionDelegate?.trackSelectionViewController(
-            viewController: self,
-            didStopUsingTrackWith: track.id
-        )
-        trackSelectionDelegate?.trackSelectionViewControllerDidCancel(
-            viewController: self
         )
         resultHandler(nil)
     }

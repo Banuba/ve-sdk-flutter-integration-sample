@@ -457,6 +457,12 @@
 /* Audio duration title */
 "MusicEditor.Duration" = "Длительность";
 
+/* Original sound title */
+"MusicEditor.OriginalSound" = "Оригинальный звук";
+
+/* Added sound title */
+"MusicEditor.AddedSound" = "Добавленный звук";
+
 /* Confirmation message for discarding changes */
 "com.banuba.musicEditor.mainScreen.resetAll.title" = "Сбросить изменения?";
 "com.banuba.musicEditor.mainScreen.resetAll.message" = "";

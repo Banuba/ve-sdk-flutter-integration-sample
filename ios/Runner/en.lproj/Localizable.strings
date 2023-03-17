@@ -462,6 +462,11 @@
 /* Audio duration title */
 "MusicEditor.Duration" = "Duration";
 
+/* Original sound title */
+"MusicEditor.OriginalSound" = "Original sound";
+/* Added sound title */
+"MusicEditor.AddedSound" = "Added sound";
+
 /* Confirmation message for discarding changes */
 "com.banuba.musicEditor.mainScreen.resetAll.title" = "Discard changes?";
 "com.banuba.musicEditor.mainScreen.resetAll.message" = "";
