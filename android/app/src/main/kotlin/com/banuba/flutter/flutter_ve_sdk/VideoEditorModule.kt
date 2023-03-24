@@ -92,14 +92,13 @@ private class SampleIntegrationVeKoinModule {
         single<ExportFlowManager> {
             ForegroundExportFlowManager(
                 exportDataProvider = get(),
-                sessionParamsProvider = get(),
                 exportSessionHelper = get(),
                 exportDir = get(named("exportDir")),
                 shouldClearSessionOnFinish = true,
                 publishManager = get(),
                 errorParser = get(),
-                mediaFileNameHelper = get(),
-                exportBundleProvider = get()
+                exportBundleProvider = get(),
+                eventConverter = get()
             )
         }
 

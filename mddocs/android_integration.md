@@ -47,7 +47,7 @@ Add Banuba repositories to [project gradle](../android/build.gradle#L55) file to
 
 Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L313) file.
 ```groovy
-    def banubaSdkVersion = '1.26.5.1'
+    def banubaSdkVersion = '1.26.6'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
