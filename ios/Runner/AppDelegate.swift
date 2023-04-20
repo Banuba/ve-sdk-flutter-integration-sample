@@ -12,6 +12,7 @@ import BanubaAudioBrowserSDK
     private let configEnableCustomAudioBrowser = false
     
     // Set your Mubert Api key here
+    static let mubertApiLicense = ""
     static let mubertApiKey = ""
     
     lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
@@ -131,7 +132,10 @@ import BanubaAudioBrowserSDK
         if configEnableCustomAudioBrowser {
             factory = FlutterCustomViewFactory()
         } else {
-            BanubaAudioBrowser.setMubertPat(AppDelegate.mubertApiKey)
+            BanubaAudioBrowser.setMubertKeys(
+                license: AppDelegate.mubertApiLicense,
+                token: AppDelegate.mubertApiKey
+            )
             factory = nil
         }
         

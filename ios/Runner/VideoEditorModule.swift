@@ -26,6 +26,11 @@ class VideoEditorModule: VideoEditor {
         token: String?,
         flutterResult: @escaping FlutterResult
     ) {
+        guard videoEditorSDK == nil else {
+            flutterResult(nil)
+            return
+        }
+        
         let config = VideoEditorConfig()
         
         // Make customization here
@@ -184,7 +189,7 @@ extension VideoEditorModule {
         videoEditorSDK?.export(
             using: exportConfiguration,
             exportProgress: { [weak progressView] progress in progressView?.updateProgressView(with: Float(progress)) }
-        ) { [weak self] (success, error, coverImage) in
+        ) { [weak self] (error, coverImage) in
             // Export Callback
             DispatchQueue.main.async {
                 progressView.dismiss(animated: true) {
@@ -192,14 +197,15 @@ extension VideoEditorModule {
                     if let error, error as NSError == exportCancelledError {
                         return
                     }
-                    self?.completeExport(success: success, videoUrl: firstFileURL, error: error, coverImage: coverImage?.coverImage)
+                    self?.completeExport(videoUrl: firstFileURL, error: error, coverImage: coverImage?.coverImage)
                 }
             }
         }
     }
     
-    private func completeExport(success: Bool, videoUrl: URL, error: Error?, coverImage: UIImage?) {
+    private func completeExport(videoUrl: URL, error: Error?, coverImage: UIImage?) {
         videoEditorSDK?.dismissVideoEditor(animated: true) {
+            let success = error == nil
             if success {
                 let exportedVideoFilePath = videoUrl.absoluteString
                 print("Export video completed successfully. Video: \(exportedVideoFilePath))")
@@ -228,13 +234,15 @@ extension VideoEditorModule {
     }
     
     func getTopViewController() -> UIViewController? {
-        guard let window = UIApplication.shared.keyWindow, let rootViewController = window.rootViewController else {
-            return nil
-        }
+        let keyWindow = UIApplication
+            .shared
+            .connectedScenes
+            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+            .last { $0.isKeyWindow }
         
-        var topController = rootViewController
+        var topController = keyWindow?.rootViewController
         
-        while let newTopController = topController.presentedViewController {
+        while let newTopController = topController?.presentedViewController {
             topController = newTopController
         }
         
