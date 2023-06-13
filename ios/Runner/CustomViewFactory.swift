@@ -6,7 +6,6 @@
 //
 
 import BanubaVideoEditorSDK
-import BanubaMusicEditorSDK
 import BanubaUtilities
 import Flutter
 
@@ -41,12 +40,12 @@ class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewController
     }
     
     // Effects selection view controller. Used at Music editor screen
-    func makeEffectSelectionViewController(selectedAudioItem: BanubaUtilities.AudioItem?) -> BanubaMusicEditorSDK.EffectSelectionViewController? {
+    func makeEffectSelectionViewController(selectedAudioItem: BanubaUtilities.AudioItem?) -> BanubaUtilities.EffectSelectionViewController? {
         return nil
     }
     
     // Returns recorder countdown view for voice recorder screen
-    func makeRecorderCountdownAnimatableView() -> BanubaMusicEditorSDK.MusicEditorCountdownAnimatableView? {
+    func makeRecorderCountdownAnimatableView() -> BanubaVideoEditorSDK.MusicEditorCountdownAnimatableView? {
         return nil
     }
 }
@@ -59,7 +58,7 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
     let methodClose = "close"
     
     // MARK: - TrackSelectionViewController
-    var trackSelectionDelegate: BanubaMusicEditorSDK.TrackSelectionViewControllerDelegate?
+    var trackSelectionDelegate: BanubaUtilities.TrackSelectionViewControllerDelegate?
     
     private var channel: FlutterMethodChannel?
     
