@@ -1,6 +1,5 @@
 import Foundation
 import BanubaVideoEditorSDK
-import BanubaMusicEditorSDK
 import BanubaAudioBrowserSDK
 import VideoEditor
 import VEExportSDK
