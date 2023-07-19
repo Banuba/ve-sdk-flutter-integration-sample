@@ -205,7 +205,7 @@ extension VideoEditorModule {
         videoEditorSDK?.dismissVideoEditor(animated: true) {
             let success = error == nil
             if success {
-                let exportedVideoFilePath = videoUrl.absoluteString
+                let exportedVideoFilePath = videoUrl.path
                 print("Export video completed successfully. Video: \(exportedVideoFilePath))")
                 
                 let coverImageData = coverImage?.pngData()
