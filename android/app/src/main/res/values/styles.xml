@@ -127,6 +127,8 @@
         <item name="galleryAlbumDescTextStyle">@style/CustomGalleryAlbumDescTextStyle</item>
         <item name="galleryTabLayoutStyle">@style/CustomGalleryTabLayoutStyle</item>
         <item name="galleryTabTextColors">@color/gallery_tab_color_state_list</item>
+        <item name="galleryAutoCutNextButtonStyle">@style/CustomGalleryAutoCutNextButtonStyle</item>
+        <item name="galleryAutoCutButtonStyle">@style/CustomGalleryAutoCutButtonStyle</item>
 
         <item name="galleryColumnsNumber">wrap_content</item>
         <item name="gallery_bg_color">@color/black</item>
@@ -1404,4 +1406,8 @@
         <item name="android:progressBackgroundTint">@color/white30</item>
         <item name="android:thumb">@drawable/selector_seekbar_thumb</item>
     </style>
+
+    <style name="CustomGalleryAutoCutNextButtonStyle" parent="GalleryAutoCutNextButtonStyle"/>
+
+    <style name="CustomGalleryAutoCutButtonStyle" parent="GalleryAutoCutButtonStyle"/>
 </resources>
