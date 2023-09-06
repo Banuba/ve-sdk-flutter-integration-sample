@@ -45,9 +45,9 @@ Add Banuba repositories to [project gradle](../android/build.gradle#L55) file to
         }
 ```
 
-Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L313) file.
+Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L77) file.
 ```groovy
-    def banubaSdkVersion = '1.28.4'
+    def banubaSdkVersion = '1.30.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -98,22 +98,18 @@ Please set up correctly [network security config](https://developer.android.com/
 by following [guide](https://developer.android.com/guide/topics/manifest/application-element).
 
 ## Add resources
-Video Editor SDK uses a lot of resources. Please make sure all these resources are provided in your project. 
-You can copy these resources to your project and edit later.
+Video Editor SDK consumes a lot of visual resources. Most part of the resources is delivered in the SDK. 
+Some resources depend on your project requirements and should be copied and pasted manually.
 
 ### Banuba resources
-[bnb-resources](../android/app/src/main/assets/bnb-resources)  Banuba AR and Lut effects. Use of AR effects ```assets/bnb-resources/effects``` requires [Face AR](https://docs.banuba.com/face-ar-sdk-v1) product.  
+[bnb-resources](../android/app/src/main/assets/bnb-resources)  Banuba AR and color filters. Use of AR effects ```assets/bnb-resources/effects``` requires [Face AR](https://docs.banuba.com/face-ar-sdk-v1) product.  
 
-### Android resources   
-- [color](../android/app/src/main/res/color),
-- [drawable](../android/app/src/main/res/drawable),
+### Android resources
 - [drawable-hdpi](../android/app/src/main/res/drawable-hdpi),
-- [drawable-ldpi](../android/app/src/main/res/drawable-ldpi),
-- [drawable-mdpi](../android/app/src/main/res/drawable-mdpi),
 - [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
 - [drawable-xxhdpi](../android/app/src/main/res/drawable-xxhdpi),
-- [drawable-xxxhdpi](../android/app/src/main/res/drawable-xxxhdpi) are visual assets used in views and added in the sample for simplicity. You can use your custom resources.  
-- [values](../android/app/src/main/res/values) to use colors and themes. Theme ```VideoCreationTheme``` and its styles use resources in **drawable** and **color** directories.  
+- [drawable-xxxhdpi](../android/app/src/main/res/drawable-xxxhdpi) are visual assets for color filter previews.  
+- [styles.xml](../android/app/src/main/res/values/styles.xml) includes implementation of ```VideoCreationTheme``` of Video Editor SDK.  
 
 :bulb:  Hint
 If you want to replace default resources i.e. icons you should add your custom 

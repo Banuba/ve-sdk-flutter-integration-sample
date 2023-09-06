@@ -27,9 +27,9 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 4. Learn [iOS quickstart](mddocs/ios_integration.md) to quickly integrate iOS Video Editor SDK into your Flutter project.
 
 ## Dependencies
-|       |   Version | 
-| --------- |:---------:| 
-| Dart      | 2.17.6    | 
-| Flutter   | 3.0.5     |
+|       | Version | 
+| --------- |:-------:| 
+| Dart      |  2.19   | 
+| Flutter   | 3.13.0  |
 | Android      |  6.0+   |
-| iOS          |  12.0+  |
+| iOS          |  13.0+  |
