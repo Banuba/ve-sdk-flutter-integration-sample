@@ -265,8 +265,20 @@
 /* Twitch effect name */
 "com.banuba.editor.effect.name.twitch" = "Twitch";
 
+/* Blur out effect name */
+"com.banuba.editor.effect.name.blur-out" = "Blur out";
+
+/* Corner flip effect name */
+"com.banuba.editor.effect.name.corner-flip" = "Corner flip";
+
+/* Zoom out effect name */
+"com.banuba.editor.effect.name.zoom-out" = "Zoom out";
+
+/* Warp back effect name */
+"com.banuba.editor.effect.name.warp-back" = "Warp back";
+
 /* Open trimmer button name (for dradt) */
-"com.banuba.editor.openTrimButtonTitle" ="Коррекция";
+"com.banuba.editor.openTrimButtonTitle" = "Коррекция";
 
 /* Captions button title */
 "com.banuba.editor.captions" = "Субтитры";
@@ -454,6 +466,10 @@
 
 "com.banuba.overlayEditor.captions.creationCaptions" = "Создание субтитров";
 "com.banuba.overlayEditor.captions.noSpeechRecognized" = "Не удалось распознать речь";
+"com.banuba.overlayEditor.captions.noInternetConnectionTitle" = "Нет подключения к Интернету";
+"com.banuba.overlayEditor.captions.noInternetConnectionMessage" = "Проверьте свое соединение или повторите попытку.";
+"com.banuba.overlayEditor.captions.tryAgain" = "Повторить";
+"com.banuba.overlayEditor.captions.noInternetConnectionToast" = "Подключение к Интернету, по-видимому, отключено.";
 
 "com.banuba.overlayEditor.captions.createNewCaptionsQuestion" = "Создать новые субтитры?";
 "com.banuba.overlayEditor.captions.createNewCaptionsQuestionDetails" = "Ранее созданные подписи будут удалены.";
@@ -700,9 +716,6 @@
 "com.banuba.videoEditor.transition.disabledToastMessage" = "Видео должно быть длиннее 0.5 сек чтобы прменить переход.";
 
 /* Text editor font names */
-"com.banuba.textEditor.fontName.regular" = "Обычный";
-"com.banuba.textEditor.fontName.italic" = "Курсив";
-"com.banuba.textEditor.fontName.bold" = "Полужирный";
 "com.banuba.textEditor.fontName.baskerville" = "Баскервиль";
 "com.banuba.textEditor.fontName.courier" = "Курьер";
 "com.banuba.textEditor.fontName.palatino" = "Палатино";
@@ -745,10 +758,6 @@
 "com.banuba.alert.progressView.exportingVideo" = "Экспорт видео";
 "com.banuba.alert.progressView.tooltipMessage" = "Пожалуйста, не блокируйте экран и не переходите в другие приложения";
 "com.banuba.alert.progressView.exportVideoInterrupted" = "Экспорт был прерван";
-
-/* need to update iOS alert */
-"com.banuba.alert.needToUpdateIos.title" = "К сожалению, минимальная поддерживаемая версия - iOS 12.";
-"com.banuba.alert.needToUpdateIos.message" = "Вы должны выполнить обновление до ios 12.0, чтобы использовать это приложение.";
 
 /* remove and start over record video */
 "com.banuba.trim.startOverRecordVideoTitle" = "Хотите записать новое видео?";
@@ -832,6 +841,7 @@
 "com.banuba.autocut.added.sound" = "Добавленный звук";
 "com.banuba.autocut.error.title" = "Что-то пошло не так";
 "com.banuba.autocut.error.message" = "Проверьте подключение или повторите попытку позже";
+"com.banuba.autocut.error.loadingTrackFailedMessage" = "Не удается загрузить песню. Проверьте свое подключение к Интернету.";
 "com.banuba.autocut.try.again.title" = "Попробовать еще раз";
 "BanubaVideoEditor.Gallery.Autocut" = "AutoСut";
 "BanubaVideoEditor.Gallery.Next" = "Дальше";
