@@ -15,6 +15,7 @@ import com.banuba.sdk.cameraui.data.CameraTimerStateProvider
 import com.banuba.sdk.cameraui.data.TimerEntry
 import com.banuba.sdk.cameraui.domain.HandsFreeTimerActionProvider
 import com.banuba.sdk.core.AspectRatio
+import com.banuba.sdk.core.HardwareClassProvider
 import com.banuba.sdk.core.VideoResolution
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.core.domain.AspectRatioProvider
@@ -106,22 +107,13 @@ private class SampleIntegrationVeKoinModule {
          * Provides params for export
          * */
         factory<ExportParamsProvider> {
+            val hardwareClass = get<HardwareClassProvider>().provideHardwareClass()
+
             CustomExportParamsProvider(
                 exportDir = get(named("exportDir")),
+                videoResolution = hardwareClass.optimalResolution,
                 watermarkBuilder = get()
             )
-        }
-
-        factory<WatermarkProvider> {
-            SampleWatermarkProvider()
-        }
-
-        factory<CameraTimerStateProvider> {
-            SampleTimerStateProvider()
-        }
-
-        single<CameraTimerActionProvider> {
-            HandsFreeTimerActionProvider()
         }
 
         single<ArEffectsRepositoryProvider>(createdAtStart = true) {
@@ -129,6 +121,10 @@ private class SampleIntegrationVeKoinModule {
                 arEffectsRepository = get(named("backendArEffectsRepository")),
                 ioDispatcher = get(named("ioDispatcher"))
             )
+        }
+
+        single<CameraTimerActionProvider> {
+            HandsFreeTimerActionProvider()
         }
 
         // Audio Browser provider implementation.
@@ -156,23 +152,12 @@ private class SampleIntegrationVeKoinModule {
                 override fun provide(): AspectRatio = AspectRatio(9.0 / 16)
             }
         }
-
-        single<EditorConfig> {
-            EditorConfig(
-                minTotalVideoDurationMs = 1500
-            )
-        }
-
-        single<ObjectEditorConfig> {
-            ObjectEditorConfig(
-                objectEffectDefaultDuration = 2000
-            )
-        }
     }
 }
 
 private class CustomExportParamsProvider(
     private val exportDir: Uri,
+    private val videoResolution: VideoResolution,
     private val watermarkBuilder: WatermarkBuilder
 ) : ExportParamsProvider {
 
@@ -186,48 +171,51 @@ private class CustomExportParamsProvider(
             deleteRecursively()
             mkdirs()
         }
-        val extraSoundtrackUri = Uri.parse(exportSessionDir.toString()).buildUpon()
-            .appendPath("exported_soundtrack.${MediaFileNameHelper.DEFAULT_SOUND_FORMAT}")
+        // Change values if you need multiple exported video files
+        val requireExportExtraSound = false
+        val requireExportWatermark = false
+
+        val exportDefault = ExportParams.Builder(videoResolution)
+            .effects(effects)
+            .fileName("export_default")
+            .videoRangeList(videoRangeList)
+            .destDir(exportSessionDir)
+            .musicEffects(musicEffects)
+            .volumeVideo(videoVolume)
             .build()
 
-        return listOf(
-            // Will export video in HD with watermark
-            ExportParams.Builder(VideoResolution.Exact.HD)
-                .effects(
-                    effects.withWatermark(
-                        watermarkBuilder,
-                        WatermarkAlignment.BottomRight(marginRightPx = 16.toPx)
-                    )
-                )
-                .fileName("export_default_watermark")
-                .videoRangeList(videoRangeList)
-                .destDir(exportSessionDir)
-                .musicEffects(musicEffects)
-                .extraAudioFile(extraSoundtrackUri)
-                .volumeVideo(videoVolume)
+        val listVideoToExport = mutableListOf<ExportParams>()
+        listVideoToExport.add(exportDefault)
+
+        if (requireExportExtraSound) {
+            val extraSoundtrackUri = Uri.parse(exportSessionDir.toString()).buildUpon()
+                .appendPath("exported_soundtrack.${MediaFileNameHelper.DEFAULT_SOUND_FORMAT}")
                 .build()
-            // You can export more video files by creating ExportParams instances
-        )
-    }
-}
+            listVideoToExport.add(
+                ExportParams.Builder(videoResolution)
+                    .fileName("export_extra_sound")
+                    .videoRangeList(videoRangeList)
+                    .destDir(exportSessionDir)
+                    .musicEffects(musicEffects)
+                    .extraAudioFile(extraSoundtrackUri)
+                    .volumeVideo(videoVolume)
+                    .build()
+            )
+        }
 
-// Override list of timer options
-private class SampleTimerStateProvider : CameraTimerStateProvider {
+        if (requireExportWatermark) {
+            listVideoToExport.add(
+                ExportParams.Builder(VideoResolution.Exact.VGA360)
+                    .effects(effects.withWatermark(watermarkBuilder, WatermarkAlignment.BottomRight(marginRightPx = 16.toPx)))
+                    .fileName("export_360_watermark")
+                    .videoRangeList(videoRangeList)
+                    .destDir(exportSessionDir)
+                    .musicEffects(musicEffects)
+                    .volumeVideo(videoVolume)
+                    .build()
+            )
+        }
 
-    override val timerStates = listOf(
-        TimerEntry(
-            durationMs = 0
-        ),
-        TimerEntry(
-            durationMs = 3000
-        )
-    )
-}
-
-// Override watermark
-private class SampleWatermarkProvider : WatermarkProvider {
-    //Provide your own watermark image
-    override fun getWatermarkBitmap(): Bitmap? {
-        return null
+        return listVideoToExport
     }
 }

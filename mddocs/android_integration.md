@@ -24,7 +24,7 @@ You will be able to launch video editor from your Flutter project when you compl
 Complete [Installation](../README.md#Installation) guide to proceed.
 
 ## Add dependencies
-Add Banuba repositories to [project gradle](../android/build.gradle#L55) file to get SDK dependencies.
+Add Banuba repositories to [project gradle](../android/build.gradle#L15) file to get SDK dependencies.
 
 ```groovy
         maven {
@@ -47,7 +47,7 @@ Add Banuba repositories to [project gradle](../android/build.gradle#L55) file to
 
 Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L77) file.
 ```groovy
-    def banubaSdkVersion = '1.30.0'
+    def banubaSdkVersion = '1.31.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -117,7 +117,7 @@ resources in folders described above [Android resources](#Android-resources), tr
 
 ## Implement export
 Video Editor SDK supports export multiple media files to meet your product requirements.
-Create class [CustomExportParamsProvider](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L175) 
+Create class [CustomExportParamsProvider](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L158) 
 and implement ```ExportParamsProvider``` to provide ```List<ExportParams>``` where every ```ExportParams``` is a media file i.e. video or audio.
 
 Use ```ExportParams.Builder.fileName``` method to set custom media file name.
