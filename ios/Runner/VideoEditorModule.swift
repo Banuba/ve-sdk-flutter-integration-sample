@@ -20,6 +20,9 @@ class VideoEditorModule: VideoEditor {
     private var videoEditorSDK: BanubaVideoEditor?
     private var flutterResult: FlutterResult?
     
+    // Use “true” if you want users could restore the last video editing session.
+    private let restoreLastVideoEditingSession: Bool = false
+    
     func initVideoEditor(
         token: String?,
         flutterResult: @escaping FlutterResult
@@ -129,6 +132,9 @@ class VideoEditorModule: VideoEditor {
                     )
                 }
             } else {
+                if self.restoreLastVideoEditingSession == false {
+                    self.videoEditorSDK?.clearSessionData()
+                }
                 self.videoEditorSDK = nil
                 print("❌ License is either revoked or expired")
                 flutterResult(
@@ -227,6 +233,9 @@ extension VideoEditorModule {
             }
             
             // Remove strong reference to video editor sdk instance
+            if self.restoreLastVideoEditingSession == false {
+                self.videoEditorSDK?.clearSessionData()
+            }
             self.videoEditorSDK = nil
         }
     }
@@ -253,6 +262,9 @@ extension VideoEditorModule: BanubaVideoEditorDelegate {
     func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
         videoEditor.dismissVideoEditor(animated: true) {
             // remove strong reference to video editor sdk instance
+            if self.restoreLastVideoEditingSession == false {
+                self.videoEditorSDK?.clearSessionData()
+            }
             self.videoEditorSDK = nil
         }
     }
