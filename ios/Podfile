@@ -1,5 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/Banuba/specs.git'
+source 'https://github.com/sdk-banuba/banuba-sdk-podspecs.git'
 
 platform :ios, '14.0'
 
@@ -33,12 +34,11 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  sdk_version = '1.31.0'
+  sdk_version = '1.32.0'
 
   pod 'BanubaARCloudSDK', sdk_version #optional
   pod 'BanubaVideoEditorSDK', sdk_version
   pod 'BanubaAudioBrowserSDK', sdk_version #optional
-  pod 'BanubaEffectPlayer', sdk_version #optional
   pod 'BanubaSDK', sdk_version #optional
   pod 'BanubaSDKSimple', sdk_version
   pod 'BanubaSDKServicing', sdk_version
