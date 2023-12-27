@@ -88,19 +88,6 @@ class VideoEditorModule {
 private class SampleIntegrationVeKoinModule {
 
     val module = module {
-        single<ExportFlowManager> {
-            ForegroundExportFlowManager(
-                exportDataProvider = get(),
-                exportSessionHelper = get(),
-                exportDir = get(named("exportDir")),
-                shouldClearSessionOnFinish = true,
-                publishManager = get(),
-                errorParser = get(),
-                exportBundleProvider = get(),
-                eventConverter = get()
-            )
-        }
-
         /**
          * Provides params for export
          * */
@@ -121,9 +108,6 @@ private class SampleIntegrationVeKoinModule {
             )
         }
 
-        single<CameraTimerActionProvider> {
-            HandsFreeTimerActionProvider()
-        }
 
         // Audio Browser provider implementation.
         single<ContentFeatureProvider<TrackData, Fragment>>(
@@ -135,14 +119,6 @@ private class SampleIntegrationVeKoinModule {
                 // Default implementation that supports Mubert and Local audio stored on the device
                 AudioBrowserMusicProvider()
             }
-        }
-
-        single<CoverProvider> {
-            CoverProvider.EXTENDED
-        }
-
-        factory<DraftConfig> {
-            DraftConfig.ENABLED_ASK_TO_SAVE
         }
 
         single<AspectRatioProvider> {
