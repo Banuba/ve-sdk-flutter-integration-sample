@@ -24,25 +24,35 @@ You will be able to launch video editor from your Flutter project when you compl
 Complete [Installation](../README.md#Installation) guide to proceed.
 
 ## Add dependencies
-Add Banuba repositories to [project gradle](../android/build.gradle#L15) file to get SDK dependencies.
+Add Banuba repositories to [project gradle](../android/build.gradle#L15) file in ```allprojects``` section to get SDK dependencies.
 
 ```groovy
+...
+
+allprojects {
+    repositories {
+        ...
+
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
             credentials {
                 username = "Banuba"
-                password = "" // password in the sample
+                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
             }
         }
         maven {
             name = "ARCloudPackages"
-            url = uri("https://github.com/Banuba/banuba-ar")
+            url = uri("https://maven.pkg.github.com/Banuba/banuba-ar")
             credentials {
                 username = "Banuba"
-                password = "" // password in the sample
+                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
             }
         }
+
+        ...
+    }
+}
 ```
 
 Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L77) file.
