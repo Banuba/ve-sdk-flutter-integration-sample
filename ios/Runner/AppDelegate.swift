@@ -17,7 +17,7 @@ import BanubaAudioBrowserSDK
     
     lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
     
-    static let channelName = "startActivity/VideoEditorChannel"
+    static let channelName = "banubaSdkChannel"
     
     static let methodInitVideoEditor = "InitBanubaVideoEditor"
     static let methodStartVideoEditor = "StartBanubaVideoEditor"

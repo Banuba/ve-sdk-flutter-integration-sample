@@ -40,15 +40,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 // Set Banuba license token for Video Editor SDK
-  static const String LICENSE_TOKEN = SET LICENSE TOKEN
+  static const String LICENSE_TOKEN = ;
 
-  static const channelName = 'startActivity/VideoEditorChannel';
+  static const channelName = 'banubaSdkChannel';
 
   static const methodInitVideoEditor = 'InitBanubaVideoEditor';
   static const methodStartVideoEditor = 'StartBanubaVideoEditor';
   static const methodStartVideoEditorPIP = 'StartBanubaVideoEditorPIP';
   static const methodStartVideoEditorTrimmer = 'StartBanubaVideoEditorTrimmer';
   static const methodDemoPlayExportedVideo = 'PlayExportedVideo';
+
+  static const methodInitPhotoEditor = 'InitBanubaPhotoEditor';
 
   static const errMissingExportResult = 'ERR_MISSING_EXPORT_RESULT';
   static const errStartPIPMissingVideo = 'ERR_START_PIP_MISSING_VIDEO';
@@ -65,27 +67,54 @@ class _MyHomePageState extends State<MyHomePage> {
   static const argExportedVideoFile = 'exportedVideoFilePath';
   static const argExportedVideoCoverPreviewPath = 'exportedVideoCoverPreviewPath';
 
+  static const argExportedPhotoFile = 'exportedPhotoFilePath';
+
   static const platform = MethodChannel(channelName);
 
   String _errorMessage = '';
 
-  Future<void> _initVideoEditor() async {
+  Future<void> _initBanubaSdk() async {
     await platform.invokeMethod(methodInitVideoEditor, LICENSE_TOKEN);
   }
 
-  Future<void> _startVideoEditorDefault() async {
+  Future<void> _startPhotoEditor() async {
     try {
-      await _initVideoEditor();
+      await _initBanubaSdk();
 
-      final result = await platform.invokeMethod(methodStartVideoEditor);
+      final result = await platform.invokeMethod(methodInitPhotoEditor);
 
-      _handleExportResult(result);
+      _handlePhotoExportResult(result);
     } on PlatformException catch (e) {
       _handlePlatformException(e);
     }
   }
 
-  void _handleExportResult(dynamic result) {
+  Future<void> _startVideoEditorDefault() async {
+    try {
+      await _initBanubaSdk();
+
+      final result = await platform.invokeMethod(methodStartVideoEditor);
+
+      _handleVideoExportResult(result);
+    } on PlatformException catch (e) {
+      _handlePlatformException(e);
+    }
+  }
+
+  void _handlePhotoExportResult(dynamic result) {
+    debugPrint('Export result = $result');
+
+    // You can use any kind of export result passed from platform.
+    // Map is used for this sample to demonstrate playing exported video file.
+    if (result is Map) {
+      final exportedPhotoFilePath = result[argExportedPhotoFile];
+      _showConfirmation(context, "Show exported photo file?", () {
+        platform.invokeMethod(methodDemoPlayExportedVideo, exportedPhotoFilePath);
+      });
+    }
+  }
+
+  void _handleVideoExportResult(dynamic result) {
     debugPrint('Export result = $result');
 
     // You can use any kind of export result passed from platform.
@@ -104,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _startVideoEditorPIP() async {
     try {
-      await _initVideoEditor();
+      await _initBanubaSdk();
 
       // Use your implementation to provide correct video file path to start Video Editor SDK in PIP mode
       final ImagePicker _picker = ImagePicker();
@@ -116,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
         debugPrint('Open video editor in pip with video = ${file.path}');
         final result = await platform.invokeMethod(methodStartVideoEditorPIP, file.path);
 
-        _handleExportResult(result);
+        _handleVideoExportResult(result);
       }
     } on PlatformException catch (e) {
       _handlePlatformException(e);
@@ -125,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _startVideoEditorTrimmer() async {
     try {
-      await _initVideoEditor();
+      await _initBanubaSdk();
 
       // Use your implementation to provide correct video file path to start Video Editor SDK in Trimmer mode
       final ImagePicker _picker = ImagePicker();
@@ -137,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
         debugPrint('Open video editor in trimmer with video = ${file.path}');
         final result = await platform.invokeMethod(methodStartVideoEditorTrimmer, file.path);
 
-        _handleExportResult(result);
+        _handleVideoExportResult(result);
       }
     } on PlatformException catch (e) {
       _handlePlatformException(e);
@@ -184,6 +213,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             MaterialButton(
+              color: Colors.green,
+              textColor: Colors.white,
+              disabledColor: Colors.greenAccent,
+              disabledTextColor: Colors.black,
+              padding: const EdgeInsets.all(12.0),
+              splashColor: Colors.blueAccent,
+              minWidth: 240,
+              onPressed: () => _startPhotoEditor(),
+              child: const Text(
+                'Open Photo Editor',
+                style: TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+            MaterialButton(
               color: Colors.blue,
               textColor: Colors.white,
               disabledColor: Colors.grey,
@@ -201,12 +247,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 24),
             MaterialButton(
-              color: Colors.green,
+              color: Colors.blue,
               textColor: Colors.white,
               disabledColor: Colors.grey,
               disabledTextColor: Colors.black,
               padding: const EdgeInsets.all(16.0),
-              splashColor: Colors.greenAccent,
+              splashColor: Colors.blueAccent,
               minWidth: 240,
               onPressed: () => _startVideoEditorPIP(),
               child: const Text(
@@ -218,12 +264,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 24),
             MaterialButton(
-              color: Colors.red,
+              color: Colors.blue,
               textColor: Colors.white,
               disabledColor: Colors.grey,
               disabledTextColor: Colors.black,
               padding: const EdgeInsets.all(16.0),
-              splashColor: Colors.redAccent,
+              splashColor: Colors.blueAccent,
               minWidth: 240,
               onPressed: () => _startVideoEditorTrimmer(),
               child: const Text(
