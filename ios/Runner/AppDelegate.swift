@@ -2,6 +2,7 @@ import UIKit
 import Flutter
 import AVKit
 import BanubaAudioBrowserSDK
+import BanubaPhotoEditorSDK
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -19,11 +20,16 @@ import BanubaAudioBrowserSDK
     
     static let channelName = "banubaSdkChannel"
     
+    // Video Editor Methods
     static let methodInitVideoEditor = "InitBanubaVideoEditor"
     static let methodStartVideoEditor = "StartBanubaVideoEditor"
     static let methodStartVideoEditorPIP = "StartBanubaVideoEditorPIP"
     static let methodStartVideoEditorTrimmer = "StartBanubaVideoEditorTrimmer"
     static let methodDemoPlayExportedVideo = "PlayExportedVideo"
+    
+    // Photo Editor Methods
+    static let methodInitPhotoEditor = "InitBanubaPhotoEditor"
+    static let argExportedPhotoFile = "exportedPhotoFilePath"
     
     static let errMissingExportResult = "ERR_MISSING_EXPORT_RESULT"
     static let errStartPIPMissingVideo = "ERR_START_PIP_MISSING_VIDEO"
@@ -41,6 +47,7 @@ import BanubaAudioBrowserSDK
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         let videoEditor = VideoEditorModule()
+        var photoEditor: PhotoEditorModule?
         
         if let controller = window?.rootViewController as? FlutterViewController,
            let binaryMessenger = controller as? FlutterBinaryMessenger {
@@ -109,6 +116,17 @@ import BanubaAudioBrowserSDK
                                             message: "Missing video to start video editor in Trimmer mode",
                                             details: nil))
                     }
+                case AppDelegate.methodInitPhotoEditor:
+                        guard let token = methodCall.arguments as? String else {
+                            print("Missing token")
+                            return
+                        }
+                        photoEditor = PhotoEditorModule(token: token)
+
+                        photoEditor?.presentPhotoEditor(
+                            fromViewController: controller,
+                            flutterResult: result
+                        )
                 default:
                     print("Flutter method is not implemented on platform.")
                     result(FlutterMethodNotImplemented)

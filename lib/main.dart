@@ -4,6 +4,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_ve_sdk/audio_browser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'dart:io' show Platform;
 
 void main() {
   runApp(MyApp());
@@ -79,9 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _startPhotoEditor() async {
     try {
-      await _initBanubaSdk();
+      dynamic result;
+      if (Platform.isAndroid) {
+        await _initBanubaSdk();
 
-      final result = await platform.invokeMethod(methodInitPhotoEditor);
+        result = await platform.invokeMethod(methodInitPhotoEditor);
+      } else if (Platform.isIOS) {
+        result = await platform.invokeMethod(methodInitPhotoEditor, LICENSE_TOKEN);
+      }
 
       _handlePhotoExportResult(result);
     } on PlatformException catch (e) {
