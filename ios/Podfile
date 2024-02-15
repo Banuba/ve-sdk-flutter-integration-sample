@@ -53,6 +53,8 @@ target 'Runner' do
   pod 'VEEffectsSDK', sdk_version
   pod 'VEPlaybackSDK', sdk_version
 
+  pod 'BanubaPhotoEditorSDK', '1.1.1'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		630CBBF52B764A3C00D2F9D5 /* PhotoEditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630CBBF42B764A3C00D2F9D5 /* PhotoEditorModule.swift */; };
 		6344D3CE2652652500E8776B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6344D3D02652652500E8776B /* Localizable.strings */; };
 		63BD928528E342AE00D0926E /* BanubaVideoEditorSDK-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63BD928428E342AE00D0926E /* BanubaVideoEditorSDK-Info.plist */; };
 		63F445C828F074F5007588F0 /* CustomViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F445C728F074F5007588F0 /* CustomViewFactory.swift */; };
@@ -40,6 +41,7 @@
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		2A0C33CEC80B55441CBDDC7A /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		630CBBF42B764A3C00D2F9D5 /* PhotoEditorModule.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = PhotoEditorModule.swift; sourceTree = "<group>"; tabWidth = 4; };
 		6344D3CF2652652500E8776B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		63BD928428E342AE00D0926E /* BanubaVideoEditorSDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BanubaVideoEditorSDK-Info.plist"; sourceTree = "<group>"; };
 		63F445C728F074F5007588F0 /* CustomViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewFactory.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				8A905A47259CCE0F00D719A6 /* VideoEditorModule.swift */,
+				630CBBF42B764A3C00D2F9D5 /* PhotoEditorModule.swift */,
 				63F445C728F074F5007588F0 /* CustomViewFactory.swift */,
 				63BD928428E342AE00D0926E /* BanubaVideoEditorSDK-Info.plist */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
@@ -323,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				630CBBF52B764A3C00D2F9D5 /* PhotoEditorModule.swift in Sources */,
 				63F445C828F074F5007588F0 /* CustomViewFactory.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				8A905A48259CCE0F00D719A6 /* VideoEditorModule.swift in Sources */,
