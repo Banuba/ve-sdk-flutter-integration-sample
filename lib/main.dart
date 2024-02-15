@@ -58,10 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
   static const errStartTrimmerMissingVideo = 'ERR_START_TRIMMER_MISSING_VIDEO';
   static const errExportPlayMissingVideo = 'ERR_EXPORT_PLAY_MISSING_VIDEO';
 
-  static const errEditorNotInitializedCode = 'ERR_VIDEO_EDITOR_NOT_INITIALIZED';
+  static const errEditorNotInitializedCode = 'ERR_SDK_NOT_INITIALIZED';
   static const errEditorNotInitializedMessage =
       'Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
-  static const errEditorLicenseRevokedCode = 'ERR_VIDEO_EDITOR_LICENSE_REVOKED';
+  static const errEditorLicenseRevokedCode = 'ERR_SDK_LICENSE_REVOKED';
   static const errEditorLicenseRevokedMessage =
       'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
 
@@ -114,9 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Map is used for this sample to demonstrate playing exported video file.
     if (result is Map) {
       final exportedPhotoFilePath = result[argExportedPhotoFile];
-      _showConfirmation(context, "Show exported photo file?", () {
-        platform.invokeMethod(methodDemoPlayExportedVideo, exportedPhotoFilePath);
-      });
+      debugPrint('Exported photo file path = $exportedPhotoFilePath');
     }
   }
 

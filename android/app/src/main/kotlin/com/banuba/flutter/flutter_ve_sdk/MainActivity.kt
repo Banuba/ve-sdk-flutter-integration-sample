@@ -38,13 +38,12 @@ class MainActivity : FlutterActivity() {
         private const val METHOD_INIT_VIDEO_EDITOR = "InitBanubaVideoEditor"
 
         private const val METHOD_INIT_PHOTO_EDITOR = "InitBanubaPhotoEditor"
-
         private const val ERR_MISSING_EXPORT_RESULT = "ERR_MISSING_EXPORT_RESULT"
         private const val ERR_START_PIP_MISSING_VIDEO = "ERR_START_PIP_MISSING_VIDEO"
         private const val ERR_START_TRIMMER_MISSING_VIDEO = "ERR_START_TRIMMER_MISSING_VIDEO"
         private const val ERR_EXPORT_PLAY_MISSING_VIDEO = "ERR_EXPORT_PLAY_MISSING_VIDEO"
-        private const val ERR_VIDEO_EDITOR_NOT_INITIALIZED = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
-        private const val ERR_VIDEO_EDITOR_LICENSE_REVOKED = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
+        private const val ERR_SDK_NOT_INITIALIZED = "ERR_SDK_NOT_INITIALIZED"
+        private const val ERR_SDK_LICENSE_REVOKED = "ERR_SDK_LICENSE_REVOKED"
 
         private const val ARG_EXPORTED_VIDEO_FILE = "exportedVideoFilePath"
         private const val ARG_EXPORTED_VIDEO_COVER = "exportedVideoCoverPreviewPath"
@@ -100,8 +99,8 @@ class MainActivity : FlutterActivity() {
                         licenseStateCallback = { isValid ->
                             if (isValid) {
                                 // ✅ License is active, all good
-                                // You can show button that opens Video Editor or
-                                // Start Video Editor right away
+                                // You can show button that opens Photo Editor or
+                                // Start Photo Editor right away
 
                                 startActivityForResult(
                                     PhotoCreationActivity.startFromGallery(this),
@@ -109,11 +108,11 @@ class MainActivity : FlutterActivity() {
                                 )
                             } else {
                                 // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                result.error(ERR_VIDEO_EDITOR_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
+                                result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
                             }
                         },
                         notInitializedError = {
-                            result.error(ERR_VIDEO_EDITOR_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
+                            result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
                         }
                     )
                 }
@@ -128,11 +127,11 @@ class MainActivity : FlutterActivity() {
                                 startVideoEditorModeNormal()
                             } else {
                                 // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                result.error(ERR_VIDEO_EDITOR_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
+                                result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
                             }
                         },
                         notInitializedError = {
-                            result.error(ERR_VIDEO_EDITOR_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
+                            result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
                         }
                     )
                 }
@@ -160,11 +159,11 @@ class MainActivity : FlutterActivity() {
                                     startVideoEditorModePIP(pipVideoUri)
                                 } else {
                                     // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                    result.error(ERR_VIDEO_EDITOR_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
+                                    result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
                                 }
                             },
                             notInitializedError = {
-                                result.error(ERR_VIDEO_EDITOR_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
+                                result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
                             }
                         )
                     }
@@ -193,11 +192,11 @@ class MainActivity : FlutterActivity() {
                                     startVideoEditorModeTrimmer(trimmerVideoUri)
                                 } else {
                                     // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                    result.error(ERR_VIDEO_EDITOR_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
+                                    result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
                                 }
                             },
                             notInitializedError = {
-                                result.error(ERR_VIDEO_EDITOR_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
+                                result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
                             }
                         )
                     }
@@ -321,12 +320,10 @@ class MainActivity : FlutterActivity() {
     // Customize photo export data results to meet your requirements.
     // You can use Map or JSON to pass custom data for your app.
     private fun preparePhotoExportData(result: Intent?): Map<String, Any?> {
-        // First exported video file path is used to play video in this sample to demonstrate
-        // the result of video export.
-        // You can provide your custom logic.
         val photoUri = intent?.getParcelableExtra(PhotoCreationActivity.EXTRA_EXPORTED) as? Uri
+        Log.w(TAG, "preparePhotoExportData = $photoUri")
         val data = mapOf(
-            ARG_EXPORTED_VIDEO_FILE to photoUri?.toString()
+            ARG_EXPORTED_PHOTO_FILE to photoUri?.toString()
         )
         return data
     }
