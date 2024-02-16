@@ -320,7 +320,7 @@ class MainActivity : FlutterActivity() {
     // Customize photo export data results to meet your requirements.
     // You can use Map or JSON to pass custom data for your app.
     private fun preparePhotoExportData(result: Intent?): Map<String, Any?> {
-        val photoUri = intent?.getParcelableExtra(PhotoCreationActivity.EXTRA_EXPORTED) as? Uri
+        val photoUri = result?.getParcelableExtra(PhotoCreationActivity.EXTRA_EXPORTED) as? Uri
         Log.w(TAG, "preparePhotoExportData = $photoUri")
         val data = mapOf(
             ARG_EXPORTED_PHOTO_FILE to photoUri?.toString()
