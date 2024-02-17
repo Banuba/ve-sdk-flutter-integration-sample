@@ -106,6 +106,6 @@ dependencies {
     implementation "com.banuba.sdk:ve-playback-sdk:${banubaSdkVersion}"
 
     // Photo Editor
-    def banubaPESdkVersion = '1.0.1'
+    def banubaPESdkVersion = '1.1.0'
     implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 }
