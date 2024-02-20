@@ -20,6 +20,7 @@ import com.banuba.sdk.core.VideoResolution
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.core.domain.AspectRatioProvider
 import com.banuba.sdk.core.domain.DraftConfig
+import com.banuba.sdk.core.MediaResolutionProvider
 import com.banuba.sdk.core.ext.toPx
 import com.banuba.sdk.core.media.MediaFileNameHelper
 import com.banuba.sdk.core.ui.ContentFeatureProvider
@@ -126,7 +127,34 @@ private class SampleIntegrationVeKoinModule {
                 override fun provide(): AspectRatio = AspectRatio(9.0 / 16)
             }
         }
+
+        single<MediaResolutionProvider> {
+            CustomMediaResolutionProvider(
+                hardwareClassProvider = get()
+            )
+        }
     }
+}
+
+class CustomMediaResolutionProvider(
+    val hardwareClassProvider: HardwareClassProvider
+) : MediaResolutionProvider {
+
+    private val hardwareClass = hardwareClassProvider.provideHardwareClass()
+
+    override fun provideOptimalSlideShowVideoSize() = hardwareClass.optimalResolution
+
+    override fun provideOptimalTrimmerVideoSize() = hardwareClass.optimalResolution
+
+    override fun provideOptimalEditorVideoSize() = hardwareClass.optimalResolution
+
+    // Setting exact resolution to camera
+    // Please keep in mind
+    // 1. Front/Back camera has different capabilities. For example, UHD might be available on Back, and not on Front
+    // 2. Very high resolution affects performance especially when using Face AR on low level devices.
+    override fun provideOptimalCameraPreviewSize() = VideoResolution.Exact.UHD
+
+    override fun provideMaxFastTrimmerVideoSize() = hardwareClass.optimalResolution
 }
 
 private class CustomExportParamsProvider(
