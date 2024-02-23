@@ -59,7 +59,7 @@ class MainActivity : FlutterActivity() {
 
     private var exportVideoChanelResult: MethodChannel.Result? = null
 
-    private var videoEditorSDK: BanubaVideoEditor? = null
+    private var editorSDK: BanubaVideoEditor? = null
     private var videoEditorModule: VideoEditorModule? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,9 +77,9 @@ class MainActivity : FlutterActivity() {
             when (call.method) {
                 METHOD_INIT_VIDEO_EDITOR -> {
                     val licenseToken = call.arguments as String
-                    videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
+                    editorSDK = BanubaVideoEditor.initialize(licenseToken)
 
-                    if (videoEditorSDK == null) {
+                    if (editorSDK == null) {
                         // Token you provided is not correct - empty or truncated
                         Log.e(TAG, ERR_SDK_NOT_INITIALIZED_MESSAGE)
                         result.error(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
@@ -332,8 +332,8 @@ class MainActivity : FlutterActivity() {
         licenseStateCallback: LicenseStateCallback,
         notInitializedError: () -> Unit
     ) {
-        val videoEditor = videoEditorSDK
-        if (videoEditor == null) {
+        val sdk = editorSDK
+        if (sdk == null) {
             Log.e(
                 TAG,
                 "Cannot check license state. Please initialize Video Editor SDK"
@@ -342,7 +342,7 @@ class MainActivity : FlutterActivity() {
         } else {
             // Checking the license might take around 1 sec in the worst case.
             // Please optimize use if this method in your application for the best user experience
-            videoEditor.getLicenseState(licenseStateCallback)
+            sdk.getLicenseState(licenseStateCallback)
         }
     }
 

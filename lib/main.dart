@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Banuba Video Editor SDK Sample'),
+      home: MyHomePage(title: 'Banuba Video and Photo Editor SDK Sample'),
     );
   }
 }
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static const errEditorNotInitializedCode = 'ERR_SDK_NOT_INITIALIZED';
   static const errEditorNotInitializedMessage =
-      'Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
+      'Banuba Video and Photo Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
   static const errEditorLicenseRevokedCode = 'ERR_SDK_LICENSE_REVOKED';
   static const errEditorLicenseRevokedMessage =
       'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
@@ -190,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Padding(
               padding: EdgeInsets.all(15.0),
               child: Text(
-                'The sample demonstrates how to run Banuba Video Editor SDK with Flutter',
+                'The sample demonstrates how to run Banuba Video and Photo Editor SDK with Flutter',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 17.0,

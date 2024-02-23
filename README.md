@@ -1,8 +1,9 @@
-# Banuba Video Editor SDK - Flutter integration sample.
+# Banuba Video and Photo Editor SDK - Flutter integration sample.
 
 ## Overview
 [Banuba Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.  
-The sample demonstrates how to integrate Video Editor SDK to [Flutter](https://flutter.dev/) project.
+[Banuba AR Photo Editor SDK](https://www.banuba.com/photo-editor-sdk) allows you to quickly add the photo editing capabilities to your app.  
+The sample demonstrates how to integrate Video and Photo Editor SDK to [Flutter](https://flutter.dev/) project.
 
 ## Usage
 ### License
