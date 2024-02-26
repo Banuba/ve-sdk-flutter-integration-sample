@@ -12,35 +12,24 @@ import BanubaPhotoEditorSDK
      */
     private let configEnableCustomAudioBrowser = false
     
-    // Set your Mubert Api key here
-    static let mubertApiLicense = ""
-    static let mubertApiKey = ""
     
     lazy var audioBrowserFlutterEngine = FlutterEngine(name: "audioBrowserEngine")
     
-    static let channelName = "banubaSdkChannel"
-    
     // Video Editor Methods
-    static let methodInitVideoEditor = "InitBanubaVideoEditor"
-    static let methodStartVideoEditor = "StartBanubaVideoEditor"
-    static let methodStartVideoEditorPIP = "StartBanubaVideoEditorPIP"
-    static let methodStartVideoEditorTrimmer = "StartBanubaVideoEditorTrimmer"
-    static let methodDemoPlayExportedVideo = "PlayExportedVideo"
+    static let methodInitVideoEditor = "initVideoEditor"
+    static let methodStartVideoEditor = "startVideoEditor"
+    static let methodStartVideoEditorPIP = "startVideoEditorPIP"
+    static let methodStartVideoEditorTrimmer = "startVideoEditorTrimmer"
+    static let methodDemoPlayExportedVideo = "playExportedVideo"
+    
+    static let argExportedVideoFile = "argExportedVideoFilePath"
+    static let argExportedVideoCoverPreviewPath = "argExportedVideoCoverPreviewPath"
     
     // Photo Editor Methods
-    static let methodInitPhotoEditor = "InitBanubaPhotoEditor"
-    static let argExportedPhotoFile = "exportedPhotoFilePath"
+    static let methodInitPhotoEditor = "startPhotoEditor"
+    static let argExportedPhotoFile = "argExportedPhotoFilePath"
     
-    static let errMissingExportResult = "ERR_MISSING_EXPORT_RESULT"
-    static let errStartPIPMissingVideo = "ERR_START_PIP_MISSING_VIDEO"
-    static let errStartTrimmerMissingVideo = "ERR_START_TRIMMER_MISSING_VIDEO"
-    static let errExportPlayMissingVideo = "ERR_EXPORT_PLAY_MISSING_VIDEO"
     static let errEditorNotInitialized = "ERR_SDK_NOT_INITIALIZED"
-    static let errEditorLicenseRevoked = "ERR_SDK_LICENSE_REVOKED"
-    
-    static let argExportedVideoFile = "exportedVideoFilePath"
-    static let argExportedVideoCoverPreviewPath = "exportedVideoCoverPreviewPath"
-    
     
     override func application(
         _ application: UIApplication,
@@ -53,7 +42,7 @@ import BanubaPhotoEditorSDK
            let binaryMessenger = controller as? FlutterBinaryMessenger {
             
             let channel = FlutterMethodChannel(
-                name: AppDelegate.channelName,
+                name: "banubaSdkChannel",
                 binaryMessenger: binaryMessenger
             )
             
@@ -81,10 +70,8 @@ import BanubaPhotoEditorSDK
                             flutterResult: result
                         )
                     } else {
-                        print("Missing or invalid video file path to start video editor in PIP mode.")
-                        result(FlutterError(code: AppDelegate.errStartPIPMissingVideo,
-                                            message: "Missing video to start video editor in PIP mode",
-                                            details: nil))
+                        print("Cannot start video editor in PIP mode: missing or invalid video!")
+                        result(FlutterError(code: "ERR_START_PIP_MISSING_VIDEO", message: "", details: nil))
                     }
                 case AppDelegate.methodDemoPlayExportedVideo:
                     /*
@@ -96,10 +83,7 @@ import BanubaPhotoEditorSDK
                     if let videoFilePath = demoPlayVideoFilePath {
                         self.demoPlayExportedVideo(controller: controller, videoURL: URL(fileURLWithPath: videoFilePath))
                     } else {
-                        print("Missing or invalid video file path to play video.")
-                        result(FlutterError(code: AppDelegate.errExportPlayMissingVideo,
-                                            message: "Missing exported video file path to play",
-                                            details: nil))
+                        result(FlutterError(code: "ERR_EXPORT_PLAY_MISSING_VIDEO", message: "", details: nil))
                     }
                 case AppDelegate.methodStartVideoEditorTrimmer:
                     let trimmerVideoFilePath = methodCall.arguments as? String
@@ -111,22 +95,20 @@ import BanubaPhotoEditorSDK
                             flutterResult: result
                         )
                     } else {
-                        print("Missing or invalid video file path to start video editor in Trimmer mode.")
-                        result(FlutterError(code: AppDelegate.errStartTrimmerMissingVideo,
-                                            message: "Missing video to start video editor in Trimmer mode",
-                                            details: nil))
+                        print("Cannot start video editor in trimmer mode: missing or invalid video!")
+                        result(FlutterError(code: "ERR_START_TRIMMER_MISSING_VIDEO", message: "", details: nil))
                     }
                 case AppDelegate.methodInitPhotoEditor:
-                        guard let token = methodCall.arguments as? String else {
-                            print("Missing token")
-                            return
-                        }
-                        photoEditor = PhotoEditorModule(token: token)
-
-                        photoEditor?.presentPhotoEditor(
-                            fromViewController: controller,
-                            flutterResult: result
-                        )
+                    guard let token = methodCall.arguments as? String else {
+                        print("Missing token")
+                        return
+                    }
+                    photoEditor = PhotoEditorModule(token: token)
+                    
+                    photoEditor?.presentPhotoEditor(
+                        fromViewController: controller,
+                        flutterResult: result
+                    )
                 default:
                     print("Flutter method is not implemented on platform.")
                     result(FlutterMethodNotImplemented)
@@ -150,9 +132,13 @@ import BanubaPhotoEditorSDK
         if configEnableCustomAudioBrowser {
             factory = FlutterCustomViewFactory()
         } else {
+            // Set your Mubert Api key here
+            let mubertApiLicense = ""
+            let mubertApiKey = ""
+            
             BanubaAudioBrowser.setMubertKeys(
-                license: AppDelegate.mubertApiLicense,
-                token: AppDelegate.mubertApiKey
+                license: mubertApiLicense,
+                token: mubertApiKey
             )
             factory = nil
         }

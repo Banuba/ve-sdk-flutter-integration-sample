@@ -43,13 +43,7 @@ class VideoEditorModule: VideoEditor {
         )
         
         if videoEditorSDK == nil {
-            flutterResult(
-                FlutterError(
-                    code: AppDelegate.errEditorNotInitialized,
-                    message: "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba",
-                    details: nil
-                )
-            )
+            flutterResult(FlutterError(code: AppDelegate.errEditorNotInitialized, message: "", details: nil))
             return
         }
         
@@ -109,13 +103,7 @@ class VideoEditorModule: VideoEditor {
     
     func checkLicenseAndStartVideoEditor(with config: VideoEditorLaunchConfig, flutterResult: @escaping FlutterResult) {
         if videoEditorSDK == nil {
-            flutterResult(
-                FlutterError(
-                    code: AppDelegate.errEditorNotInitialized,
-                    message: "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba",
-                    details: nil
-                )
-            )
+            flutterResult(FlutterError(code: AppDelegate.errEditorNotInitialized, message: "", details: nil))
             return
         }
         
@@ -124,7 +112,7 @@ class VideoEditorModule: VideoEditor {
         videoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
             guard let self else { return }
             if isValid {
-                print("✅ License is active, all good")
+                print("✅ The license is active")
                 DispatchQueue.main.async {
                     self.videoEditorSDK?.presentVideoEditor(
                         withLaunchConfiguration: config,
@@ -136,14 +124,8 @@ class VideoEditorModule: VideoEditor {
                     self.videoEditorSDK?.clearSessionData()
                 }
                 self.videoEditorSDK = nil
-                print("❌ License is either revoked or expired")
-                flutterResult(
-                    FlutterError(
-                        code: AppDelegate.errEditorLicenseRevoked,
-                        message: "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new",
-                        details: nil
-                    )
-                )
+                print("❌ Use of SDK is restricted: the license is revoked or expired")
+                flutterResult(FlutterError(code: "ERR_SDK_LICENSE_REVOKED", message: "", details: nil))
             }
         })
     }
@@ -182,14 +164,13 @@ extension VideoEditorModule {
             )
         ]
         
-        // Export Configuration
+        // Set up export
         let exportConfiguration = ExportConfiguration(
             videoConfigurations: exportVideoConfigurations,
             isCoverEnabled: true,
             gifSettings: nil
         )
         
-        // Export func
         videoEditorSDK?.export(
             using: exportConfiguration,
             exportProgress: { [weak progressView] progress in progressView?.updateProgressView(with: Float(progress)) }
@@ -212,11 +193,12 @@ extension VideoEditorModule {
             let success = error == nil
             if success {
                 let exportedVideoFilePath = videoUrl.path
-                print("Export video completed successfully. Video: \(exportedVideoFilePath))")
+                print("Video exported successfully = \(exportedVideoFilePath))")
                 
                 let coverImageData = coverImage?.pngData()
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH-mm-ss.SSS"
+                
                 let coverImageURL = FileManager.default.temporaryDirectory.appendingPathComponent("export_preview-\(dateFormatter.string(from: Date())).png")
                 try? coverImageData?.write(to: coverImageURL)
                 
@@ -226,10 +208,8 @@ extension VideoEditorModule {
                 ]
                 self.flutterResult?(data)
             } else {
-                print("Export video completed with error: \(String(describing: error))")
-                self.flutterResult?(FlutterError(code: AppDelegate.errMissingExportResult,
-                                            message: "Export video completed with error: \(String(describing: error))",
-                                            details: nil))
+                print("Error while exporting video = \(String(describing: error))")
+                self.flutterResult?(FlutterError(code: "ERR_MISSING_EXPORT_RESULT", message: "", details: nil))
             }
             
             // Remove strong reference to video editor sdk instance

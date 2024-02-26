@@ -28,36 +28,29 @@ class MainActivity : FlutterActivity() {
          */
         const val CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER = false
 
+        // For Video Editor
         private const val VIDEO_EDITOR_REQUEST_CODE = 7788
+        private const val METHOD_INIT_VIDEO_EDITOR = "initVideoEditor"
+        private const val METHOD_START_VIDEO_EDITOR = "startVideoEditor"
+        private const val METHOD_START_VIDEO_EDITOR_PIP = "startVideoEditorPIP"
+        private const val METHOD_START_VIDEO_EDITOR_TRIMMER = "startVideoEditorTrimmer"
+        private const val METHOD_DEMO_PLAY_EXPORTED_VIDEO = "playExportedVideo"
+
+        private const val ARG_EXPORTED_VIDEO_FILE = "argExportedVideoFilePath"
+        private const val ARG_EXPORTED_VIDEO_COVER = "argExportedVideoCoverPreviewPath"
+
+        // For Photo Editor
         private const val PHOTO_EDITOR_REQUEST_CODE = 8888
+        private const val METHOD_START_PHOTO_EDITOR = "startPhotoEditor"
 
-        private const val METHOD_START_VIDEO_EDITOR = "StartBanubaVideoEditor"
-        private const val METHOD_START_VIDEO_EDITOR_PIP = "StartBanubaVideoEditorPIP"
-        private const val METHOD_START_VIDEO_EDITOR_TRIMMER = "StartBanubaVideoEditorTrimmer"
-        private const val METHOD_DEMO_PLAY_EXPORTED_VIDEO = "PlayExportedVideo"
-        private const val METHOD_INIT_VIDEO_EDITOR = "InitBanubaVideoEditor"
+        private const val ARG_EXPORTED_PHOTO_FILE = "argExportedPhotoFilePath"
 
-        private const val METHOD_INIT_PHOTO_EDITOR = "InitBanubaPhotoEditor"
-        private const val ERR_MISSING_EXPORT_RESULT = "ERR_MISSING_EXPORT_RESULT"
-        private const val ERR_START_PIP_MISSING_VIDEO = "ERR_START_PIP_MISSING_VIDEO"
-        private const val ERR_START_TRIMMER_MISSING_VIDEO = "ERR_START_TRIMMER_MISSING_VIDEO"
-        private const val ERR_EXPORT_PLAY_MISSING_VIDEO = "ERR_EXPORT_PLAY_MISSING_VIDEO"
-        private const val ERR_SDK_NOT_INITIALIZED = "ERR_SDK_NOT_INITIALIZED"
-        private const val ERR_SDK_LICENSE_REVOKED = "ERR_SDK_LICENSE_REVOKED"
-
-        private const val ARG_EXPORTED_VIDEO_FILE = "exportedVideoFilePath"
-        private const val ARG_EXPORTED_VIDEO_COVER = "exportedVideoCoverPreviewPath"
-
-        private const val ARG_EXPORTED_PHOTO_FILE = "exportedPhotoFilePath"
-
-        private const val CHANNEL = "banubaSdkChannel"
-
-        private const val ERR_SDK_NOT_INITIALIZED_CODE = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
-        private const val ERR_SDK_NOT_INITIALIZED_MESSAGE = "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba"
-        private const val ERR_LICENSE_REVOKED = "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new"
+        // Errors code
+        private const val ERR_CODE_SDK_NOT_INITIALIZED = "ERR_SDK_NOT_INITIALIZED"
+        private const val ERR_CODE_SDK_LICENSE_REVOKED = "ERR_SDK_LICENSE_REVOKED"
     }
 
-    private var exportVideoChanelResult: MethodChannel.Result? = null
+    private var exportResult: MethodChannel.Result? = null
 
     private var editorSDK: BanubaVideoEditor? = null
     private var videoEditorModule: VideoEditorModule? = null
@@ -69,10 +62,10 @@ class MainActivity : FlutterActivity() {
 
         MethodChannel(
             appFlutterEngine.dartExecutor.binaryMessenger,
-            CHANNEL
+            "banubaSdkChannel"
         ).setMethodCallHandler { call, result ->
-            // Initialize export result callback that will allow to deliver results back to Flutter
-            exportVideoChanelResult = result
+            // Initialize export result callback to deliver the results back to Flutter
+            exportResult = result
 
             when (call.method) {
                 METHOD_INIT_VIDEO_EDITOR -> {
@@ -80,9 +73,8 @@ class MainActivity : FlutterActivity() {
                     editorSDK = BanubaVideoEditor.initialize(licenseToken)
 
                     if (editorSDK == null) {
-                        // Token you provided is not correct - empty or truncated
-                        Log.e(TAG, ERR_SDK_NOT_INITIALIZED_MESSAGE)
-                        result.error(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
+                        // The SDK token is incorrect - empty or truncated
+                        result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null)
                     } else {
                         if (videoEditorModule == null) {
                             // Initialize video editor sdk dependencies
@@ -94,45 +86,18 @@ class MainActivity : FlutterActivity() {
                     }
                 }
 
-                METHOD_INIT_PHOTO_EDITOR -> {
-                    checkVideoEditorLicense(
-                        licenseStateCallback = { isValid ->
-                            if (isValid) {
-                                // ✅ License is active, all good
-                                // You can show button that opens Photo Editor or
-                                // Start Photo Editor right away
-
-                                startActivityForResult(
-                                    PhotoCreationActivity.startFromGallery(this),
-                                    PHOTO_EDITOR_REQUEST_CODE
-                                )
-                            } else {
-                                // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
-                            }
-                        },
-                        notInitializedError = {
-                            result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
-                        }
-                    )
-                }
-
                 METHOD_START_VIDEO_EDITOR -> {
-                    checkVideoEditorLicense(
-                        licenseStateCallback = { isValid ->
+                    checkSdkLicense(
+                        callback = { isValid ->
                             if (isValid) {
-                                // ✅ License is active, all good
-                                // You can show button that opens Video Editor or
-                                // Start Video Editor right away
+                                // ✅ The license is active
                                 startVideoEditorModeNormal()
                             } else {
-                                // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
+                                // ❌ Use of SDK is restricted: the license is revoked or expired
+                                result.error(ERR_CODE_SDK_LICENSE_REVOKED, "", null)
                             }
                         },
-                        notInitializedError = {
-                            result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
-                        }
+                        onError = { result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null) }
                     )
                 }
 
@@ -142,29 +107,25 @@ class MainActivity : FlutterActivity() {
                     if (pipVideoUri == null) {
                         Log.w(
                             TAG,
-                            "Missing or invalid video file path = [$videoFilePath] to start video editor in PIP mode."
+                            "Cannot start video editor in PIP mode: missing or invalid passed video = $videoFilePath"
                         )
-                        exportVideoChanelResult?.error(
-                            ERR_START_PIP_MISSING_VIDEO,
+                        exportResult?.error(
+                            "ERR_START_PIP_MISSING_VIDEO",
                             "Missing video to start video editor in PIP mode",
                             null
                         )
                     } else {
-                        checkVideoEditorLicense(
-                            licenseStateCallback = { isValid ->
+                        checkSdkLicense(
+                            callback = { isValid ->
                                 if (isValid) {
-                                    // ✅ License is active, all good
-                                    // You can show button that opens Video Editor or
-                                    // Start Video Editor right away
+                                    // ✅ The license is active
                                     startVideoEditorModePIP(pipVideoUri)
                                 } else {
-                                    // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                    result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
+                                    // ❌ Use of SDK is restricted: the license is revoked or expired
+                                    result.error(ERR_CODE_SDK_LICENSE_REVOKED, "", null)
                                 }
                             },
-                            notInitializedError = {
-                                result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
-                            }
+                            onError = { result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null) }
                         )
                     }
                 }
@@ -175,29 +136,47 @@ class MainActivity : FlutterActivity() {
                     if (trimmerVideoUri == null) {
                         Log.w(
                             TAG,
-                            "Missing or invalid video file path = [$videoFilePath] to start video editor from trimmer."
+                            "Cannot start video editor in Trimmer mode: missing or invalid passed video = $videoFilePath"
                         )
-                        exportVideoChanelResult?.error(
-                                ERR_START_TRIMMER_MISSING_VIDEO,
-                                "Missing video to start video editor in trimmer mode",
-                                null
-                        )
+                        exportResult?.error("ERR_START_TRIMMER_MISSING_VIDEO", "", null)
                     } else {
-                        checkVideoEditorLicense(
-                            licenseStateCallback = { isValid ->
+                        checkSdkLicense(
+                            callback = { isValid ->
                                 if (isValid) {
-                                    // ✅ License is active, all good
-                                    // You can show button that opens Video Editor or
-                                    // Start Video Editor right away
+                                    // ✅ The license is active
                                     startVideoEditorModeTrimmer(trimmerVideoUri)
                                 } else {
-                                    // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                                    result.error(ERR_SDK_LICENSE_REVOKED, ERR_LICENSE_REVOKED, null)
+                                    // ❌ Use of SDK is restricted: the license is revoked or expired
+                                    result.error(ERR_CODE_SDK_LICENSE_REVOKED, "", null)
                                 }
                             },
-                            notInitializedError = {
-                                result.error(ERR_SDK_NOT_INITIALIZED, ERR_SDK_NOT_INITIALIZED_MESSAGE, null)
-                            }
+                            onError = { result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null) }
+                        )
+                    }
+                }
+
+                METHOD_START_PHOTO_EDITOR -> {
+                    val licenseToken = call.arguments as String
+                    editorSDK = BanubaVideoEditor.initialize(licenseToken)
+
+                    if (editorSDK == null) {
+                        // The SDK token is incorrect - empty or truncated
+                        result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null)
+                    } else {
+                        checkSdkLicense(
+                            callback = { isValid ->
+                                if (isValid) {
+                                    // ✅ The license is active
+                                    startActivityForResult(
+                                        PhotoCreationActivity.startFromGallery(this),
+                                        PHOTO_EDITOR_REQUEST_CODE
+                                    )
+                                } else {
+                                    // ❌ Use of SDK is restricted: the license is revoked or expired
+                                    result.error(ERR_CODE_SDK_LICENSE_REVOKED, "", null)
+                                }
+                            },
+                            onError = { result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null) }
                         )
                     }
                 }
@@ -213,13 +192,9 @@ class MainActivity : FlutterActivity() {
                     if (exportedVideoUri == null) {
                         Log.w(
                             TAG,
-                            "Missing or invalid video file path = [$videoFilePath] to play video."
+                            "Cannot play exported demo video: missing or invalid = $videoFilePath"
                         )
-                        exportVideoChanelResult?.error(
-                            ERR_EXPORT_PLAY_MISSING_VIDEO,
-                            "Missing exported video file path to play",
-                            null
-                        )
+                        exportResult?.error("ERR_EXPORT_PLAY_MISSING_VIDEO", "", null)
                     } else {
                         demoPlayExportedVideo(exportedVideoUri)
                         result.success(null)
@@ -238,19 +213,19 @@ class MainActivity : FlutterActivity() {
             val exportResult =
                 intent?.getParcelableExtra(EXTRA_EXPORTED_SUCCESS) as? ExportResult.Success
             if (exportResult == null) {
-                exportVideoChanelResult?.error(
-                    ERR_MISSING_EXPORT_RESULT,
-                    "Export finished with no result!",
+                this.exportResult?.error(
+                    "ERR_MISSING_EXPORT_RESULT",
+                    "",
                     null
                 )
             } else {
                 val data = prepareVideoExportData(exportResult)
-                exportVideoChanelResult?.success(data)
+                this.exportResult?.success(data)
             }
 
         } else if (requestCode == PHOTO_EDITOR_REQUEST_CODE && result == RESULT_OK) {
             val data = preparePhotoExportData(intent)
-            exportVideoChanelResult?.success(data)
+            exportResult?.success(data)
         }
     }
 
@@ -290,15 +265,15 @@ class MainActivity : FlutterActivity() {
 
     private fun startVideoEditorModeTrimmer(trimmerVideo: Uri) {
         startActivityForResult(
-                VideoCreationActivity.startFromTrimmer(
-                        context = this,
-                        // setup data that will be acceptable during export flow
-                        additionalExportData = null,
-                        // set TrackData object if you open VideoCreationActivity with preselected music track
-                        audioTrackData = null,
-                        // set Trimmer video configuration
-                        predefinedVideos = arrayOf(trimmerVideo)
-                ), VIDEO_EDITOR_REQUEST_CODE
+            VideoCreationActivity.startFromTrimmer(
+                context = this,
+                // setup data that will be acceptable during export flow
+                additionalExportData = null,
+                // set TrackData object if you open VideoCreationActivity with preselected music track
+                audioTrackData = null,
+                // set Trimmer video configuration
+                predefinedVideos = arrayOf(trimmerVideo)
+            ), VIDEO_EDITOR_REQUEST_CODE
         )
     }
 
@@ -328,21 +303,18 @@ class MainActivity : FlutterActivity() {
         return data
     }
 
-    private fun checkVideoEditorLicense(
-        licenseStateCallback: LicenseStateCallback,
-        notInitializedError: () -> Unit
+    private fun checkSdkLicense(
+        callback: LicenseStateCallback,
+        onError: () -> Unit
     ) {
         val sdk = editorSDK
         if (sdk == null) {
-            Log.e(
-                TAG,
-                "Cannot check license state. Please initialize Video Editor SDK"
-            )
-            notInitializedError()
+            Log.e(TAG, "Cannot check license state: initialize the SDK")
+            onError()
         } else {
             // Checking the license might take around 1 sec in the worst case.
             // Please optimize use if this method in your application for the best user experience
-            sdk.getLicenseState(licenseStateCallback)
+            sdk.getLicenseState(callback)
         }
     }
 
