@@ -50,13 +50,51 @@ for initializing and customizing Video Editor SDK features.
 ### Export media
 Video Editor supports exporting multiple media files to meet your product requirements.
 
-1. Define [url](../ios/Runner/VideoEditorModule.swift#L152) to exported video file.
-2. Create ```ExportVideoConfiguration``` for each exporting media file.```ExportVideoConfiguration``` defines export file [properties.](../ios/Runner/VideoEditorModule.swift#L158).
-3. Create ```ExportConfiguration``` for contains [info](../ios/Runner/VideoEditorModule.swift#L168) about number of exporting media, exported video cover flag and gif settings.
-4. Pass ```ExportConfiguration``` to ```export``` [method](../ios/Runner/VideoEditorModule.swift#L175) of Video Editor instance.
-
-Every exported media is passed to  [completeExport](../ios/Runner/VideoEditorModule.swift#L191) method.
+Create video URL where to export video file.
+```swift
+   let videoURL = manager.temporaryDirectory.appendingPathComponent("myAwesomeVideo.mov")
+```
+Next, create list of ```ExportVideoConfiguration``` where each configuration is exported media file
+```diff
+     let exportVideoConfigurations: [ExportVideoConfiguration] = [
+ +           ExportVideoConfiguration(
+                fileURL: videoURL,
+                quality: .auto,
+                useHEVCCodecIfPossible: true,
+                watermarkConfiguration: nil
+            )
+        ]
+```
+and set this list to ```ExportConfiguration```
+```diff
+    let exportConfiguration = ExportConfiguration(
++            videoConfigurations: exportVideoConfigurations,
+            isCoverEnabled: true,
+            gifSettings: nil
+    )
+```
+Finally, start video export
+```diff
++    videoEditorSDK?.export(
+            using: exportConfiguration,
+            exportProgress: { [weak progressView] progress in progressView?.updateProgressView(with: Float(progress)) }
+        ) { [weak self] (error, coverImage) in
+            // Export Callback
+            DispatchQueue.main.async {
+                progressView.dismiss(animated: true) {
+                    // if export cancelled just hide progress view
+                    if let error, error as NSError == exportCancelledError {
+                        return
+                    }
+                    self?.completeExport(videoUrl: firstFileURL, error: error, coverImage: coverImage?.coverImage)
+                }
+            }
+        }
+```
+Every exported media is passed to  [completeExport](../ios/Runner/VideoEditorModule.swift#L185) method.
 Process the result and pass it to [handler](../lib/main.dart#L171) on Flutter side.
+
+Please [check out](../ios/Runner/VideoEditorModule.swift#L152) full export sample.
 
 ## Launch
 [Flutter platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) approach is used for communication between Flutter and iOS.
@@ -76,11 +114,11 @@ to listen to calls from Flutter.
      }
 ```
 
-Send [initialize](../lib/main.dart#L80) message from Flutter to iOS
+Send [initVideoEditor](../lib/main.dart#L80) message from Flutter to iOS
 ```dart
   await platformChannel.invokeMethod('initVideoEditor', LICENSE_TOKEN);
 ```
-and add corresponding [initialize](../ios/Runner/AppDelegate.swift#L54) handler on iOS side to initialize Video Editor.
+and add corresponding [handler](../ios/Runner/AppDelegate.swift#L54) on iOS side to initialize Video Editor.
 
 Initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Runner/VideoEditorModule.swift#L39) on iOS.
 ```swift
@@ -89,18 +127,17 @@ Initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Ru
     ...
   )
 ```
-Instance ```videoEditor``` is ```nil``` if the license token is incorrect. In this case you cannot use video editor and check your license token.
-
-Finally, once the SDK in initialized you can send [start](../lib/main.dart#L87) message from Flutter to iOS
+Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L87) message from Flutter to iOS
 
 ```dart
   final result = await platformChannel.invokeMethod('startVideoEditor');
 ```
 
-and add the corresponding [start](../ios/Runner/AppDelegate.swift#58) handler on iOS side to start Video Editor.
+and add the corresponding [handler](../ios/Runner/AppDelegate.swift#58) on iOS side to start Video Editor.
 
-:exclamation: Important  
-It is highly recommended to [check the license](../ios/Runner/VideoEditorModule.swift#L112) before starting Video Editor.
+:exclamation: Important
+1. Instance ```videoEditor``` is ```nil``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
+2. It is highly recommended to [check](../ios/Runner/PhotoEditorModule.swift#L104) if the license if active before starting Photo Editor.
 
 ## Connect audio
 

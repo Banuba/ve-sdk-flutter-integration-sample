@@ -14,7 +14,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 - [What is next?](#What-is-next)
 
 ## Installation
-GitHub Packages is used for getting Android Video Editor SDK modules.
+GitHub Packages is used for downloading Android Video Editor SDK modules.
 
 First, add repositories to [gradle](../android/build.gradle#L15) file in ```allprojects``` section.
 
@@ -99,8 +99,7 @@ Please make sure all these resources exist in your project.
 ## Configuration
 
 Next, specify ```VideoCreationActivity``` in your [AndroidManifest.xml](../android/app/src/main/AndroidManifest.xml#L53).
-This Activity combines a number of screens into video editor flow.  
-:exclamation:  Important
+This Activity combines a number of screens into video editor flow.
 
 ```xml
 <activity
@@ -133,13 +132,13 @@ and implement ```ExportParamsProvider``` to provide ```List<ExportParams>``` whe
 
 Use ```ExportParams.Builder.fileName``` method to set custom media file name.
 
-Every exported media is passed to  [onActivityResult](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#217) method. 
-Process the result and pass it to [handler](../lib/main.dart#L159) on Flutter side.
+Every exported media is passed to  [onActivityResult](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#210) method. 
+Process the result and pass it to [handler](../lib/main.dart#L171) on Flutter side.
 
 ## Launch
 [Flutter platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) approach is used for communication between Flutter and Android.
 
-Set up channel message handler in your [FlutterActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L63) 
+Set up channel message handler in your [MainActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L63) 
 to listen to calls from Flutter.
 ```kotlin
 class MainActivity : FlutterActivity() {
@@ -158,13 +157,13 @@ class MainActivity : FlutterActivity() {
 }
 ```
 
-Send [initialize](../lib/main.dart#L79) message from Flutter to Android
+Send [initVideoEditor](../lib/main.dart#L79) message from Flutter to Android
 
 ```dart
   await platformChannel.invokeMethod('initVideoEditor', LICENSE_TOKEN);
 ```
 
-and add corresponding [initialize](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L71) handler on Android side to initialize Video Editor.
+and add corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L71) on Android side to initialize Video Editor.
 
 ```kotlin
  val licenseToken = call.arguments as String
@@ -185,18 +184,17 @@ if (editorSDK == null) {
 
 ```
 
-Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use video editor and check your license token.
-
-Finally, once the SDK in initialized you can send [start](../lib/main.dart#L83) message from Flutter to Android 
+Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L87) message from Flutter to Android 
 
 ```dart
   final result = await platformChannel.invokeMethod('startVideoEditor');
 ```
 
-and add the corresponding [start](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L89) handler on Android side to start Video Editor.
+and add the corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L90) on Android side to start Video Editor.
 
-:exclamation: Important  
-It is highly recommended to [check the license](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L310) before starting Video Editor.
+:exclamation: Important
+1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
+2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L306) if the license is active before starting Photo Editor.
 
 
 ## Connect audio

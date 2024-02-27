@@ -11,7 +11,7 @@ Once complete you will be able to launch photo editor in your Flutter project.
 - [What is next?](#What-is-next)
 
 ## Installation
-GitHub Packages is used for getting Android Video Editor SDK modules.
+GitHub Packages is used for downloading Android Photo Editor SDK modules.
 First, add repositories to [gradle](../android/build.gradle#L15) file in ```allprojects``` section.
 
 ```groovy
@@ -73,7 +73,7 @@ apply plugin: 'kotlin-parcelize'
 ## Launch
 [Flutter platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) approach is used for communication between Flutter and Android.
 
-Set up channel message handler in your [FlutterActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L63)
+Set up channel message handler in your [MainActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L63)
 to listen to calls from Flutter.
 ```kotlin
 class MainActivity : FlutterActivity() {
@@ -92,15 +92,15 @@ class MainActivity : FlutterActivity() {
 }
 ```
 
-Send [start](../lib/main.dart#L79) message from Flutter to Android 
+Send [startPhotoEditor](../lib/main.dart#L65) message from Flutter to Android 
 ```dart
   dynamic result = await platformChannel.invokeMethod('startPhotoEditor', LICENSE_TOKEN);
 ```
-and add corresponding [start](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L159) handler on Android side to start Photo Editor.
+and add corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L159) on Android side to start Photo Editor.
 
 ```diff
 val licenseToken = call.arguments as String
-val editorSDK = BanubaVideoEditor.initialize(licenseToken)
++ val editorSDK = BanubaVideoEditor.initialize(licenseToken)
 
 if (editorSDK == null) {
     // The SDK token is incorrect - empty or truncated
@@ -123,10 +123,10 @@ if (editorSDK == null) {
     )
 }
 ```
-Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use video editor and check your license token.
 
 :exclamation: Important  
-It is highly recommended to [check the license](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L310) before starting Video Editor.
+1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
+2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L306) if the license is active before starting Photo Editor.
 
 ## What is next?
 This quickstart guide has just covered how to quickly integrate Android Photo Editor SDK,
