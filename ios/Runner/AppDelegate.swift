@@ -26,7 +26,7 @@ import BanubaPhotoEditorSDK
     static let argExportedVideoCoverPreviewPath = "argExportedVideoCoverPreviewPath"
     
     // Photo Editor Methods
-    static let methodInitPhotoEditor = "startPhotoEditor"
+    static let methodStartPhotoEditor = "startPhotoEditor"
     static let argExportedPhotoFile = "argExportedPhotoFilePath"
     
     static let errEditorNotInitialized = "ERR_SDK_NOT_INITIALIZED"
@@ -98,7 +98,7 @@ import BanubaPhotoEditorSDK
                         print("Cannot start video editor in trimmer mode: missing or invalid video!")
                         result(FlutterError(code: "ERR_START_TRIMMER_MISSING_VIDEO", message: "", details: nil))
                     }
-                case AppDelegate.methodInitPhotoEditor:
+                case AppDelegate.methodStartPhotoEditor:
                     guard let token = methodCall.arguments as? String else {
                         print("Missing token")
                         return
@@ -135,7 +135,7 @@ import BanubaPhotoEditorSDK
             // Set your Mubert Api key here
             let mubertApiLicense = ""
             let mubertApiKey = ""
-            
+            AudioBrowserConfig.shared.musicSource = .allSources
             BanubaAudioBrowser.setMubertKeys(
                 license: mubertApiLicense,
                 token: mubertApiKey

@@ -11,10 +11,70 @@ Once complete you will be able to launch photo editor in your Flutter project.
 - [What is next?](#What-is-next)
 
 ## Installation
-IN PROGRESS
+Add iOS Photo Editor SDK dependencies to your [Podfile](../ios/Podfile)
+```swift
+  # Photo Editor
+  pod 'BanubaPhotoEditorSDK', '1.1.1'
+```
 
 ## Launch
-IN PROGRESS
+[Flutter platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) approach is used for communication between Flutter and Android.
+
+Set up channel message handler in your [AppDelegate.swift](../ios/Runner/AppDelegate.swift#L42)
+to listen to calls from Flutter.
+```swift
+    let binaryMessenger = controller as? FlutterBinaryMessenger {
+            
+    let channel = FlutterMethodChannel(
+        name: AppDelegate.channelName,
+        binaryMessenger: binaryMessenger
+    )
+            
+     channel.setMethodCallHandler { methodCall, result in
+     ... 
+     }
+```
+
+Send [start](../lib/main.dart#L65) message from Flutter to iOS
+```dart
+  dynamic result = await platformChannel.invokeMethod('startPhotoEditor', LICENSE_TOKEN);
+```
+and add corresponding [start](../ios/Runner/AppDelegate.swift#L101) handler on iOS side to start Photo Editor.
+
+Initialize Photo Editor SDK using license token in [PhotoEditorModule](../ios/Runner/PhotoEditorModule.swift#L17) on iOS.
+```swift
+  photoEditorSDK = BanubaPhotoEditor(
+    token: token,
+    configuration: PhotoEditorConfig()
+  )
+```
+Instance ```photoEditorSDK``` is ```nil``` if the license token is incorrect. In this case you cannot use photo editor and check your license token.
+
+Start Photo Editor using launch config
+```swift
+  let launchConfig = PhotoEditorLaunchConfig(
+    hostController: controller,
+    entryPoint: .gallery
+  )
+  
+  photoEditorSDK?.delegate = self
+        
+  photoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
+    guard let self else { return }
+    if isValid {
+      print("✅ License is active, all good")
+      photoEditorSDK?.presentPhotoEditor(
+        withLaunchConfiguration: launchConfig,
+        completion: nil
+      )
+    } else {
+      print("❌ License is either revoked or expired")
+    }
+  })
+```
+
+:exclamation: Important  
+It is highly recommended to [check the license](../ios/Runner/PhotoEditorModule.swift#L36) before starting Photo Editor.
 
 ## What is next?
 This quickstart guide has just covered how to quickly integrate iOS Photo Editor SDK,

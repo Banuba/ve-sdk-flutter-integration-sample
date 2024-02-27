@@ -47,13 +47,21 @@ Please make sure all these resources are provided in your project.
 Create new Swift class [VideoEditorModule](../ios/Runner/VideoEditorModule.swift) in your project
 for initializing and customizing Video Editor SDK features.
 
-IN PROGRESS - ADD Export media
-Handle export [result](../lib/main.dart#L159)  where you can pass required data i.e. exported video stored to Flutter.
+### Export media
+Video Editor supports exporting multiple media files to meet your product requirements.
+
+1. Define [url](../ios/Runner/VideoEditorModule.swift#L152) to exported video file.
+2. Create ```ExportVideoConfiguration``` for each exporting media file.```ExportVideoConfiguration``` defines export file [properties.](../ios/Runner/VideoEditorModule.swift#L158).
+3. Create ```ExportConfiguration``` for contains [info](../ios/Runner/VideoEditorModule.swift#L168) about number of exporting media, exported video cover flag and gif settings.
+4. Pass ```ExportConfiguration``` to ```export``` [method](../ios/Runner/VideoEditorModule.swift#L175) of Video Editor instance.
+
+Every exported media is passed to  [completeExport](../ios/Runner/VideoEditorModule.swift#L191) method.
+Process the result and pass it to [handler](../lib/main.dart#L171) on Flutter side.
 
 ## Launch
 [Flutter platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) approach is used for communication between Flutter and iOS.
 
-Set up channel message handler in your [AppDelegate.swift](../ios/Runner/AppDelegate.swift#54)
+Set up channel message handler in your [AppDelegate.swift](../ios/Runner/AppDelegate.swift#42)
 to listen to calls from Flutter.
 ```swift
     let binaryMessenger = controller as? FlutterBinaryMessenger {
@@ -68,55 +76,56 @@ to listen to calls from Flutter.
      }
 ```
 
-Send [initialize](../lib/main.dart#L79) message from Flutter to iOS
+Send [initialize](../lib/main.dart#L80) message from Flutter to iOS
 ```dart
   await platformChannel.invokeMethod('initVideoEditor', LICENSE_TOKEN);
 ```
-and add corresponding [initialize](../ios/Runner/AppDelegate.swift#64) handler on iOS side to initialize Video Editor.
+and add corresponding [initialize](../ios/Runner/AppDelegate.swift#L54) handler on iOS side to initialize Video Editor.
 
 Initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Runner/VideoEditorModule.swift#L39) on iOS.
 ```swift
-let videoEditor = BanubaVideoEditor(
-        token: token,
-        ...
-      )
+  let videoEditor = BanubaVideoEditor(
+    token: token,
+    ...
+  )
 ```
 Instance ```videoEditor``` is ```nil``` if the license token is incorrect. In this case you cannot use video editor and check your license token.
 
-Finally, once the SDK in initialized you can send [start](../lib/main.dart#L83) message from Flutter to iOS
+Finally, once the SDK in initialized you can send [start](../lib/main.dart#L87) message from Flutter to iOS
 
 ```dart
   final result = await platformChannel.invokeMethod('startVideoEditor');
 ```
 
-and add the corresponding [start](../ios/Runner/AppDelegate.swift#70) handler on iOS side to start Video Editor.
+and add the corresponding [start](../ios/Runner/AppDelegate.swift#58) handler on iOS side to start Video Editor.
 
 :exclamation: Important  
-It is highly recommended to [check the license](../ios/Runner/VideoEditorModule.swift#L110) before starting Video Editor.
+It is highly recommended to [check the license](../ios/Runner/VideoEditorModule.swift#L112) before starting Video Editor.
 
 ## Connect audio
 
 This is an optional section in integration process. In this section you will know how to connect audio to Video Editor.
 
 ### Connect Soundstripe
-Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#13) 
-and specify
-IN PROGRESS
+Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.soundstripe``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L138) 
+to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
+
+:exclamation: Soundstripe should be enabled in your token.
 
 ### Connect Mubert
 Request API key from [Mubert](https://mubert.com/).  
 :exclamation:  Banuba is not responsible for providing Mubert API key.
 
-Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#13)
-and specify
-IN PROGRESS
-Set Mubert API key [within the app](../ios/Runner/AppDelegate.swift#15) and [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#13)  to ```false```
-for playing Mubert content in Video Editor Audio Browser.
+For playing Mubert content in Video Editor Audio Browser perform the following steps:
+
+1. Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13)
+2. Set Mubert API license and key [within the app](../ios/Runner/AppDelegate.swift#L136)
+3. Set ```.allSources``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L138)
 
 ### Connect External Audio API
 Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
 
-To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#13)  
+To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13)  
 :exclamation: Video Editor SDK can play only files stored on device.
 
 

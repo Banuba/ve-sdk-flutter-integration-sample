@@ -33,10 +33,18 @@ class PhotoEditorModule: BanubaPhotoEditorDelegate {
         
         photoEditorSDK?.delegate = self
         
-        photoEditorSDK?.presentPhotoEditor(
-            withLaunchConfiguration: launchConfig,
-            completion: nil
-        )
+        photoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
+          guard let self else { return }
+          if isValid {
+            print("✅ License is active, all good")
+              photoEditorSDK?.presentPhotoEditor(
+                  withLaunchConfiguration: launchConfig,
+                  completion: nil
+              )
+          } else {
+            print("❌ License is either revoked or expired")
+          }
+        })
     }
     
     // MARK: - PhotoEditorSDKDelegate
