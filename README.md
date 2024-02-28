@@ -1,4 +1,4 @@
-# Banuba Video and Photo Editor SDK - Flutter integration sample.
+# Banuba Video and Photo Editor SDK - Flutter integration sample
 
 ## Overview
 [Banuba Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.  
@@ -13,19 +13,19 @@ We will get back to you with the trial token.
 
 Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have any questions.
 
-### Installation
-1. Run ```flutter pub get``` in terminal to load dependencies.
-2. Set Banuba license token [within the app](lib/main.dart#L43).
+## Launch
 
-### Run on Android
-1. Run ```flutter run``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
-2. Learn [Android quickstart](mddocs/android_integration.md) to quickly integrate Android Video Editor SDK into your Flutter project.
+Set Banuba license token [within the app](lib/main.dart#L43)
 
-### Run on iOS
+### Android
+1. Run ```flutter run``` in terminal to launch the sample app on a device or use IDE i.e. Intellij, VC, etc. to launch the app.
+2. Follow [Video Editor](mddocs/quickstart_ve_android.md) and [Photo Editor](mddocs/quickstart_pe_android.md) quickstart guides to quickly integrate Video and Photo Editor SDK into your Flutter project on Android.
+
+### iOS
 1. Install CocoaPods dependencies. Open **ios** directory and run ```pod install``` in terminal.
 2. Open **Signing & Capabilities** tab in Target settings and select your Development Team.
 3. Run ```flutter run``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
-4. Learn [iOS quickstart](mddocs/ios_integration.md) to quickly integrate iOS Video Editor SDK into your Flutter project.
+4. Follow [Video Editor](mddocs/quickstart_ve_ios.md) and [Photo Editor](mddocs/quickstart_pe_ios.md) quickstart guides to quickly integrate Video and Photo Editor SDK into your Flutter project on iOS.
 
 ## Dependencies
 |       | Version | 
