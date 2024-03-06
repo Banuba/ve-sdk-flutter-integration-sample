@@ -30,7 +30,7 @@ Set Banuba license token [within the app](lib/main.dart#L43)
 ## Dependencies
 |       | Version | 
 | --------- |:-------:| 
-| Dart      |  2.19   | 
-| Flutter   | 3.13.0  |
+| Dart      |  3.3.0  | 
+| Flutter   | 3.19.2  |
 | Android      |  6.0+   |
 | iOS          |  13.0+  |
