@@ -89,8 +89,7 @@ Please make sure all these resources exist in your project.
 
 1. [bnb-resources](../android/app/src/main/assets/bnb-resources)  Banuba AR and color filters. AR effects ```assets/bnb-resources/effects``` requires [Face AR](https://docs.banuba.com/face-ar-sdk-v1) product.
 
-2. [drawable-hdpi](../android/app/src/main/res/drawable-hdpi),
-   [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
+2. [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
    [drawable-xxhdpi](../android/app/src/main/res/drawable-xxhdpi),
    [drawable-xxxhdpi](../android/app/src/main/res/drawable-xxxhdpi) are visual assets for color filter previews.
 
@@ -126,11 +125,7 @@ Create new Kotlin class [VideoEditorModule](../android/app/src/main/kotlin/com/b
 for initializing and customizing Video Editor SDK features.
 
 ### Export media
-Video Editor supports exporting multiple media files to meet your product requirements.
-Create class [CustomExportParamsProvider](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L132) 
-and implement ```ExportParamsProvider``` to provide ```List<ExportParams>``` where every ```ExportParams``` is a media file i.e. video or audio.
-
-Use ```ExportParams.Builder.fileName``` method to set custom media file name.
+Video Editor SDK exports single video with auto quality by default. Auto quality is based on device hardware capabilities.
 
 Every exported media is passed to  [onActivityResult](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#210) method. 
 Process the result and pass it to [handler](../lib/main.dart#L171) on Flutter side.
