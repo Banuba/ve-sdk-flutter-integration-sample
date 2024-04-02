@@ -7,11 +7,9 @@ import android.util.Log
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.core.domain.ProvideTrackContract
 import io.flutter.embedding.android.FlutterActivity
-import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.view.FlutterMain
 import org.json.JSONObject
-import java.util.*
+import java.util.UUID
 
 /**
  * Sample Android Activity that demonstrates how to implement the simplest custom audio browser integration.
@@ -31,6 +29,7 @@ class AudioBrowserActivity : FlutterActivity() {
         private const val TAG = "AudioBrowserActivity"
 
         private const val FLUTTER_ENTRY_POINT = "audioBrowser"
+
         private const val CHANNEL_AUDIO_BROWSER = "audioBrowserChannel"
         private const val METHOD_APPLY_AUDIO_TRACK = "applyAudioTrack"
         private const val METHOD_DISCARD_AUDIO_TRACK = "discardAudioTrack"
@@ -40,6 +39,8 @@ class AudioBrowserActivity : FlutterActivity() {
     private var lastAudioTrack: TrackData? = null
     private var audioBrowserChanelResult: MethodChannel.Result? = null
 
+    override fun getDartEntrypointFunctionName(): String = FLUTTER_ENTRY_POINT
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,12 +49,6 @@ class AudioBrowserActivity : FlutterActivity() {
         handleLastUsedAudio()
 
         val appFlutterEngine = requireNotNull(flutterEngine)
-        // Open custom audio browser on Flutter side
-        appFlutterEngine.dartExecutor.executeDartEntrypoint(
-            DartExecutor.DartEntrypoint(
-                FlutterMain.findAppBundlePath(), FLUTTER_ENTRY_POINT
-            )
-        )
 
         MethodChannel(
             appFlutterEngine.dartExecutor.binaryMessenger,
