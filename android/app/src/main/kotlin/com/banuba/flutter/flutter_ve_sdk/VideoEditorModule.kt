@@ -6,6 +6,7 @@ import com.banuba.sdk.arcloud.data.source.ArEffectsRepositoryProvider
 import com.banuba.sdk.arcloud.di.ArCloudKoinModule
 import com.banuba.sdk.audiobrowser.di.AudioBrowserKoinModule
 import com.banuba.sdk.audiobrowser.domain.AudioBrowserMusicProvider
+import com.banuba.sdk.cameraui.data.CameraConfig
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.core.ui.ContentFeatureProvider
 import com.banuba.sdk.effectplayer.adapter.BanubaEffectPlayerKoinModule
@@ -22,7 +23,10 @@ import org.koin.dsl.module
 
 class VideoEditorModule {
 
-    fun initialize(application: Application) {
+    fun initialize(
+        application: Application,
+        params: HashMap<String, Any>
+    ) {
         startKoin {
             androidContext(application)
             allowOverride(true)
@@ -45,7 +49,7 @@ class VideoEditorModule {
                 GalleryKoinModule().module,
 
                 // Sample integration module
-                SampleIntegrationVeKoinModule().module,
+                SampleIntegrationVeKoinModule(params).module,
             )
         }
     }
@@ -57,7 +61,7 @@ class VideoEditorModule {
  * Some dependencies has no default implementations. It means that
  * these classes fully depends on your requirements
  */
-private class SampleIntegrationVeKoinModule {
+private class SampleIntegrationVeKoinModule(private val params: HashMap<String, Any>) {
 
     val module = module {
         single<ArEffectsRepositoryProvider>(createdAtStart = true) {
@@ -77,6 +81,26 @@ private class SampleIntegrationVeKoinModule {
             } else {
                 // Default implementation that supports Soundstripe, Mubert and Local audio stored on the device
                 AudioBrowserMusicProvider()
+            }
+        }
+
+        single {
+            val durations = (params["cameraVideoDurations"] as? List<Any>)?.mapNotNull {
+                if (it is Number) {
+                    it.toLong()
+                } else {
+                    null
+                }
+            }
+
+            if (durations == null) {
+                val defaultConfig = CameraConfig()
+                defaultConfig
+            } else {
+                CameraConfig(
+                    videoDurations = durations,
+                    maxRecordedTotalVideoDurationMs = durations[0]
+                )
             }
         }
     }

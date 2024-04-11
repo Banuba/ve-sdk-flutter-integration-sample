@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -77,7 +79,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _initVideoEditor() async {
-    await platformChannel.invokeMethod(methodInitVideoEditor, LICENSE_TOKEN);
+    // Create params
+    final params = <String, dynamic>{
+      'banubaToken': LICENSE_TOKEN,
+      'cameraVideoDurations': [30000, 20000, 10000, 5000], // 30, 20, 10, 5 seconds
+    };
+
+    // Pass params to platforms
+    await platformChannel.invokeMethod(methodInitVideoEditor, params);
   }
 
   Future<void> _startVideoEditorDefault() async {
