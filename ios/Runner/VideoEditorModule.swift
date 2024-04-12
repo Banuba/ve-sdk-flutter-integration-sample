@@ -24,17 +24,47 @@ class VideoEditorModule: VideoEditor {
     private let restoreLastVideoEditingSession: Bool = false
     
     func initVideoEditor(
+        token: String,
+        videoDurations: [TimeInterval],
+        flutterResult: @escaping FlutterResult
+    ) {
+        var config = VideoEditorConfig()
+        config.videoDurationConfiguration.videoDurations = videoDurations
+        if let maxDuration = videoDurations.first {
+            config.videoDurationConfiguration.maximumVideoDuration = maxDuration
+        }
+        
+        initVideoEditor(
+            token: token,
+            config: config,
+            flutterResult: flutterResult
+        )
+    }
+    
+    func initVideoEditor(
         token: String?,
+        flutterResult: @escaping FlutterResult
+    ) {
+        let config = VideoEditorConfig()
+        
+        // Make customization here
+        
+        initVideoEditor(
+            token: token,
+            config: config,
+            flutterResult: flutterResult
+        )
+    }
+    
+    func initVideoEditor(
+        token: String?,
+        config: VideoEditorConfig,
         flutterResult: @escaping FlutterResult
     ) {
         guard videoEditorSDK == nil else {
             flutterResult(nil)
             return
         }
-        
-        let config = VideoEditorConfig()
-        
-        // Make customization here
         
         videoEditorSDK = BanubaVideoEditor(
             token: token ?? "",
