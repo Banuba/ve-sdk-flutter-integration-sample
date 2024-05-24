@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_ve_sdk/audio_browser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -211,15 +210,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Padding(
               padding: EdgeInsets.all(15.0),
-              child: Linkify(
-                text: _errorMessage,
-                onOpen: (link) async {
-                  if (await canLaunchUrlString(link.url)) {
-                    await launchUrlString(link.url);
-                  } else {
-                    throw 'Could not launch $link';
-                  }
-                },
+              child: Text(
+                _errorMessage,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14.0,
