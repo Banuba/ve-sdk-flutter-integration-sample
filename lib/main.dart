@@ -141,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (exception.code) {
       case 'ERR_SDK_LICENSE_REVOKED':
         errorMessage =
-            'The license is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
+            'The license is revoked or expired. Please contact Banuba https://www.banuba.com/support';
         break;
       case 'ERR_SDK_NOT_INITIALIZED':
         errorMessage =
