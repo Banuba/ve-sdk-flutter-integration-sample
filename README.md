@@ -11,7 +11,7 @@ Before you commit to a license, you are free to test all the features of the SDK
 The trial period lasts 14 days. To start it, [send us a message](https://www.banuba.com/video-editor-sdk#form).  
 We will get back to you with the trial token.
 
-Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have any questions.
+Feel free to [contact us](https://www.banuba.com/support) if you have any questions.
 
 ## Launch
 
