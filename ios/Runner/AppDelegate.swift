@@ -50,11 +50,19 @@ import BanubaPhotoEditorSDK
                 let call = methodCall.method
                 switch call {
                 case AppDelegate.methodInitVideoEditor:
-                    let token = methodCall.arguments as? String
-                    videoEditor.initVideoEditor(
-                        token: token,
-                        flutterResult: result
-                    )
+                    if let parameters = methodCall.arguments as? [String: Any],
+                          let token = parameters["banubaToken"] as? String,
+                          let durations = parameters["cameraVideoDurations"] as? [Double] {
+                        videoEditor.initVideoEditor(
+                            token: token,
+                            // Convert milliseconds to seconds
+                            videoDurations: durations.map { $0 / 1000 },
+                            flutterResult: result
+                        )
+                    } else {
+                        print("Cannot start video editor: missing token or video durations")
+                        result(FlutterError(code: AppDelegate.errEditorNotInitialized, message: "", details: nil))
+                    }
                 case AppDelegate.methodStartVideoEditor:
                     videoEditor.openVideoEditorDefault(
                         fromViewController: controller,
