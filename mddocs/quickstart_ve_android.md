@@ -16,15 +16,11 @@ Once complete you will be able to launch video editor in your Flutter project.
 ## Installation
 GitHub Packages is used for downloading Android Video Editor SDK modules.
 
-First, add repositories to [gradle](../android/build.gradle#L15) file in ```allprojects``` section.
+First, add repositories to [gradle](../android/build.gradle#L1) file in ```allprojects``` section.
 
 ```groovy
-...
-
 allprojects {
     repositories {
-        ...
-
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
@@ -49,13 +45,11 @@ allprojects {
                 password = "\u0067\u0068\u0070\u005f\u0033\u0057\u006a\u0059\u004a\u0067\u0071\u0054\u0058\u0058\u0068\u0074\u0051\u0033\u0075\u0038\u0051\u0046\u0036\u005a\u0067\u004f\u0041\u0053\u0064\u0046\u0032\u0045\u0046\u006a\u0030\u0036\u006d\u006e\u004a\u004a"
             }
         }
-
-        ...
     }
 }
 ```
 
-Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L91) file.
+Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L83) file.
 ```groovy
     def banubaSdkVersion = '1.35.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
@@ -76,11 +70,14 @@ Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L91
     implementation "com.banuba.sdk:ve-playback-sdk:${banubaSdkVersion}"
 ```
 
-Additionally, make sure the following plugins are in your app [gradle](../android/app/build.gradle#L24) file.
+Additionally, make sure the following plugins are in your app [gradle](../android/app/build.gradle#L1) and at the top of the file.
 ```groovy
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "kotlin-parcelize"
+}
 ```
 
 ## Resources

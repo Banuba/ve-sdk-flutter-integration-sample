@@ -12,15 +12,11 @@ Once complete you will be able to launch photo editor in your Flutter project.
 
 ## Installation
 GitHub Packages is used for downloading Android Photo Editor SDK modules.
-First, add repositories to [gradle](../android/build.gradle#L15) file in ```allprojects``` section.
+First, add repositories to [gradle](../android/build.gradle#L1) file in ```allprojects``` section.
 
 ```groovy
-...
-
 allprojects {
     repositories {
-        ...
-
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
@@ -45,29 +41,32 @@ allprojects {
                 password = "\u0067\u0068\u0070\u005f\u0033\u0057\u006a\u0059\u004a\u0067\u0071\u0054\u0058\u0058\u0068\u0074\u0051\u0033\u0075\u0038\u0051\u0046\u0036\u005a\u0067\u004f\u0041\u0053\u0064\u0046\u0032\u0045\u0046\u006a\u0030\u0036\u006d\u006e\u004a\u004a"
             }
         }
-
-        ...
     }
 }
 ```
 
-Specify Photo Editor SDK dependencies in the app [gradle](../android/app/build.gradle#L110) file.
+Specify Photo Editor SDK dependencies in the app gradle file.
 ```groovy
-    def banubaPESdkVersion = '1.1.0'
-    implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
+    dependencies {
+        def banubaPESdkVersion = '1.2.0'
+        implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 
-    def banubaSdkVersion = '1.34.0'
-    implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:effect-player-adapter:${banubaSdkVersion}"
+        def banubaSdkVersion = '1.35.0'
+        implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:effect-player-adapter:${banubaSdkVersion}"
+        }
 ```
 
-Additionally, make sure the following plugins are in your app [gradle](../android/app/build.gradle#L24) file.
+Additionally, make sure the following plugins are in your app [gradle](../android/app/build.gradle#L1) and at the top of the file.
 ```groovy
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "kotlin-parcelize"
+}
 ```
 
 ## Launch
