@@ -1,22 +1,34 @@
 package com.banuba.flutter.flutter_ve_sdk
 
+import android.app.Activity
 import android.app.Application
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
+import com.banuba.flutter.flutter_ve_sdk.MainActivity.Companion.EXTRA_EXPORTED_IMAGE
 import com.banuba.sdk.arcloud.data.source.ArEffectsRepositoryProvider
 import com.banuba.sdk.arcloud.di.ArCloudKoinModule
 import com.banuba.sdk.audiobrowser.di.AudioBrowserKoinModule
 import com.banuba.sdk.audiobrowser.domain.AudioBrowserMusicProvider
+import com.banuba.sdk.core.EditorUtilityManager
 import com.banuba.sdk.core.data.TrackData
+import com.banuba.sdk.core.domain.MediaNavigationProcessor
 import com.banuba.sdk.core.ui.ContentFeatureProvider
 import com.banuba.sdk.effectplayer.adapter.BanubaEffectPlayerKoinModule
+import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.di.VeExportKoinModule
 import com.banuba.sdk.gallery.di.GalleryKoinModule
 import com.banuba.sdk.playback.di.VePlaybackSdkKoinModule
 import com.banuba.sdk.ve.di.VeSdkKoinModule
+import com.banuba.sdk.ve.ext.VideoEditorUtils.getKoin
 import com.banuba.sdk.ve.flow.di.VeFlowKoinModule
 import com.banuba.sdk.veui.di.VeUiSdkKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.error.InstanceCreationException
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -49,6 +61,19 @@ class VideoEditorModule {
             )
         }
     }
+
+    fun release() {
+        val utilityManager = try {
+            // EditorUtilityManager is NULL when the token is expired or revoked.
+            // This dependency is not explicitly created in DI.
+            getKoin().getOrNull<EditorUtilityManager>()
+        } catch (e: InstanceCreationException) {
+            Log.w("CustomNavigation", "EditorUtilityManager was not initialized!", e)
+            null
+        }
+        utilityManager?.release()
+        stopKoin()
+    }
 }
 
 /**
@@ -78,6 +103,43 @@ private class SampleIntegrationVeKoinModule {
                 // Default implementation that supports Soundstripe, Mubert and Local audio stored on the device
                 AudioBrowserMusicProvider()
             }
+        }
+
+        // Provide custom implementation to process media received from Camera screen
+        single<MediaNavigationProcessor> {
+            OpenPhotoEditorFromVideoEditor()
+        }
+    }
+
+    private class OpenPhotoEditorFromVideoEditor() : MediaNavigationProcessor {
+
+        override fun process(activity: Activity, mediaList: List<Uri>): Boolean {
+            // Provide custom implementation to process mediaList received from Camera screen.
+            // Keep in mind that mediaList contains slideshow video as well.
+            Log.d("CustomMediaNavigation", "Process mediaList = $mediaList")
+            val imageUri = mediaList.find { it.path?.contains(".png") == true }
+
+            val stayInVideoEditorSDK = if (imageUri == null) {
+                true
+            } else {
+                val exportImageIntent = Intent().apply {
+                    putExtra(EXTRA_EXPORTED_IMAGE ,
+                        ExportResult.Success(
+                            emptyList(),
+                            imageUri,
+                            Uri.EMPTY,
+                            Bundle()
+                        )
+                    )
+                }
+
+                // Finish Video Editor SDK
+                activity.setResult(Activity.RESULT_OK, exportImageIntent)
+                activity.finish()
+                false // false - close and open app screen
+            }
+
+            return stayInVideoEditorSDK
         }
     }
 }
