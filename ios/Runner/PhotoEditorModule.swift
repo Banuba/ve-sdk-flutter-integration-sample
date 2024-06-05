@@ -47,6 +47,13 @@ class PhotoEditorModule: BanubaPhotoEditorDelegate {
         })
     }
     
+    func presentPhotoEditor(with launchConfig: PhotoEditorLaunchConfig) {
+            photoEditorSDK?.presentPhotoEditor(
+                withLaunchConfiguration: launchConfig,
+                completion: nil
+            )
+        }
+    
     // MARK: - PhotoEditorSDKDelegate
     func photoEditorDidCancel(_ photoEditor: BanubaPhotoEditor) {
         photoEditor.dismissPhotoEditor(animated: true) { [unowned self] in
@@ -66,6 +73,7 @@ class PhotoEditorModule: BanubaPhotoEditorDelegate {
         let data = [
             AppDelegate.argExportedPhotoFile: exportedPhotoFileUrl.path,
         ]
+        debugPrint("Photo exported = \(exportedPhotoFileUrl.path)")
         photoEditor.dismissPhotoEditor(animated: true) { [unowned self] in
             self.flutterResult?(data)
             self.flutterResult = nil

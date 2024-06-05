@@ -41,6 +41,7 @@ class MainActivity : FlutterActivity() {
 
         // For Photo Editor
         private const val PHOTO_EDITOR_REQUEST_CODE = 8888
+        const val EXTRA_EXPORTED_IMAGE = "EXTRA_EXPORTED_IMAGE"
         private const val METHOD_START_PHOTO_EDITOR = "startPhotoEditor"
 
         private const val ARG_EXPORTED_PHOTO_FILE = "argExportedPhotoFilePath"
@@ -210,6 +211,20 @@ class MainActivity : FlutterActivity() {
     override fun onActivityResult(requestCode: Int, result: Int, intent: Intent?) {
         super.onActivityResult(requestCode, result, intent)
         if (requestCode == VIDEO_EDITOR_REQUEST_CODE && result == RESULT_OK) {
+            handleVideoEditorExportResult(intent)
+        } else if (requestCode == PHOTO_EDITOR_REQUEST_CODE && result == RESULT_OK) {
+            val data = preparePhotoExportData(intent)
+            exportResult?.success(data)
+        }
+    }
+
+    private fun handleVideoEditorExportResult(intent: Intent?) {
+        // The image taken on camera screen in Video Editor SDK
+        val exportImageResult =
+            intent?.getParcelableExtra("EXTRA_EXPORTED_IMAGE") as? ExportResult.Success
+
+        if (exportImageResult == null) {
+            // Handle export result from
             val exportResult =
                 intent?.getParcelableExtra(EXTRA_EXPORTED_SUCCESS) as? ExportResult.Success
             if (exportResult == null) {
@@ -222,10 +237,18 @@ class MainActivity : FlutterActivity() {
                 val data = prepareVideoExportData(exportResult)
                 this.exportResult?.success(data)
             }
+        } else {
+            // IMPORTANT! Release Video Editor SDK
+            videoEditorModule?.release()
+            videoEditorModule = null
 
-        } else if (requestCode == PHOTO_EDITOR_REQUEST_CODE && result == RESULT_OK) {
-            val data = preparePhotoExportData(intent)
-            exportResult?.success(data)
+            activity.startActivityForResult(
+                PhotoCreationActivity.startFromEditor(
+                    activity.applicationContext,
+                    imageUri = exportImageResult.preview
+                ),
+                PHOTO_EDITOR_REQUEST_CODE
+            )
         }
     }
 

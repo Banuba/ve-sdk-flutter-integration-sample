@@ -1,6 +1,7 @@
 import Foundation
 import BanubaVideoEditorSDK
 import BanubaAudioBrowserSDK
+import BanubaPhotoEditorSDK
 import VideoEditor
 import VEExportSDK
 import Flutter
@@ -18,10 +19,15 @@ protocol VideoEditor {
 class VideoEditorModule: VideoEditor {
     
     private var videoEditorSDK: BanubaVideoEditor?
+    // MARK: - PhotoEditorSDK
+    private var photoEditorModule: PhotoEditorModule?
+    
     private var flutterResult: FlutterResult?
     
     // Use “true” if you want users could restore the last video editing session.
     private let restoreLastVideoEditingSession: Bool = false
+    
+    private var licenseToken: String = ""
     
     func initVideoEditor(
         token: String?,
@@ -46,6 +52,8 @@ class VideoEditorModule: VideoEditor {
             flutterResult(FlutterError(code: AppDelegate.errEditorNotInitialized, message: "", details: nil))
             return
         }
+        
+        licenseToken = token!
         
         videoEditorSDK?.delegate = self
         flutterResult(nil)
@@ -247,6 +255,58 @@ extension VideoEditorModule: BanubaVideoEditorDelegate {
             }
             self.videoEditorSDK = nil
         }
+    }
+    
+    func videoEditor(_ videoEditor: BanubaVideoEditor, shouldProcessMediaUrls urls: [URL]) -> Bool {
+        // Implement your custom filter to take image
+        guard let jpegURL = urls.first(where: { $0.pathExtension.lowercased() == "jpeg" }),
+              let imageData = try? Data(contentsOf: jpegURL),
+              !imageData.isEmpty,
+              let resultImage = UIImage(data: imageData) else {
+            return true
+        }
+        
+        videoEditor.dismissVideoEditor(animated: true) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                // Calling clearSessionData() also removes any files stored in urls array
+                videoEditorSDK?.clearSessionData()
+                
+                let launchConfig = PhotoEditorLaunchConfig(
+                    hostController: getTopViewController()!,
+                    entryPoint: .editorWithImage(resultImage)
+                )
+                checkLicenseAndOpenPhotoEditor(with: launchConfig)
+            }
+        }
+        
+        return false
+    }
+    
+    private func checkLicenseAndOpenPhotoEditor(with launchConfig: PhotoEditorLaunchConfig) {
+        // Deallocate any active instances of both editors to free used resources
+        // and to prevent "You are trying to create the second instance of the singleton." crash
+        photoEditorModule = nil
+        videoEditorSDK = nil
+        
+        photoEditorModule = PhotoEditorModule(token: licenseToken)
+        
+        guard let photoEditorSDK = photoEditorModule?.photoEditorSDK else {
+            print("Banuba Photo Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba")
+            return
+        }
+        
+        photoEditorSDK.delegate = photoEditorModule
+        
+        photoEditorSDK.getLicenseState(completion: { [weak self] isValid in
+            guard let self else { return }
+            if isValid {
+                print("✅ License is active, all good")
+                photoEditorModule?.presentPhotoEditor(with: launchConfig)
+            } else {
+                print("❌ License is either revoked or expired")
+            }
+        })
     }
     
     func videoEditorDone(_ videoEditor: BanubaVideoEditor) {
