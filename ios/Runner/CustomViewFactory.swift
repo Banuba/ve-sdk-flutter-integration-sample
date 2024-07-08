@@ -21,7 +21,7 @@ class FlutterCustomViewFactory: ExternalViewControllerFactory {
 class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewControllerFactory {
     
     // Audio Browser selection view controller
-    func makeTrackSelectionViewController(selectedAudioItem: AudioItem?) -> TrackSelectionViewController? {
+    func makeTrackSelectionViewController(selectedAudioItem: AudioItem?, isAudioPartSelectionEnabled: Bool) -> TrackSelectionViewController? {
         let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).audioBrowserFlutterEngine
         
         // Only single instance of the FlutterEngine can be attached to FlutterViewController at a time.
@@ -40,12 +40,12 @@ class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewController
     }
     
     // Effects selection view controller. Used at Music editor screen
-    func makeEffectSelectionViewController(selectedAudioItem: BanubaUtilities.AudioItem?) -> BanubaUtilities.EffectSelectionViewController? {
+    func makeEffectSelectionViewController(selectedAudioItem: AudioItem?) -> EffectSelectionViewController? {
         return nil
     }
     
     // Returns recorder countdown view for voice recorder screen
-    func makeRecorderCountdownAnimatableView() -> BanubaVideoEditorSDK.MusicEditorCountdownAnimatableView? {
+    func makeRecorderCountdownAnimatableView() -> MusicEditorCountdownAnimatableView? {
         return nil
     }
 }
@@ -58,7 +58,7 @@ private class FlutterTrackSelectionViewController: FlutterViewController, TrackS
     let methodClose = "close"
     
     // MARK: - TrackSelectionViewController
-    var trackSelectionDelegate: BanubaUtilities.TrackSelectionViewControllerDelegate?
+    var trackSelectionDelegate: TrackSelectionViewControllerDelegate?
     
     private var channel: FlutterMethodChannel?
     
