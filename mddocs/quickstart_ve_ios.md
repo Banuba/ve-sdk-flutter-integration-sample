@@ -16,7 +16,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 ## Installation
 Add iOS Video Editor SDK dependencies to your [Podfile](../ios/Podfile)
 ```swift
-  sdk_version = '1.36.0'
+  sdk_version = '1.36.2'
 
   pod 'BanubaARCloudSDK', sdk_version #optional
   pod 'BanubaVideoEditorSDK', sdk_version
