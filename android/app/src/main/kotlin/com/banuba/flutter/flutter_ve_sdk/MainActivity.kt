@@ -69,7 +69,8 @@ class MainActivity : FlutterActivity() {
 
             when (call.method) {
                 METHOD_INIT_VIDEO_EDITOR -> {
-                    val licenseToken = call.arguments as String
+                    val params = call.arguments as HashMap<String, Any>
+                    val licenseToken = params["banubaToken"] as String
                     editorSDK = BanubaVideoEditor.initialize(licenseToken)
 
                     if (editorSDK == null) {
@@ -79,7 +80,8 @@ class MainActivity : FlutterActivity() {
                         if (videoEditorModule == null) {
                             // Initialize video editor sdk dependencies
                             videoEditorModule = VideoEditorModule().apply {
-                                initialize(application)
+                                // Pass params to initializer
+                                initialize(application, params)
                             }
                         }
                         result.success(null)
