@@ -198,93 +198,117 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(
-                'The sample demonstrates how to run Banuba Video and Photo Editor SDK with Flutter',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 17.0,
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    'The sample demonstrates how to run Banuba Video and Photo Editor SDK with Flutter',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 17.0,
+                    ),
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(
-                _errorMessage,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.redAccent,
-                ),
-              ),
-            ),
-            MaterialButton(
-              color: Colors.green,
-              textColor: Colors.white,
-              disabledColor: Colors.greenAccent,
-              disabledTextColor: Colors.black,
-              padding: const EdgeInsets.all(12.0),
-              splashColor: Colors.blueAccent,
-              minWidth: 240,
-              onPressed: () => _startPhotoEditor(),
-              child: const Text(
-                'Open Photo Editor',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ),
-            SizedBox(height: 24),
-            MaterialButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: const EdgeInsets.all(12.0),
-              splashColor: Colors.blueAccent,
-              minWidth: 240,
-              onPressed: () => _startVideoEditorDefault(),
-              child: const Text(
-                'Open Video Editor - Default',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ),
-            SizedBox(height: 24),
-            MaterialButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: const EdgeInsets.all(16.0),
-              splashColor: Colors.blueAccent,
-              minWidth: 240,
-              onPressed: () => _startVideoEditorPIP(),
-              child: const Text(
-                'Open Video Editor - PIP',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ),
-            SizedBox(height: 24),
-            MaterialButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: const EdgeInsets.all(16.0),
-              splashColor: Colors.blueAccent,
-              minWidth: 240,
-              onPressed: () => _startVideoEditorTrimmer(),
-              child: const Text(
-                'Open Video Editor - Trimmer',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+            Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(
+                      _errorMessage,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.redAccent,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.green,
+                      shadowColor: Colors.greenAccent,
+                      elevation: 10,
+                      fixedSize: const Size(280, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () => _startPhotoEditor(),
+                    child: const Text(
+                      'Open Photo Editor',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blueAccent,
+                      shadowColor: Colors.blueGrey,
+                      elevation: 10,
+                      fixedSize: const Size(280, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () => _startVideoEditorDefault(),
+                    child: const Text(
+                      'Open Video Editor - Default',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blueAccent,
+                      shadowColor: Colors.blueGrey,
+                      elevation: 10,
+                      fixedSize: const Size(280, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () => _startVideoEditorPIP(),
+                    child: const Text(
+                      'Open Video Editor - PIP',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blueAccent,
+                      shadowColor: Colors.blueGrey,
+                      elevation: 10,
+                      fixedSize: const Size(280, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () => _startVideoEditorTrimmer(),
+                    child: const Text(
+                      'Open Video Editor - Trimmer',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -300,38 +324,53 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (context) => AlertDialog(
         title: Text(message),
         actions: [
-          MaterialButton(
-            color: Colors.red,
-            textColor: Colors.white,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.black,
-            padding: const EdgeInsets.all(12.0),
-            splashColor: Colors.redAccent,
-            onPressed: () => {Navigator.pop(context)},
-            child: const Text(
-              'Cancel',
-              style: TextStyle(
-                fontSize: 14.0,
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.red,
+                    shadowColor: Colors.redAccent,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  onPressed: () => {Navigator.pop(context)},
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          MaterialButton(
-            color: Colors.green,
-            textColor: Colors.white,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.black,
-            padding: const EdgeInsets.all(12.0),
-            splashColor: Colors.greenAccent,
-            onPressed: () {
-              Navigator.pop(context);
-              block.call();
-            },
-            child: const Text(
-              'Ok',
-              style: TextStyle(
-                fontSize: 14.0,
+              SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.green,
+                    shadowColor: Colors.greenAccent,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    block.call();
+                  },
+                  child: const Text(
+                    'Ok',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ),
               ),
-            ),
+            ],
           )
         ],
       ),
