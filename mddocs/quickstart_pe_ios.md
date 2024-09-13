@@ -39,12 +39,13 @@ Set up channel message handler in your [AppDelegate](../ios/Runner/AppDelegate.s
      }
 ```
 
-Send [startPhotoEditor](../lib/main.dart#L65) message from Flutter to iOS
+Send [initPhotoEditor](../lib/main.dart#65) message from Flutter to Android for initializing Photo Editor SDK:
+
 ```dart
-  dynamic result = await platformChannel.invokeMethod('startPhotoEditor', LICENSE_TOKEN);
+await platformChannel.invokeMethod(methodInitPhotoEditor, LICENSE_TOKEN);
 ```
-and add corresponding [handler](../ios/Runner/AppDelegate.swift#L101) on iOS side to start Photo Editor,  
-where at first [initialize](../ios/Runner/PhotoEditorModule.swift#L17) Photo Editor using the license token and ```PhotoEditorConfig``` 
+
+where [initialize](../ios/Runner/PhotoEditorModule.swift#L17) Photo Editor using the license token and ```PhotoEditorConfig```
 ```swift
     let photoEditorSDK = BanubaPhotoEditor(
         token: token,
@@ -52,7 +53,11 @@ where at first [initialize](../ios/Runner/PhotoEditorModule.swift#L17) Photo Edi
     )
 ```
 
-and finally [start](../ios/Runner/PhotoEditorModule.swift#L40) Photo Editor in ```PhotoEditorModule```.
+Send [startPhotoEditor](../lib/main.dart#L72) message from Flutter to iOS
+```dart
+  dynamic result = await platformChannel.invokeMethod('startPhotoEditor');
+```
+and add corresponding [handler](../ios/Runner/AppDelegate.swift#L113) on iOS side to [start Photo Editor](../ios/Runner/PhotoEditorModule.swift#L37) Photo Editor in ```PhotoEditorModule```.
 ```diff
 + let launchConfig = PhotoEditorLaunchConfig(
     hostController: controller,

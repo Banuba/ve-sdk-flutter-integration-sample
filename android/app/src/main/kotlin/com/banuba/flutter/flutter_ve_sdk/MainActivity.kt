@@ -12,6 +12,11 @@ import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.pe.PhotoCreationActivity
 import com.banuba.sdk.ve.flow.VideoCreationActivity
+import com.banuba.sdk.pe.BanubaPhotoEditor
+import com.banuba.sdk.core.EditorUtilityManager
+import com.banuba.sdk.ve.ext.VideoEditorUtils.getKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.error.InstanceCreationException
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
@@ -34,6 +39,7 @@ class MainActivity : FlutterActivity() {
         private const val METHOD_START_VIDEO_EDITOR = "startVideoEditor"
         private const val METHOD_START_VIDEO_EDITOR_PIP = "startVideoEditorPIP"
         private const val METHOD_START_VIDEO_EDITOR_TRIMMER = "startVideoEditorTrimmer"
+        private const val METHOD_RELEASE_VIDEO_EDITOR = "releaseVideoEditor"
         private const val METHOD_DEMO_PLAY_EXPORTED_VIDEO = "playExportedVideo"
 
         private const val ARG_EXPORTED_VIDEO_FILE = "argExportedVideoFilePath"
@@ -41,6 +47,7 @@ class MainActivity : FlutterActivity() {
 
         // For Photo Editor
         private const val PHOTO_EDITOR_REQUEST_CODE = 8888
+        private const val METHOD_INIT_PHOTO_EDITOR = "initPhotoEditor"
         private const val METHOD_START_PHOTO_EDITOR = "startPhotoEditor"
 
         private const val ARG_EXPORTED_PHOTO_FILE = "argExportedPhotoFilePath"
@@ -52,7 +59,8 @@ class MainActivity : FlutterActivity() {
 
     private var exportResult: MethodChannel.Result? = null
 
-    private var editorSDK: BanubaVideoEditor? = null
+    private var videoEditorSDK: BanubaVideoEditor? = null
+    private var photoEditorSDK: BanubaPhotoEditor? = null
     private var videoEditorModule: VideoEditorModule? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,9 +78,9 @@ class MainActivity : FlutterActivity() {
             when (call.method) {
                 METHOD_INIT_VIDEO_EDITOR -> {
                     val licenseToken = call.arguments as String
-                    editorSDK = BanubaVideoEditor.initialize(licenseToken)
+                    videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
 
-                    if (editorSDK == null) {
+                    if (videoEditorSDK == null) {
                         // The SDK token is incorrect - empty or truncated
                         result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null)
                     } else {
@@ -87,7 +95,7 @@ class MainActivity : FlutterActivity() {
                 }
 
                 METHOD_START_VIDEO_EDITOR -> {
-                    checkSdkLicense(
+                    checkSdkLicenseVideoEditor(
                         callback = { isValid ->
                             if (isValid) {
                                 // ✅ The license is active
@@ -115,7 +123,7 @@ class MainActivity : FlutterActivity() {
                             null
                         )
                     } else {
-                        checkSdkLicense(
+                        checkSdkLicenseVideoEditor(
                             callback = { isValid ->
                                 if (isValid) {
                                     // ✅ The license is active
@@ -140,7 +148,7 @@ class MainActivity : FlutterActivity() {
                         )
                         exportResult?.error("ERR_START_TRIMMER_MISSING_VIDEO", "", null)
                     } else {
-                        checkSdkLicense(
+                        checkSdkLicenseVideoEditor(
                             callback = { isValid ->
                                 if (isValid) {
                                     // ✅ The license is active
@@ -155,28 +163,46 @@ class MainActivity : FlutterActivity() {
                     }
                 }
 
-                METHOD_START_PHOTO_EDITOR -> {
-                    val licenseToken = call.arguments as String
-                    editorSDK = BanubaVideoEditor.initialize(licenseToken)
+                METHOD_RELEASE_VIDEO_EDITOR -> {
+                    Log.d(TAG, "Release Video Editor SDK")
+                    if (videoEditorModule != null) {
+                        val utilityManager = try {
+                            // EditorUtilityManager is NULL when the token is expired or revoked.
+                            // This dependency is not explicitly created in DI.
+                            getKoin().getOrNull<EditorUtilityManager>()
+                        } catch (e: InstanceCreationException) {
+                            Log.w(TAG, "EditorUtilityManager was not initialized!", e)
+                            result.error("EditorUtilityManager was not initialized!", "", null)
+                            null
+                        }
+                        utilityManager?.release()
+                        stopKoin()
+                        videoEditorModule = null
+                    }
+                    videoEditorSDK = null
+                    result.success(null)
+                }
 
-                    if (editorSDK == null) {
+                METHOD_INIT_PHOTO_EDITOR -> {
+                    val licenseToken = call.arguments as String
+                    photoEditorSDK = BanubaPhotoEditor.initialize(licenseToken)
+
+                    if (photoEditorSDK == null) {
+                        // The SDK token is incorrect - empty or truncated
+                        result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null)
+                    }
+                    result.success(null)
+                }
+
+                METHOD_START_PHOTO_EDITOR -> {
+                    if (photoEditorSDK == null) {
                         // The SDK token is incorrect - empty or truncated
                         result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null)
                     } else {
-                        checkSdkLicense(
-                            callback = { isValid ->
-                                if (isValid) {
-                                    // ✅ The license is active
-                                    startActivityForResult(
-                                        PhotoCreationActivity.startFromGallery(this),
-                                        PHOTO_EDITOR_REQUEST_CODE
-                                    )
-                                } else {
-                                    // ❌ Use of SDK is restricted: the license is revoked or expired
-                                    result.error(ERR_CODE_SDK_LICENSE_REVOKED, "", null)
-                                }
-                            },
-                            onError = { result.error(ERR_CODE_SDK_NOT_INITIALIZED, "", null) }
+                        // ✅ The license is active
+                        startActivityForResult(
+                            PhotoCreationActivity.startFromGallery(this),
+                            PHOTO_EDITOR_REQUEST_CODE
                         )
                     }
                 }
@@ -303,11 +329,11 @@ class MainActivity : FlutterActivity() {
         return data
     }
 
-    private fun checkSdkLicense(
+    private fun checkSdkLicenseVideoEditor(
         callback: LicenseStateCallback,
         onError: () -> Unit
     ) {
-        val sdk = editorSDK
+        val sdk = videoEditorSDK
         if (sdk == null) {
             Log.e(TAG, "Cannot check license state: initialize the SDK")
             onError()

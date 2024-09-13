@@ -16,7 +16,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 ## Installation
 Add iOS Video Editor SDK dependencies to your [Podfile](../ios/Podfile)
 ```swift
-  sdk_version = '1.36.2'
+  sdk_version = '1.37.0'
 
   pod 'BanubaARCloudSDK', sdk_version #optional
   pod 'BanubaVideoEditorSDK', sdk_version
@@ -114,20 +114,20 @@ to listen to calls from Flutter.
      }
 ```
 
-Send [initVideoEditor](../lib/main.dart#L80) message from Flutter to iOS
+Send [initVideoEditor](../lib/main.dart#L97) message from Flutter to iOS
 ```dart
   await platformChannel.invokeMethod('initVideoEditor', LICENSE_TOKEN);
 ```
-and add corresponding [handler](../ios/Runner/AppDelegate.swift#L54) on iOS side to initialize Video Editor.
+and add corresponding [handler](../ios/Runner/AppDelegate.swift#L55) on iOS side to initialize Video Editor.
 
-Initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Runner/VideoEditorModule.swift#L39) on iOS.
+Initialize Video Editor SDK using license token in [VideoEditorModule](../ios/Runner/VideoEditorModule.swift#L41) on iOS.
 ```swift
   let videoEditor = BanubaVideoEditor(
     token: token,
     ...
   )
 ```
-Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L87) message from Flutter to iOS
+Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L94) message from Flutter to iOS
 
 ```dart
   final result = await platformChannel.invokeMethod('startVideoEditor');
@@ -137,14 +137,14 @@ and add the corresponding [handler](../ios/Runner/AppDelegate.swift#58) on iOS s
 
 :exclamation: Important
 1. Instance ```videoEditor``` is ```nil``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
-2. It is highly recommended to [check](../ios/Runner/PhotoEditorModule.swift#L104) if the license if active before starting Photo Editor.
+2. It is highly recommended to [check](../ios/Runner/VideoEditorModule.swift#L106) if the license if active before starting Video Editor.
 
 ## Connect audio
 
 This is an optional section in integration process. In this section you will know how to connect audio to Video Editor.
 
 ### Connect Soundstripe
-Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.soundstripe``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L138) 
+Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.soundstripe``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L147) 
 to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
 
 :exclamation: Soundstripe should be enabled in your token.
@@ -156,8 +156,8 @@ Request API key from [Mubert](https://mubert.com/).
 For playing Mubert content in Video Editor Audio Browser perform the following steps:
 
 1. Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13)
-2. Set Mubert API license and key [within the app](../ios/Runner/AppDelegate.swift#L136)
-3. Set ```.allSources``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L138)
+2. Set Mubert API license and key [within the app](../ios/Runner/AppDelegate.swift#L147)
+3. Set ```.allSources``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L149)
 
 ### Connect External Audio API
 Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  

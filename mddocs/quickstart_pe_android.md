@@ -48,10 +48,10 @@ allprojects {
 Specify Photo Editor SDK dependencies in the app gradle file.
 ```groovy
     dependencies {
-        def banubaPESdkVersion = '1.2.5'
+        def banubaPESdkVersion = '1.2.7'
         implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 
-        def banubaSdkVersion = '1.36.3'
+        def banubaSdkVersion = '1.37.0'
         implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
@@ -91,36 +91,36 @@ class MainActivity : FlutterActivity() {
 }
 ```
 
-Send [startPhotoEditor](../lib/main.dart#L65) message from Flutter to Android 
+Send [initPhotoEditor](../lib/main.dart#65) message from Flutter to Android for initializing Photo Editor SDK:
+
 ```dart
-  dynamic result = await platformChannel.invokeMethod('startPhotoEditor', LICENSE_TOKEN);
+await platformChannel.invokeMethod(methodInitPhotoEditor, LICENSE_TOKEN);
 ```
-and add corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L159) on Android side to start Photo Editor.
+
+Add [init method](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#188) on Android side to initialize Photo Editor SDK:
 
 ```diff
 val licenseToken = call.arguments as String
-+ val editorSDK = BanubaVideoEditor.initialize(licenseToken)
++ photoEditorSDK = BanubaPhotoEditor.initialize(licenseToken)
 
-if (editorSDK == null) {
+if (photoEditorSDK == null) {
     // The SDK token is incorrect - empty or truncated
     ...
-} else {
-    checkSdkLicense(
-        callback = { isValid ->
-            if (isValid) {
-                // ✅ The license is active
-+                startActivityForResult(
-                    PhotoCreationActivity.startFromGallery(this),
-                    PHOTO_EDITOR_REQUEST_CODE
-                )
-            } else {
-                // ❌ Use of SDK is restricted: the license is revoked or expired
-                ...
-            }
-        },
-        onError = { ... }
-    )
 }
+result.success(null)
+```
+
+Send [startPhotoEditor](../lib/main.dart#L72) message from Flutter to Android for starting the Photo Editor SDK:
+```dart
+dynamic result = await platformChannel.invokeMethod(methodStartPhotoEditor);
+```
+and add corresponding [method](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L203) on Android side to start Photo Editor.
+
+```kotlin
+startActivityForResult(
+    PhotoCreationActivity.startFromGallery(this),
+    PHOTO_EDITOR_REQUEST_CODE
+)
 ```
 
 :exclamation: Important  
