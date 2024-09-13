@@ -1,8 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ve_sdk/audio_browser.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,12 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
   static const methodStartVideoEditor = 'startVideoEditor';
   static const methodStartVideoEditorPIP = 'startVideoEditorPIP';
   static const methodStartVideoEditorTrimmer = 'startVideoEditorTrimmer';
+  static const methodReleaseVideoEditor = 'releaseVideoEditor';
   static const methodDemoPlayExportedVideo = 'playExportedVideo';
 
   static const argExportedVideoFile = 'argExportedVideoFilePath';
   static const argExportedVideoCoverPreviewPath = 'argExportedVideoCoverPreviewPath';
 
   // For Photo Editor
+  static const methodInitPhotoEditor = 'initPhotoEditor';
   static const methodStartPhotoEditor = 'startPhotoEditor';
   static const argExportedPhotoFile = 'argExportedPhotoFilePath';
 
@@ -59,9 +61,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String _errorMessage = '';
 
+  Future<void> _initPhotoEditor() async {
+    if (Platform.isAndroid){
+      await _releaseVideoEditor();
+    }
+    await platformChannel.invokeMethod(methodInitPhotoEditor, LICENSE_TOKEN);
+  }
+
   Future<void> _startPhotoEditor() async {
     try {
-      dynamic result = await platformChannel.invokeMethod(methodStartPhotoEditor, LICENSE_TOKEN);
+      await _initPhotoEditor();
+
+      dynamic result = await platformChannel.invokeMethod(methodStartPhotoEditor);
 
       debugPrint('Received Photo Editor result');
 
@@ -128,6 +139,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
         _handleVideoEditorResult(result);
       }
+    } on PlatformException catch (e) {
+      _handlePlatformException(e);
+    }
+  }
+
+  Future<void> _releaseVideoEditor() async {
+    try {
+      await platformChannel.invokeMethod(methodReleaseVideoEditor);
     } on PlatformException catch (e) {
       _handlePlatformException(e);
     }

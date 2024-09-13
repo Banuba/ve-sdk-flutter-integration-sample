@@ -32,8 +32,10 @@ class VideoEditorModule: VideoEditor {
             return
         }
         
-        let config = VideoEditorConfig()
-        
+        var config = VideoEditorConfig()
+
+        config.featureConfiguration.supportsTrimRecordedVideo = true
+
         // Make customization here
         
         videoEditorSDK = BanubaVideoEditor(
@@ -139,8 +141,8 @@ class VideoEditorModule: VideoEditor {
 // MARK: - Export flow
 extension VideoEditorModule {
     func exportVideo() {
-        let progressView = ProgressViewController.makeViewController()
-        
+        let progressView = createProgressViewController()
+
         progressView.cancelHandler = { [weak self] in
             self?.videoEditorSDK?.stopExport()
         }
@@ -234,6 +236,12 @@ extension VideoEditorModule {
         }
         
         return topController
+    }
+
+    func createProgressViewController() -> ProgressViewController {
+      let progressViewController = ProgressViewController.makeViewController()
+      progressViewController.message = "Exporting"
+      return progressViewController
     }
 }
 

@@ -20,38 +20,38 @@ First, add repositories to [gradle](../android/build.gradle#L1) file in ```allpr
 
 ```groovy
 allprojects {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
-            credentials {
-                username = "Banuba"
-                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
-            }
-        }
-        maven {
-            name = "ARCloudPackages"
-            url = uri("https://maven.pkg.github.com/Banuba/banuba-ar")
-            credentials {
-                username = "Banuba"
-                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
-            }
-        }
-        maven {
-            name "GitHubPackagesEffectPlayer"
-            url "https://maven.pkg.github.com/sdk-banuba/banuba-sdk-android"
-            credentials {
-                username = "sdk-banuba"
-                password = "\u0067\u0068\u0070\u005f\u004a\u0067\u0044\u0052\u0079\u0049\u0032\u006d\u0032\u004e\u0055\u0059\u006f\u0033\u0033\u006b\u0072\u0034\u0049\u0069\u0039\u0049\u006f\u006d\u0077\u0034\u0052\u0057\u0043\u0064\u0030\u0052\u0078\u006d\u0045\u0069"
-            }
-        }
-    }
+   repositories {
+      maven {
+         name = "GitHubPackages"
+         url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
+         credentials {
+            username = "Banuba"
+            password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
+         }
+      }
+      maven {
+         name = "ARCloudPackages"
+         url = uri("https://maven.pkg.github.com/Banuba/banuba-ar")
+         credentials {
+            username = "Banuba"
+            password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
+         }
+      }
+      maven {
+         name "GitHubPackagesEffectPlayer"
+         url "https://maven.pkg.github.com/sdk-banuba/banuba-sdk-android"
+         credentials {
+            username = "sdk-banuba"
+            password = "\u0067\u0068\u0070\u005f\u004a\u0067\u0044\u0052\u0079\u0049\u0032\u006d\u0032\u004e\u0055\u0059\u006f\u0033\u0033\u006b\u0072\u0034\u0049\u0069\u0039\u0049\u006f\u006d\u0077\u0034\u0052\u0057\u0043\u0064\u0030\u0052\u0078\u006d\u0045\u0069"
+         }
+      }
+   }
 }
 ```
 
 Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L83) file.
 ```groovy
-    def banubaSdkVersion = '1.36.3'
+    def banubaSdkVersion = '1.37.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -149,13 +149,13 @@ class MainActivity : FlutterActivity() {
 }
 ```
 
-Send [initVideoEditor](../lib/main.dart#L79) message from Flutter to Android
+Send [initVideoEditor](../lib/main.dart#L90) message from Flutter to Android
 
 ```dart
   await platformChannel.invokeMethod('initVideoEditor', LICENSE_TOKEN);
 ```
 
-and add corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L71) on Android side to initialize Video Editor.
+and add corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L79) on Android side to initialize Video Editor.
 
 ```kotlin
  val licenseToken = call.arguments as String
@@ -176,26 +176,25 @@ if (editorSDK == null) {
 
 ```
 
-Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L87) message from Flutter to Android 
+Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L94) message from Flutter to Android
 
 ```dart
   final result = await platformChannel.invokeMethod('startVideoEditor');
 ```
 
-and add the corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L90) on Android side to start Video Editor.
+and add the corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L97) on Android side to start Video Editor.
 
 :exclamation: Important
 1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
 2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L306) if the license is active before starting Photo Editor.
-
 
 ## Connect audio
 
 This is an optional section in integration process. In this section you will know how to connect audio to Video Editor.  
 
 ### Connect Soundstripe
-Set ```false``` in [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L29) 
-and specify ```SoundstripeProvider``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L113)
+Set ```false``` in [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34) 
+and specify ```SoundstripeProvider``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72)
 
 ```kotlin
 single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
@@ -209,8 +208,8 @@ to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
 Request API key from [Mubert](https://mubert.com/).  
 :exclamation:  Banuba is not responsible for providing Mubert API key.
 
-Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L29) 
-and specify ```MubertApiConfig``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L113)
+Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34) 
+and specify ```MubertApiConfig``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72)
 ```kotlin
 single {
    MubertApiConfig(
@@ -227,7 +226,7 @@ to use audio from [Mubert](https://mubert.com/) in Video Editor.
 
 ### Connect External Audio API
 Video Editor SDK allows to implement your experience of providing audio tracks using [External Audio API](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content#connect-external-api).  
-To check out the simplest experience on Flutter you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L29)  
+To check out the simplest experience on Flutter you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34)  
 
 :exclamation: Important  
 Video Editor SDK can play only audio tracks stored on the device.

@@ -26,6 +26,7 @@ import BanubaPhotoEditorSDK
     static let argExportedVideoCoverPreviewPath = "argExportedVideoCoverPreviewPath"
     
     // Photo Editor Methods
+    static let methodInitPhotoEditor = "initPhotoEditor"
     static let methodStartPhotoEditor = "startPhotoEditor"
     static let argExportedPhotoFile = "argExportedPhotoFilePath"
     
@@ -45,7 +46,7 @@ import BanubaPhotoEditorSDK
                 name: "banubaSdkChannel",
                 binaryMessenger: binaryMessenger
             )
-            
+
             channel.setMethodCallHandler { methodCall, result in
                 let call = methodCall.method
                 switch call {
@@ -103,12 +104,21 @@ import BanubaPhotoEditorSDK
                         print("Missing token")
                         return
                     }
-                    photoEditor = PhotoEditorModule(token: token)
-                    
-                    photoEditor?.presentPhotoEditor(
-                        fromViewController: controller,
+                    photoEditor = PhotoEditorModule(
+                        token: token,
                         flutterResult: result
                     )
+
+                case AppDelegate.methodStartPhotoEditor:
+                    if let photoEditor = photoEditor {
+                        photoEditor.presentPhotoEditor(
+                            fromViewController: controller,
+                            flutterResult: result
+                        )
+                    } else {
+                        print("The Photo Editor is not initialized")
+                        result(FlutterError(code: AppDelegate.errEditorNotInitialized, message: "", details: nil))
+                    }
                 default:
                     print("Flutter method is not implemented on platform.")
                     result(FlutterMethodNotImplemented)

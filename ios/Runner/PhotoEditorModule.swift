@@ -12,12 +12,20 @@ class PhotoEditorModule: BanubaPhotoEditorDelegate {
     
     private var flutterResult: FlutterResult?
     
-    init(token: String) {
+    init(token: String, flutterResult: @escaping FlutterResult) {
         let configuration = PhotoEditorConfig()
         photoEditorSDK = BanubaPhotoEditor(
             token: token,
             configuration: configuration
         )
+        if photoEditorSDK == nil {
+            flutterResult(FlutterError(code: AppDelegate.errEditorNotInitialized, message: "", details: nil))
+            return
+        }
+
+        photoEditorSDK?.delegate = self
+
+        flutterResult(nil)
     }
     
     func presentPhotoEditor(
