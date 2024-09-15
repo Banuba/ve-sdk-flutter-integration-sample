@@ -39,7 +39,7 @@ Set up channel message handler in your [AppDelegate](../ios/Runner/AppDelegate.s
      }
 ```
 
-Send [initPhotoEditor](../lib/main.dart#65) message from Flutter to Android for initializing Photo Editor SDK:
+Send [initPhotoEditor](../lib/main.dart#68) message from Flutter to Android for initializing Photo Editor SDK:
 
 ```dart
 await platformChannel.invokeMethod(methodInitPhotoEditor, LICENSE_TOKEN);
@@ -80,9 +80,9 @@ and add corresponding [handler](../ios/Runner/AppDelegate.swift#L113) on iOS sid
   })
 ```
 
-:exclamation: Important  
-1. Instance ```photoEditorSDK``` is ```nil``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
-2. It is highly recommended to [check](../ios/Runner/PhotoEditorModule.swift#L104) if the license if active before starting Photo Editor.
+> [!IMPORTANT]  
+> 1. Instance ```photoEditorSDK``` is ```nil``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
+> 2. It is highly recommended to [check](../ios/Runner/PhotoEditorModule.swift#L44) if the license if active before starting Photo Editor.
 
 ## What is next?
 This quickstart guide has just covered how to quickly integrate iOS Photo Editor SDK,

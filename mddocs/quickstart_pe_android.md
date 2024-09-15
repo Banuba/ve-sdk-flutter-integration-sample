@@ -26,14 +26,6 @@ allprojects {
             }
         }
         maven {
-            name = "ARCloudPackages"
-            url = uri("https://maven.pkg.github.com/Banuba/banuba-ar")
-            credentials {
-                username = "Banuba"
-                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
-            }
-        }
-        maven {
             name "GitHubPackagesEffectPlayer"
             url "https://maven.pkg.github.com/sdk-banuba/banuba-sdk-android"
             credentials {
@@ -72,7 +64,7 @@ plugins {
 ## Launch
 [Flutter platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) approach is used for communication between Flutter and Android.
 
-Set up channel message handler in your [MainActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L63)
+Set up channel message handler in your [MainActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L71)
 to listen to calls from Flutter.
 ```kotlin
 class MainActivity : FlutterActivity() {
@@ -91,7 +83,7 @@ class MainActivity : FlutterActivity() {
 }
 ```
 
-Send [initPhotoEditor](../lib/main.dart#65) message from Flutter to Android for initializing Photo Editor SDK:
+Send [initPhotoEditor](../lib/main.dart#64) message from Flutter to Android for initializing Photo Editor SDK:
 
 ```dart
 await platformChannel.invokeMethod(methodInitPhotoEditor, LICENSE_TOKEN);
@@ -110,7 +102,7 @@ if (photoEditorSDK == null) {
 result.success(null)
 ```
 
-Send [startPhotoEditor](../lib/main.dart#L72) message from Flutter to Android for starting the Photo Editor SDK:
+Send [startPhotoEditor](../lib/main.dart#L75) message from Flutter to Android for starting the Photo Editor SDK:
 ```dart
 dynamic result = await platformChannel.invokeMethod(methodStartPhotoEditor);
 ```
@@ -123,11 +115,12 @@ startActivityForResult(
 )
 ```
 
-:exclamation: Important  
-1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
-2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L306) if the license is active before starting Photo Editor.
+> [!IMPORTANT]  
+> 1. Instance ```photoEditorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
+> 2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L192) if the license is active before starting Photo Editor.
 
 ## What is next?
+
 This quickstart guide has just covered how to quickly integrate Android Photo Editor SDK,
 it is considered you managed to start photo editor from your Flutter project.
 
