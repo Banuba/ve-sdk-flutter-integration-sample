@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 - [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
+- [Face AR Effects](#Face-AR-Effects)
 - [Connect audio](#Connect-audio)
 - [What is next?](#What-is-next)
 
@@ -185,6 +186,20 @@ and add the corresponding [handler](../android/app/src/main/kotlin/com/banuba/fl
 > 1. Instance ```videoEditorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
 > 2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L332) if the license is active before starting Photo Editor.
 
+## Face AR Effects
+
+[Banuba Face AR SDK product](https://www.banuba.com/facear-sdk/face-filters) is used on camera and editor screens for applying various AR effects while making video content.
+Any Face AR effect is a folder that includes a number of files required for Face AR SDK to play this effect.
+
+> [!INFO]
+> Make sure preview.png file is included in effect folder. You can use this file as a preview for AR effect.
+
+There are 3 options for adding and managing AR effects:
+
+1. Store all effects in by the path [assets/bnb-resources/effects](../android/app/src/main/assets/bnb-resources/effects/) folder in the app.
+2. Store color effects in [assets/bnb-resources/luts](../android/app/src/main/assets/bnb-resources/luts) folder in the app.
+3. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
+
 ## Connect audio
 
 This is an optional section in integration process. In this section you will know how to connect audio to Video Editor.  
@@ -226,7 +241,7 @@ single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider"))
 ```
 to use audio from [Mubert](https://mubert.com/) in Video Editor.
 
-### Connect Banuba FM
+### Connect Banuba Music
 
 Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34)
 and specify ```BanubaMusicProvider``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72)
@@ -239,7 +254,7 @@ single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider"))
    BanubaMusicProvider()
 }
 ```
-to use audio from ```Banuba FM``` in Video Editor.
+to use audio from ```Banuba Music``` in Video Editor.
 
 ### Connect External Audio API
 

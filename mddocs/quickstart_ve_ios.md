@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 - [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
+- [Face AR Effects](#Face-AR-Effects)
 - [Connect audio](#Connect-audio)
 - [What is next?](#What-is-next)
 
@@ -142,6 +143,19 @@ and add the corresponding [handler](../ios/Runner/AppDelegate.swift#59) on iOS s
 > 1. Instance ```videoEditor``` is ```nil``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
 > 2. It is highly recommended to [check](../ios/Runner/VideoEditorModule.swift#L106) if the license if active before starting Video Editor.
 
+## Face AR Effects
+
+[Banuba Face AR SDK product](https://www.banuba.com/facear-sdk/face-filters) is used on camera and editor screens for applying various AR effects while making video content.
+Any Face AR effect is a folder that includes a number of files required for Face AR SDK to play this effect.
+
+> [!INFO]
+> Make sure preview.png file is included in effect folder. You can use this file as a preview for AR effect.
+
+There are 2 options for adding and managing AR effects:
+
+1. [bundleEffects](../ios/bundleEffects/) folder - use bundleEffects folder
+2. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
+
 ## Connect audio
 
 This is an optional section in integration process. In this section you will know how to connect audio to Video Editor.
@@ -165,10 +179,10 @@ For playing Mubert content in Video Editor Audio Browser perform the following s
 2. Set Mubert API license and key [within the app](../ios/Runner/AppDelegate.swift#L147)
 3. Set ```.allSources``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L148)
 
-### Connect Banuba FM
+### Connect Banuba Music
 
 Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.banubaMusic``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L148) 
-to use audio ```Banuba FM``` in Video Editor.
+to use audio ```Banuba Music``` in Video Editor.
 
 > [!IMPORTANT]
 > The feature is not activated by default. Please, contact Banuba representatives to know more about using this feature.
@@ -179,7 +193,6 @@ Video Editor SDK allows to implement your experience of providing audio tracks f
 
 To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13)  
 :exclamation: Video Editor SDK can play only files stored on device.
-
 
 ## What is next?
 This quickstart guide has just covered how to quickly integrate iOS Video Editor SDK,
