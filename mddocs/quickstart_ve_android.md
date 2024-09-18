@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 - [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
+- [Face AR Effects](#Face-AR-Effects)
 - [Connect audio](#Connect-audio)
 - [What is next?](#What-is-next)
 
@@ -58,7 +59,6 @@ Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L83
     implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-flow-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-timeline-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
@@ -84,13 +84,11 @@ plugins {
 Video Editor SDK uses a lot of resources required for running in the app.  
 Please make sure all these resources exist in your project.
 
-1. [bnb-resources](../android/app/src/main/assets/bnb-resources)  Banuba AR and color filters. AR effects ```assets/bnb-resources/effects``` requires [Face AR](https://docs.banuba.com/face-ar-sdk-v1) product.
-
-2. [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
+1. [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
    [drawable-xxhdpi](../android/app/src/main/res/drawable-xxhdpi),
    [drawable-xxxhdpi](../android/app/src/main/res/drawable-xxxhdpi) are visual assets for color filter previews.
 
-3. [styles.xml](../android/app/src/main/res/values/styles.xml) includes implementation of ```VideoCreationTheme``` of Video Editor SDK.
+2. [styles.xml](../android/app/src/main/res/values/styles.xml) includes implementation of ```VideoCreationTheme``` of Video Editor SDK.
 
 ## Configuration
 
@@ -124,13 +122,13 @@ for initializing and customizing Video Editor SDK features.
 ### Export media
 Video Editor SDK exports single video with auto quality by default. Auto quality is based on device hardware capabilities.
 
-Every exported media is passed to  [onActivityResult](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#210) method. 
-Process the result and pass it to [handler](../lib/main.dart#L171) on Flutter side.
+Every exported media is passed to  [onActivityResult](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#236) method. 
+Process the result and pass it to [handler](../lib/main.dart#L189) on Flutter side.
 
 ## Launch
 [Flutter platform channels](https://docs.flutter.dev/development/platform-integration/platform-channels) approach is used for communication between Flutter and Android.
 
-Set up channel message handler in your [MainActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L63) 
+Set up channel message handler in your [MainActivity](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L71) 
 to listen to calls from Flutter.
 ```kotlin
 class MainActivity : FlutterActivity() {
@@ -176,7 +174,7 @@ if (editorSDK == null) {
 
 ```
 
-Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L94) message from Flutter to Android
+Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main.dart#L97) message from Flutter to Android
 
 ```dart
   final result = await platformChannel.invokeMethod('startVideoEditor');
@@ -184,9 +182,23 @@ Finally, once the SDK in initialized you can send [startVideoEditor](../lib/main
 
 and add the corresponding [handler](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L97) on Android side to start Video Editor.
 
-:exclamation: Important
-1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
-2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L306) if the license is active before starting Photo Editor.
+> [!IMPORTANT]
+> 1. Instance ```videoEditorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
+> 2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L332) if the license is active before starting Photo Editor.
+
+## Face AR Effects
+
+[Banuba Face AR SDK product](https://www.banuba.com/facear-sdk/face-filters) is used on camera and editor screens for applying various AR effects while making video content.
+Any Face AR effect is a folder that includes a number of files required for Face AR SDK to play this effect.
+
+> [!INFO]
+> Make sure preview.png file is included in effect folder. You can use this file as a preview for AR effect.
+
+There are 3 options for adding and managing AR effects:
+
+1. Store all effects in by the path [assets/bnb-resources/effects](../android/app/src/main/assets/bnb-resources/effects/) folder in the app.
+2. Store color effects in [assets/bnb-resources/luts](../android/app/src/main/assets/bnb-resources/luts) folder in the app.
+3. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
 
 ## Connect audio
 
@@ -195,6 +207,9 @@ This is an optional section in integration process. In this section you will kno
 ### Connect Soundstripe
 Set ```false``` in [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34) 
 and specify ```SoundstripeProvider``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72)
+
+> [!IMPORTANT]
+> The feature is not activated by default. Please, contact Banuba representatives to know more about using this feature.
 
 ```kotlin
 single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
@@ -206,10 +221,12 @@ to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
 ### Connect Mubert
 
 Request API key from [Mubert](https://mubert.com/).  
-:exclamation:  Banuba is not responsible for providing Mubert API key.
+> [!MPORTANT]
+> Banuba is not responsible for providing Mubert API key.
 
 Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34) 
 and specify ```MubertApiConfig``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72)
+
 ```kotlin
 single {
    MubertApiConfig(
@@ -224,17 +241,33 @@ single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider"))
 ```
 to use audio from [Mubert](https://mubert.com/) in Video Editor.
 
+### Connect Banuba Music
+
+Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34)
+and specify ```BanubaMusicProvider``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72)
+
+> [!IMPORTANT]
+> The feature is not activated by default. Please, contact Banuba representatives to know more about using this feature.
+
+```kotlin
+single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
+   BanubaMusicProvider()
+}
+```
+to use audio from ```Banuba Music``` in Video Editor.
+
 ### Connect External Audio API
+
 Video Editor SDK allows to implement your experience of providing audio tracks using [External Audio API](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content#connect-external-api).  
 To check out the simplest experience on Flutter you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34)  
 
-:exclamation: Important  
-Video Editor SDK can play only audio tracks stored on the device.
+> [!IMPORTANT]  
+> Video Editor SDK can play only audio tracks stored on the device.
 
 More information is available in our [audio content](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content) guide.
 
 ## What is next?
-This quickstart guide has just covered how to quickly integrate Android Video Editor SDK, 
-it is considered you managed to start video editor from your Flutter project. 
+
+This quickstart guide has just covered how to quickly integrate Android Video Editor SDK, it is considered you managed to start video editor from your Flutter project. 
 
 Please check out [docs](https://docs.banuba.com/ve-pe-sdk/docs/android/requirements-ve/) to know more about the SDK and complete full integration.
