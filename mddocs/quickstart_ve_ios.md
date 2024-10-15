@@ -148,12 +148,12 @@ and add the corresponding [handler](../ios/Runner/AppDelegate.swift#59) on iOS s
 [Banuba Face AR SDK product](https://www.banuba.com/facear-sdk/face-filters) is used on camera and editor screens for applying various AR effects while making video content.
 Any Face AR effect is a folder that includes a number of files required for Face AR SDK to play this effect.
 
-> [!INFO]
+> [!NOTE]
 > Make sure preview.png file is included in effect folder. You can use this file as a preview for AR effect.
 
 There are 2 options for adding and managing AR effects:
 
-1. [bundleEffects](../ios/bundleEffects/) folder - use bundleEffects folder
+1. Add ```bundleEffects``` folder in the [project](../ios/) and place effects there.
 2. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
 
 ## Connect audio

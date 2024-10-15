@@ -191,12 +191,12 @@ and add the corresponding [handler](../android/app/src/main/kotlin/com/banuba/fl
 [Banuba Face AR SDK product](https://www.banuba.com/facear-sdk/face-filters) is used on camera and editor screens for applying various AR effects while making video content.
 Any Face AR effect is a folder that includes a number of files required for Face AR SDK to play this effect.
 
-> [!INFO]
+> [!NOTE]
 > Make sure preview.png file is included in effect folder. You can use this file as a preview for AR effect.
 
 There are 3 options for adding and managing AR effects:
 
-1. Store all effects in by the path [assets/bnb-resources/effects](../android/app/src/main/assets/bnb-resources/effects/) folder in the app.
+1. Store all effects by the path [assets/bnb-resources/effects](../android/app/src/main/assets/bnb-resources/) folder in the app.
 2. Store color effects in [assets/bnb-resources/luts](../android/app/src/main/assets/bnb-resources/luts) folder in the app.
 3. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
 
