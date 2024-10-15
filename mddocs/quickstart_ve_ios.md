@@ -153,7 +153,7 @@ Any Face AR effect is a folder that includes a number of files required for Face
 
 There are 2 options for adding and managing AR effects:
 
-1. [bundleEffects](../ios/bundleEffects/) folder - use bundleEffects folder
+1. Add ```bundleEffects``` folder in the [project](../ios/) and place effects there.
 2. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
 
 ## Connect audio
