@@ -16,7 +16,6 @@
 		6402690D71E3F661CADAABB2 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A56100A0F769A333DFEA9218 /* Pods_Runner.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		8A26A828259B6C18001CFF3C /* luts in Resources */ = {isa = PBXBuildFile; fileRef = 8A26A826259B6C17001CFF3C /* luts */; };
-		8A26A829259B6C18001CFF3C /* bundleEffects in Resources */ = {isa = PBXBuildFile; fileRef = 8A26A827259B6C18001CFF3C /* bundleEffects */; };
 		8A905A48259CCE0F00D719A6 /* VideoEditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A905A47259CCE0F00D719A6 /* VideoEditorModule.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -49,7 +48,6 @@
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 4; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		8A26A826259B6C17001CFF3C /* luts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = luts; sourceTree = "<group>"; };
-		8A26A827259B6C18001CFF3C /* bundleEffects */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundleEffects; sourceTree = "<group>"; };
 		8A905A47259CCE0F00D719A6 /* VideoEditorModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = VideoEditorModule.swift; sourceTree = "<group>"; tabWidth = 4; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				8A26A827259B6C18001CFF3C /* bundleEffects */,
 				8A26A826259B6C17001CFF3C /* luts */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
@@ -224,7 +221,6 @@
 				63BD928528E342AE00D0926E /* BanubaVideoEditorSDK-Info.plist in Resources */,
 				6344D3CE2652652500E8776B /* Localizable.strings in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
-				8A26A829259B6C18001CFF3C /* bundleEffects in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +418,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = NEWUB88C7M;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -564,7 +560,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = NEWUB88C7M;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -596,7 +592,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = NEWUB88C7M;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
