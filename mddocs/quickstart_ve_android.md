@@ -17,7 +17,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 ## Installation
 GitHub Packages is used for downloading Android Video Editor SDK modules.
 
-First, add repositories to [gradle](../android/build.gradle#L1) file in ```allprojects``` section.
+Add repositories to [gradle](../android/build.gradle#L1) file in ```allprojects``` section.
 
 ```groovy
 allprojects {
@@ -50,7 +50,20 @@ allprojects {
 }
 ```
 
-Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L83) file.
+Add ```packagingOptions``` settings to app [gradle](../android/app/build.gradle#L63-L71) file in ```android``` section:
+```groovy
+android {
+...
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+...
+}
+```
+
+Specify a list of dependencies in [gradle](../android/app/build.gradle#L83) file.
 ```groovy
     def banubaSdkVersion = '1.39.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
