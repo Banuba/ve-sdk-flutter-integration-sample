@@ -50,7 +50,7 @@ allprojects {
 }
 ```
 
-Add ```packagingOptions``` settings to app [gradle](../android/app/build.gradle#L63-L71) file in ```android``` section:
+Specify the following ```packaging options``` in your [build gradle](../android/app/build.gradle#L63-L71) file:
 ```groovy
 android {
 ...
