@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.core.license.BanubaVideoEditor
 import com.banuba.sdk.core.license.LicenseStateCallback
@@ -62,6 +63,11 @@ class MainActivity : FlutterActivity() {
     private var videoEditorSDK: BanubaVideoEditor? = null
     private var photoEditorSDK: BanubaPhotoEditor? = null
     private var videoEditorModule: VideoEditorModule? = null
+
+    // Bundle for enabling Editor V2
+    private val extras = bundleOf(
+        "EXTRA_USE_EDITOR_V2" to true
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -267,7 +273,8 @@ class MainActivity : FlutterActivity() {
                 pictureInPictureConfig = PipConfig(
                     video = Uri.EMPTY,
                     openPipSettings = false
-                )
+                ),
+                extras = extras
             ), VIDEO_EDITOR_REQUEST_CODE
         )
     }
@@ -284,12 +291,14 @@ class MainActivity : FlutterActivity() {
                 pictureInPictureConfig = PipConfig(
                     video = pipVideo,
                     openPipSettings = false
-                )
+                ),
+                extras = extras
             ), VIDEO_EDITOR_REQUEST_CODE
         )
     }
 
     private fun startVideoEditorModeTrimmer(trimmerVideo: Uri) {
+        // Editor V2 is not available from Trimmer screen
         startActivityForResult(
             VideoCreationActivity.startFromTrimmer(
                 context = this,

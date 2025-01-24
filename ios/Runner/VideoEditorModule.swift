@@ -1,8 +1,7 @@
 import Foundation
 import BanubaVideoEditorSDK
 import BanubaAudioBrowserSDK
-import VideoEditor
-import VEExportSDK
+import BanubaVideoEditorCore
 import Flutter
 
 protocol VideoEditor {
@@ -40,6 +39,8 @@ class VideoEditorModule: VideoEditor {
         
         videoEditorSDK = BanubaVideoEditor(
             token: token ?? "",
+            // set argument .useEditorV2 to true to enable Editor V2
+            arguments: [.useEditorV2 : true],
             configuration: config,
             externalViewControllerFactory: self.getAppDelegate().provideCustomViewFactory()
         )
@@ -91,7 +92,9 @@ class VideoEditorModule: VideoEditor {
         flutterResult: @escaping FlutterResult
     ) {
         self.flutterResult = flutterResult
-        
+
+        // Editor V2 is not available from Trimmer screen. Editor screen will be opened
+
         let trimmerLaunchConfig = VideoEditorLaunchConfig(
             entryPoint: .trimmer,
             hostController: controller,
