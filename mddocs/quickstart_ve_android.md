@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 - [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
+- [Editor V2](#Editor-v2)
 - [Face AR Effects](#Face-AR-Effects)
 - [Connect audio](#Connect-audio)
 - [What is next?](#What-is-next)
@@ -65,7 +66,7 @@ android {
 
 Specify a list of dependencies in [gradle](../android/app/build.gradle#L83) file.
 ```groovy
-    def banubaSdkVersion = '1.39.0'
+    def banubaSdkVersion = '1.40.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -198,6 +199,20 @@ and add the corresponding [handler](../android/app/src/main/kotlin/com/banuba/fl
 > [!IMPORTANT]
 > 1. Instance ```videoEditorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
 > 2. It is highly recommended to [check](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L332) if the license is active before starting Photo Editor.
+
+## Editor V2
+
+To keep up with the latest developments and best practices, our team has completely redesigned the Video Editor SDK to be as convenient and enjoyable as possible.
+
+### Integration
+
+Create ```Bundle``` with Editor UI V2 configuration and pass [extras](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#68) to any [Video Editor start method](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#277).
+
+```kotlin
+ val extras = bundleOf(
+    "EXTRA_USE_EDITOR_V2" to true
+ )
+```
 
 ## Face AR Effects
 

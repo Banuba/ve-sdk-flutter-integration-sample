@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your Flutter project.
 - [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
+- [Editor V2](#editor-v2)
 - [Face AR Effects](#Face-AR-Effects)
 - [Connect audio](#Connect-audio)
 - [What is next?](#What-is-next)
@@ -18,24 +19,13 @@ Once complete you will be able to launch video editor in your Flutter project.
 
 Add iOS Video Editor SDK dependencies to your [Podfile](../ios/Podfile)
 ```swift
-  sdk_version = '1.39.0'
+  sdk_version = '1.40.0'
 
-  pod 'BanubaARCloudSDK', sdk_version #optional
   pod 'BanubaVideoEditorSDK', sdk_version
-  pod 'BanubaAudioBrowserSDK', sdk_version #optional
-  pod 'BanubaSDK', sdk_version #optional
   pod 'BanubaSDKSimple', sdk_version
-  pod 'BanubaSDKServicing', sdk_version
-  pod 'VideoEditor', sdk_version
-  pod 'BanubaUtilities', sdk_version
-  pod 'BanubaVideoEditorGallerySDK', sdk_version #optional
-  pod 'BanubaLicenseServicingSDK', sdk_version
-
-  pod 'BNBLicenseUtils', sdk_version
-
-  pod 'VEExportSDK', sdk_version
-  pod 'VEEffectsSDK', sdk_version
-  pod 'VEPlaybackSDK', sdk_version
+  pod 'BanubaSDK', sdk_version
+  pod 'BanubaARCloudSDK', sdk_version      # optional
+  pod 'BanubaAudioBrowserSDK', sdk_version # optional
 ```
 
 ## Resources
@@ -142,6 +132,23 @@ and add the corresponding [handler](../ios/Runner/AppDelegate.swift#59) on iOS s
 > [!IMPORTANT]
 > 1. Instance ```videoEditor``` is ```nil``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
 > 2. It is highly recommended to [check](../ios/Runner/VideoEditorModule.swift#L106) if the license if active before starting Video Editor.
+
+## Editor V2
+
+To keep up with the latest developments and best practices, our team has completely redesigned the Video Editor SDK to be as convenient and enjoyable as possible.
+
+### Integration
+
+[Init the Video Editor](../ios/Runner/VideoEditorModule.swift#40) with argument [.useEditorV2: true] to enable Editor UI V2:
+
+```swift
+  videoEditorSDK = BanubaVideoEditor(
+      token: token ?? "",
+      arguments: [.useEditorV2 : true],
+      configuration: config,
+      externalViewControllerFactory: self.getAppDelegate().provideCustomViewFactory()
+  )
+```
 
 ## Face AR Effects
 
