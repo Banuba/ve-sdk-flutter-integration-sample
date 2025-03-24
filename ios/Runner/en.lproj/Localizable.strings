@@ -689,7 +689,6 @@
 "com.banuba.recorder.pip.title" = "PiP";
 "com.banuba.editor.music" = "Music";
 "com.banuba.editor.time.title" = "Time";
-"com.banuba.editor.autoCut" = "AI Clipping";
 
 /* Gallery button title */
 "com.banuba.recorder.gallery.title" = "Gallery";
@@ -829,7 +828,10 @@
 "com.banuba.newEditor.pixelation" = "Pixelation";
 "com.banuba.newEditor.voiceEffect" = "Effect";
 "com.banuba.newEditor.captions" = "Captions";
+"com.banuba.newEditor.transition" = "Transitions";
 "com.banuba.newEditor.secondsFormat" = "%@s";
+"com.banuba.newEditor.voiceRecording" = "Voice Recording";
+"com.banuba.newEditor.videoOrder" = "Video order";
 "com.banuba.newEditor.musicVolume" = "Volume";
 "com.banuba.newEditor.recordingEffectTitle" = "Recording...";
 "com.banuba.newEditor.voiceoverEffectTitle" = "Voiceover";
@@ -849,10 +851,15 @@
 "com.banuba.newEditor.none" = "None";
 "com.banuba.newEditor.normal" = "Normal";
 
-"com.banuba.newEditor.videoVolumeTitle" = "Video";
+"com.banuba.newEditor.customCrop" = "Custom";
+
+"com.banuba.newEditor.videoVolumeTitle" = "Original Video";
+"com.banuba.newEditor.pipVolumeTitle" = "Added Video";
 "com.banuba.newEditor.audioVolumeTitle" = "Audio";
+"com.banuba.newEditor.chooseMusicSection" = "Choose the section you want for your video";
 
 "com.banuba.newEditor.editCover" = "Edit Cover";
+"com.banuba.newEditor.selectFromGallery" = "Select from gallery";
 
 "com.banuba.recorder.disardVideoAlertMessage" = "Discard video?";
 "com.banuba.recorder.disardVideoAlertDiscardButton" = "Discard";
@@ -868,6 +875,7 @@
 "com.banuba.autocut.couldNotProcess" = "Couldn't process video";
 "com.banuba.autocut.somethingWentWrong" = "Something went wrong. Please try again.";
 "com.banuba.autocut.chooseTheme" = "Choose a theme";
+"com.banuba.autocut.export" = "Export";
 "com.banuba.autocut.alert.tryAgain.agree" = "Try again";
 "com.banuba.autocut.alert.tryAgain.disagree" = "Cancel";
 "com.banuba.autocut.alert.tryAgain.title" = "Something went wrong.\nTry again?";
@@ -879,6 +887,7 @@
 "com.banuba.autocut.added.sound" = "Added sound";
 "com.banuba.autocut.error.loadingTrackFailedMessage" = "Unable to load the song. Check your internet connection.";
 "BanubaVideoEditor.Gallery.Autocut" = "AI Clipping";
+"BanubaVideoEditor.Gallery.Autocut.ToolTip" = "Select your videos to turn them into social media-ready clips.";
 "BanubaVideoEditor.Gallery.Next" = "Next";
 "BanubaVideoEditor.Gallery.NextWithCount" = "Next (%d)";
 "BanubaVideoEditor.Gallery.TotalLengthUpTo" = "Total length should be up to %d sec";
