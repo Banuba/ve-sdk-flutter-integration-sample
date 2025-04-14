@@ -99,7 +99,7 @@ import BanubaPhotoEditorSDK
                         print("Cannot start video editor in trimmer mode: missing or invalid video!")
                         result(FlutterError(code: "ERR_START_TRIMMER_MISSING_VIDEO", message: "", details: nil))
                     }
-                case AppDelegate.methodStartPhotoEditor:
+                case AppDelegate.methodInitPhotoEditor:
                     guard let token = methodCall.arguments as? String else {
                         print("Missing token")
                         return

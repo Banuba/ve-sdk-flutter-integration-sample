@@ -66,8 +66,8 @@ android {
 
 Specify a list of dependencies in [gradle](../android/app/build.gradle#L83) file.
 ```groovy
-    def banubaSdkVersion = '1.41.0'
-    implementation "com.banuba.sdk:ffmpeg:5.2.0"
+    def banubaSdkVersion = '1.42.0.1'
+    implementation "com.banuba.sdk:ffmpeg:5.3.0"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
