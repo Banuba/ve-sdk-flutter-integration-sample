@@ -9,7 +9,6 @@ import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.core.domain.ProvideTrackContract
 import com.banuba.sdk.core.ui.ContentFeatureProvider
 import io.flutter.embedding.engine.dart.DartExecutor
-import io.flutter.view.FlutterMain
 import java.lang.ref.WeakReference
 
 // Video Editor SDK contract for using custom Audio Browser implementation.
