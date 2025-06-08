@@ -62,8 +62,7 @@ private class SampleIntegrationVeKoinModule {
     val module = module {
         single<ArEffectsRepositoryProvider>(createdAtStart = true) {
             ArEffectsRepositoryProvider(
-                arEffectsRepository = get(named("backendArEffectsRepository")),
-                ioDispatcher = get(named("ioDispatcher"))
+                arEffectsRepository = get(named("backendArEffectsRepository"))
             )
         }
 
