@@ -15,7 +15,7 @@ Once complete you will be able to launch photo editor in your Flutter project.
 Add iOS Photo Editor SDK dependencies to your [Podfile](../ios/Podfile)
 ```swift
   # Photo Editor
-  pod 'BanubaPhotoEditorSDK', '1.2.8'
+  pod 'BanubaPhotoEditorSDK', '1.2.9'
 ```
 
 ## Configuration
