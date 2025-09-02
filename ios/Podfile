@@ -34,7 +34,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  sdk_version = '1.46.0'
+  sdk_version = '1.47.1'
 
   pod 'BanubaVideoEditorSDK', sdk_version
   pod 'BanubaSDKSimple', sdk_version
