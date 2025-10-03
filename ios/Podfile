@@ -34,7 +34,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  sdk_version = '1.47.1'
+  sdk_version = '1.48.0'
 
   pod 'BanubaVideoEditorSDK', sdk_version
   pod 'BanubaSDKSimple', sdk_version
@@ -42,7 +42,7 @@ target 'Runner' do
   pod 'BanubaARCloudSDK', sdk_version      # optional
   pod 'BanubaAudioBrowserSDK', sdk_version # optional
 
-  pod 'BanubaPhotoEditorSDK', '1.2.9'
+  pod 'BanubaPhotoEditorSDK', '1.2.10'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
