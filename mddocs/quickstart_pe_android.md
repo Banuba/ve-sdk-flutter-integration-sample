@@ -18,8 +18,20 @@ First, add repositories to [gradle](../android/build.gradle#L1) file in ```allpr
 allprojects {
     repositories {
         maven {
-            name = "nexus"
-            url = uri("https://nexus.banuba.net/repository/maven-releases")
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
+            credentials {
+                username = "Banuba"
+                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
+            }
+        }
+        maven {
+            name "GitHubPackagesEffectPlayer"
+            url "https://maven.pkg.github.com/sdk-banuba/banuba-sdk-android"
+            credentials {
+                username = "sdk-banuba"
+                password = "\u0067\u0068\u0070\u005f\u0033\u0057\u006a\u0059\u004a\u0067\u0071\u0054\u0058\u0058\u0068\u0074\u0051\u0033\u0075\u0038\u0051\u0046\u0036\u005a\u0067\u004f\u0041\u0053\u0064\u0046\u0032\u0045\u0046\u006a\u0030\u0036\u006d\u006e\u004a\u004a"
+            }
         }
     }
 }
@@ -28,10 +40,10 @@ allprojects {
 Specify Photo Editor SDK dependencies in the app gradle file.
 ```groovy
     dependencies {
-        def banubaPESdkVersion = '1.2.24'
+        def banubaPESdkVersion = '1.2.20'
         implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 
-        def banubaSdkVersion = '1.48.5'
+        def banubaSdkVersion = '1.48.0.1'
         implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
