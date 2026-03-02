@@ -43,10 +43,10 @@ dependencyResolutionManagement {
 Add dependencies to your app's [gradle](../android/build.gradle#L83)
 ```groovy
     dependencies {
-        def banubaPESdkVersion = '1.3.2'
+        def banubaPESdkVersion = '1.3.4'
         implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 
-        def banubaSdkVersion = '1.49.5'
+        def banubaSdkVersion = '1.50.0'
         implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
