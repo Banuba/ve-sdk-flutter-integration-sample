@@ -61,19 +61,6 @@ import BanubaPhotoEditorSDK
                         fromViewController: controller,
                         flutterResult: result
                     )
-                case AppDelegate.methodStartVideoEditorPIP:
-                    let pipVideoFilePath = methodCall.arguments as? String
-                    
-                    if let videoFilePath = pipVideoFilePath {
-                        videoEditor.openVideoEditorPIP(
-                            fromViewController: controller,
-                            videoURL: URL(fileURLWithPath: videoFilePath),
-                            flutterResult: result
-                        )
-                    } else {
-                        print("Cannot start video editor in PIP mode: missing or invalid video!")
-                        result(FlutterError(code: "ERR_START_PIP_MISSING_VIDEO", message: "", details: nil))
-                    }
                 case AppDelegate.methodDemoPlayExportedVideo:
                     /*
                      NOT REQUIRED FOR INTEGRATION

@@ -299,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: () => _startVideoEditorPIP(),
+                    onPressed: () => Platform.isAndroid ? _startVideoEditorPIP() : _startVideoEditorDefault(),
                     child: const Text(
                       'Open Video Editor - PIP',
                       style: TextStyle(

@@ -8,9 +8,7 @@ protocol VideoEditor {
     func initVideoEditor(token: String?, flutterResult: @escaping FlutterResult)
     
     func openVideoEditorDefault(fromViewController controller: FlutterViewController, flutterResult: @escaping FlutterResult)
-    
-    func openVideoEditorPIP(fromViewController controller: FlutterViewController, videoURL: URL, flutterResult: @escaping FlutterResult)
-    
+        
     func openVideoEditorTrimmer(fromViewController controller: FlutterViewController, videoURL: URL, flutterResult: @escaping FlutterResult)
 }
 
@@ -66,24 +64,6 @@ class VideoEditorModule: VideoEditor {
             animated: true
         )
         checkLicenseAndStartVideoEditor(with: config, flutterResult: flutterResult)
-    }
-    
-    func openVideoEditorPIP(
-        fromViewController controller: FlutterViewController,
-        videoURL: URL,
-        flutterResult: @escaping FlutterResult
-    ) {
-        self.flutterResult = flutterResult
-        
-        let pipLaunchConfig = VideoEditorLaunchConfig(
-            entryPoint: .pip,
-            hostController: controller,
-            pipVideoItem: videoURL,
-            musicTrack: nil,
-            animated: true
-        )
-        
-        checkLicenseAndStartVideoEditor(with: pipLaunchConfig, flutterResult: flutterResult)
     }
     
     func openVideoEditorTrimmer(
