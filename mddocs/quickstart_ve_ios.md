@@ -166,29 +166,17 @@ There are 2 options for adding and managing AR effects:
 
 This is an optional section in integration process. In this section you will know how to connect audio to Video Editor.
 
-### Connect Soundstripe
-Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.soundstripe``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L148) 
-to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
+### Connect Banuba Music
+
+Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.banubaMusic``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L148)
+to use audio ```Banuba Music``` in Video Editor.
 
 > [!IMPORTANT]
 > The feature is not activated by default. Please, contact Banuba representatives to know more about using this feature.
 
-### Connect Mubert
-Request API key from [Mubert](https://mubert.com/).  
-
-> [!IMPORTANT]  
-> Banuba is not responsible for providing Mubert API key.
-
-For playing Mubert content in Video Editor Audio Browser perform the following steps:
-
-1. Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13)
-2. Set Mubert API license and key [within the app](../ios/Runner/AppDelegate.swift#L147)
-3. Set ```.allSources``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L148)
-
-### Connect Banuba Music
-
-Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.banubaMusic``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L148) 
-to use audio ```Banuba Music``` in Video Editor.
+### Connect Soundstripe
+Set ```false``` to [configEnableCustomAudioBrowser](../ios/Runner/AppDelegate.swift#L13) and ```.soundstripe``` to ```AudioBrowserConfig.shared.musicSource``` [config](../ios/Runner/AppDelegate.swift#L148) 
+to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
 
 > [!IMPORTANT]
 > The feature is not activated by default. Please, contact Banuba representatives to know more about using this feature.

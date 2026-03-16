@@ -157,7 +157,7 @@ class VideoEditorModule {
             if (MainActivity.CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER) {
                 AudioBrowserContentProvider()
             } else {
-                // Default implementation that supports Soundstripe, Mubert and Local audio stored on the device
+                // Default implementation that supports Local audio stored on the device
                 AudioBrowserMusicProvider()
             }
         }
@@ -297,6 +297,21 @@ by setting [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/c
 
 For complete implementation details, including how to build a custom UI and handle audio selection callbacks, refer to the dedicated [Audio Content](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content) guide.
 
+### Connect Banuba Music
+To use audio tracks from Banuba Music in the Video Editor:
+
+1. Set [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34) to ```false``` in MainActivity.kt
+2. Specify ```BanubaMusicProvider``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72):
+
+> [!IMPORTANT]
+> This feature is not activated by default. Contact Banuba representatives for access.
+
+```kotlin
+single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
+   BanubaMusicProvider()
+}
+```
+
 ### Connect Soundstripe
 To use audio tracks from [Soundstripe](https://www.soundstripe.com/) in the Video Editor:
 
@@ -310,22 +325,6 @@ To use audio tracks from [Soundstripe](https://www.soundstripe.com/) in the Vide
 ```kotlin
 single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
    SoundstripeProvider()
-}
-```
-
-
-### Connect Banuba Music
-To use audio tracks from Banuba Music in the Video Editor:
-
-1. Set [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/MainActivity.kt#L34) to ```false``` in MainActivity.kt
-2. Specify ```BanubaMusicProvider``` in your [VideoEditorModule](../android/app/src/main/kotlin/com/banuba/flutter/flutter_ve_sdk/VideoEditorModule.kt#L72):
-
-> [!IMPORTANT]
-> This feature is not activated by default. Contact Banuba representatives for access.
-
-```kotlin
-single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
-   BanubaMusicProvider()
 }
 ```
 
