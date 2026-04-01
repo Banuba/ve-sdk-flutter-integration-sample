@@ -88,10 +88,7 @@ Add the following to your [AndroidManifest.xml](../android/app/src/main/AndroidM
     android:theme="@style/VideoCreationTheme"
     android:windowSoftInputMode="adjustResize"
     tools:replace="android:theme" />
-```  
-
-**Important**  
-Add [CustomIntegrationAppTheme](../android/app/src/main/res/values/styles.xml#L28) styles resource file.
+```
 
 2. **Network permissions** (optional)– only required if using [Giphy](https://giphy.com/) stickers or downloading AR effects from the cloud.
 ```xml
