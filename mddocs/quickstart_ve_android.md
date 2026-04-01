@@ -49,7 +49,7 @@ dependencyResolutionManagement {
 
 Add dependencies to your app's [gradle](../android/build.gradle#L83)
 ```groovy
-    def banubaSdkVersion = '1.50.0'
+    def banubaSdkVersion = '1.51.0'
     implementation "com.banuba.sdk:ffmpeg:5.3.0"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -85,13 +85,10 @@ Add the following to your [AndroidManifest.xml](../android/app/src/main/AndroidM
 ``` xml
 <activity android:name="com.banuba.sdk.ve.flow.VideoCreationActivity"
     android:screenOrientation="portrait"
-    android:theme="@style/CustomIntegrationAppTheme"
+    android:theme="@style/VideoCreationTheme"
     android:windowSoftInputMode="adjustResize"
     tools:replace="android:theme" />
-```  
-
-**Important**  
-Add [CustomIntegrationAppTheme](../android/app/src/main/res/values/styles.xml#L28) styles resource file.
+```
 
 2. **Network permissions** (optional)– only required if using [Giphy](https://giphy.com/) stickers or downloading AR effects from the cloud.
 ```xml

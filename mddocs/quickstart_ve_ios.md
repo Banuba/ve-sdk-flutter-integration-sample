@@ -7,7 +7,6 @@ of Flutter project using native iOS development process.
 Once complete you will be able to launch video editor in your Flutter project.
 
 - [Installation](#Installation)
-- [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
 - [Editor V2](#editor-v2)
@@ -27,13 +26,6 @@ Add iOS Video Editor SDK dependencies to your [Podfile](../ios/Podfile)
   pod 'BanubaARCloudSDK', sdk_version      # optional
   pod 'BanubaAudioBrowserSDK', sdk_version # optional
 ```
-
-## Resources
-
-Video Editor SDK uses a lot of resources required for running.  
-Please make sure all these resources are provided in your project.
-
-1. [Localizable.strings](../ios/Runner/en.lproj/Localizable.strings) file with English localization.
 
 ## Configuration
 Create new Swift class [VideoEditorModule](../ios/Runner/VideoEditorModule.swift) in your project
