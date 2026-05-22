@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import com.banuba.sdk.cameraui.data.PipConfig
-import com.banuba.sdk.core.license.BanubaVideoEditor
+import com.banuba.sdk.core.license.EditorSdk
 import com.banuba.sdk.core.license.LicenseStateCallback
 import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
@@ -60,7 +60,7 @@ class MainActivity : FlutterActivity() {
 
     private var exportResult: MethodChannel.Result? = null
 
-    private var videoEditorSDK: BanubaVideoEditor? = null
+    private var videoEditorSDK: EditorSdk? = null
     private var photoEditorSDK: BanubaPhotoEditor? = null
     private var videoEditorModule: VideoEditorModule? = null
 
@@ -84,7 +84,7 @@ class MainActivity : FlutterActivity() {
             when (call.method) {
                 METHOD_INIT_VIDEO_EDITOR -> {
                     val licenseToken = call.arguments as String
-                    videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
+                    videoEditorSDK = EditorSdk.initialize(licenseToken)
 
                     if (videoEditorSDK == null) {
                         // The SDK token is incorrect - empty or truncated
