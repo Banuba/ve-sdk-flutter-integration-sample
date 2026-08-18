@@ -34,12 +34,12 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  sdk_version = '1.53.1'
+  sdk_version = '1.54.0'
 
   pod 'BanubaVideoEditorSDK', sdk_version
   pod 'BanubaSDKSimple', sdk_version
   pod 'BanubaSDK', sdk_version
-  pod 'BanubaARCloudSDK', '1.53.0'         # optional
+  pod 'BanubaARCloudSDK', sdk_version        # optional
   pod 'BanubaAudioBrowserSDK', sdk_version # optional
 
   pod 'BanubaPhotoEditorSDK', '1.4.1'
