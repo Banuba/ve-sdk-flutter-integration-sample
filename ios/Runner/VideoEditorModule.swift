@@ -4,6 +4,8 @@ import BanubaAudioBrowserSDK
 import BanubaVideoEditorCore
 import Flutter
 
+// SDK 1.55.0: Banuba Video Editor API is main actor-isolated, so this module is isolated to the main actor too.
+@MainActor
 protocol VideoEditor {
     func initVideoEditor(token: String?, flutterResult: @escaping FlutterResult)
     
@@ -12,8 +14,12 @@ protocol VideoEditor {
     func openVideoEditorTrimmer(fromViewController controller: FlutterViewController, videoURL: URL, flutterResult: @escaping FlutterResult)
 }
 
+@MainActor
 class VideoEditorModule: VideoEditor {
-    
+
+    // Not isolated, so the module can be created from a nonisolated context.
+    nonisolated init() {}
+
     private var videoEditorSDK: BanubaVideoEditor?
     private var flutterResult: FlutterResult?
     
@@ -158,7 +164,10 @@ extension VideoEditorModule {
         
         videoEditorSDK?.export(
             using: exportConfiguration,
-            exportProgress: { [weak progressView] progress in progressView?.updateProgressView(with: Float(progress)) }
+            exportProgress: { [weak progressView] progress in
+                // The progress callback is not main actor-isolated: update the UI on the main actor.
+                Task { @MainActor in progressView?.updateProgressView(with: Float(progress)) }
+            }
         ) { [weak self] (error, coverImage) in
             // Export Callback
             DispatchQueue.main.async {

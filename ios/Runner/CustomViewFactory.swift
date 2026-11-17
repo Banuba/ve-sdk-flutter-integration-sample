@@ -19,7 +19,10 @@ class FlutterCustomViewFactory: ExternalViewControllerFactory {
 }
 
 class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewControllerFactory {
-    
+
+    // SDK 1.55.0: the factory protocol is main actor-isolated; keep init nonisolated so it can be created anywhere.
+    nonisolated init() {}
+
     // Audio Browser selection view controller
     func makeTrackSelectionViewController(selectedAudioItem: AudioItem?, isAudioPartSelectionEnabled: Bool) -> TrackSelectionViewController? {
         let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).audioBrowserFlutterEngine
