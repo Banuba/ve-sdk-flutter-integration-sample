@@ -48,6 +48,7 @@ import BanubaPhotoEditorSDK
             )
 
             channel.setMethodCallHandler { methodCall, result in
+              MainActor.assumeIsolated {
                 let call = methodCall.method
                 switch call {
                 case AppDelegate.methodInitVideoEditor:
@@ -110,6 +111,7 @@ import BanubaPhotoEditorSDK
                     print("Flutter method is not implemented on platform.")
                     result(FlutterMethodNotImplemented)
                 }
+              }
             }
         }
         GeneratedPluginRegistrant.register(with: self)
@@ -129,14 +131,8 @@ import BanubaPhotoEditorSDK
         if configEnableCustomAudioBrowser {
             factory = FlutterCustomViewFactory()
         } else {
-            // Set your Mubert Api key here
-            let mubertApiLicense = ""
-            let mubertApiKey = ""
-            AudioBrowserConfig.shared.musicSource = .allSources
-            BanubaAudioBrowser.setMubertKeys(
-                license: mubertApiLicense,
-                token: mubertApiKey
-            )
+            // Mubert and .allSources were removed from the audio browser in SDK 1.54.1
+            AudioBrowserConfig.shared.musicSource = .localStorageWithMyFiles
             factory = nil
         }
         

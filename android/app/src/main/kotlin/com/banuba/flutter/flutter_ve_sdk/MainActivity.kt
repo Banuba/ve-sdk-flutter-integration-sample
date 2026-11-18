@@ -13,7 +13,6 @@ import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.pe.PhotoCreationActivity
 import com.banuba.sdk.ve.flow.VideoCreationActivity
-import com.banuba.sdk.pe.BanubaPhotoEditor
 import com.banuba.sdk.core.EditorUtilityManager
 import com.banuba.sdk.ve.ext.VideoEditorUtils.getKoin
 import org.koin.core.context.stopKoin
@@ -61,7 +60,7 @@ class MainActivity : FlutterActivity() {
     private var exportResult: MethodChannel.Result? = null
 
     private var videoEditorSDK: EditorSdk? = null
-    private var photoEditorSDK: BanubaPhotoEditor? = null
+    private var photoEditorSDK: EditorSdk? = null
     private var videoEditorModule: VideoEditorModule? = null
 
     // Bundle for enabling Editor V2
@@ -191,7 +190,7 @@ class MainActivity : FlutterActivity() {
 
                 METHOD_INIT_PHOTO_EDITOR -> {
                     val licenseToken = call.arguments as String
-                    photoEditorSDK = BanubaPhotoEditor.initialize(licenseToken)
+                    photoEditorSDK = EditorSdk.initialize(licenseToken)
 
                     if (photoEditorSDK == null) {
                         // The SDK token is incorrect - empty or truncated
